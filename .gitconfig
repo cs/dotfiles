@@ -1,0 +1,16 @@
+[alias]
+  st = status --short
+  c = commit --verbose
+  aa = add --all
+  amend = commit --amend
+  co = checkout
+  ds = diff --stat
+  dsc = diff --stat
+  di = diff
+  wdi = diff --word-diff
+  dc = diff --cached
+  wdc = diff --cached --word-diff
+  f = fetch
+  fa = fetch --all
+  b = branch
+  ba = branch --all
