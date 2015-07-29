@@ -22,3 +22,6 @@
   fa = fetch --all
   b = branch
   ba = branch --all
+
+[core]
+  excludesFile = ~/.gitignore
