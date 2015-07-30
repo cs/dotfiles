@@ -1,1 +1,6 @@
+# zsh-specific files:
+.zsh/.history
+.zsh/.zcompdump
+
+# Mac OS X - specific files:
 .DS_Store
