@@ -23,5 +23,8 @@
   b = branch
   ba = branch --all
 
+[push]
+  default = simple
+
 [core]
   excludesFile = ~/.gitignore
