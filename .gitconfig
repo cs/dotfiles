@@ -12,11 +12,11 @@
   aa = add --all
   amend = commit --amend
   co = checkout
-  ds = diff --stat
-  dsc = diff --stat
   di = diff
+  ds = diff --stat
   wdi = diff --word-diff
   dc = diff --cached
+  dsc = diff --cached --stat
   wdc = diff --cached --word-diff
   f = fetch
   fa = fetch --all
