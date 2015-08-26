@@ -1,4 +1,4 @@
-# Installation latest zsh on Mac OS X (>= 5.0.8):
+# Install latest zsh on Mac OS X (>= 5.0.8):
 #
 #   brew install zsh --disable-etcdir
 #
