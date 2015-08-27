@@ -8,6 +8,7 @@ export EDITOR=vim # Use vim as the editor
 export HISTSIZE=100000
 export SAVEHIST=$HISTSIZE
 export HISTFILE="$ZDOTDIR/.history"
+setopt hist_ignore_space
 
 # Use ESC to edit the current command line:
 autoload -U edit-command-line
