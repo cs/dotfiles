@@ -9,6 +9,8 @@ export HISTSIZE=100000
 export SAVEHIST=$HISTSIZE
 export HISTFILE="$ZDOTDIR/.history"
 setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
 
 # Use ESC to edit the current command line:
 autoload -U edit-command-line
