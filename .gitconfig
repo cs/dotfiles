@@ -37,6 +37,14 @@
   l = "!. ~/.githelpers && pretty_git_log"
   la = !git l --all
 
+  # Fancy stashing.
+  sl = stash list
+  sp = stash pop
+  sa = stash apply
+  ss = stash save --include-untracked
+  sd = stash drop
+  ssh = show -p
+
 [push]
   default = simple
 
