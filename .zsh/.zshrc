@@ -10,12 +10,12 @@ alias g="git"
 alias t="task"
 alias p="pass"
 
-export EDITOR=vim # Use vim as the editor
+EDITOR=vim # Use vim as the editor
 
 # Nicer history:
-export HISTSIZE=100000
-export SAVEHIST=$HISTSIZE
-export HISTFILE="$ZDOTDIR/.history"
+HISTSIZE=100000
+SAVEHIST=$HISTSIZE
+HISTFILE="$ZDOTDIR/.history"
 setopt hist_ignore_space
 setopt hist_ignore_all_dups
 setopt hist_save_no_dups
