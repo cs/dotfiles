@@ -1,6 +1,6 @@
 # Completion System:
 autoload -U compinit
-compinit
+compinit -D
 
 # Shortcuts:
 alias ls='ls -G'
