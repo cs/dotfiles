@@ -1,3 +1,7 @@
+# Completion System:
+autoload -U compinit
+compinit
+
 # Shortcuts:
 alias ls='ls -G'
 alias ll='ls -Glh'
