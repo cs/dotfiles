@@ -1,3 +1,5 @@
+source $ZDOTDIR/prompt.zsh
+
 # Completion System:
 autoload -U compinit
 compinit -D
