@@ -1,4 +1,5 @@
 source $ZDOTDIR/prompt.zsh
+source $ZDOTDIR/path.zsh
 
 # Completion System:
 autoload -U compinit
