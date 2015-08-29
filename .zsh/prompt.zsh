@@ -132,10 +132,10 @@ prompt_status() {
 ## Main prompt
 build_prompt() {
   RETVAL=$?
-  prompt_status
   prompt_context
   prompt_dir
   prompt_git
+  prompt_status
   prompt_end
 }
 
