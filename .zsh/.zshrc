@@ -1,9 +1,6 @@
 source $ZDOTDIR/prompt.zsh
 source $ZDOTDIR/path.zsh
-
-# Completion System:
-autoload -U compinit
-compinit -D
+source $ZDOTDIR/completion.zsh
 
 # Shortcuts:
 alias ls='ls -G'
