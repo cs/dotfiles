@@ -14,6 +14,7 @@ alias t="task"
 alias p="pass"
 
 EDITOR=vim # Use vim as the editor
+GREP_OPTIONS="--color --line-number" # Make grep more user-friendly
 
 # Nicer history:
 HISTSIZE=100000
