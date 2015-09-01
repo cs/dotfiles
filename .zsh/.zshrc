@@ -2,14 +2,7 @@ source "$ZDOTDIR/base.zsh"
 source "$ZDOTDIR/prompt.zsh"
 source "$ZDOTDIR/path.zsh"
 source "$ZDOTDIR/completion.zsh"
-
-# Shortcuts:
-alias ls='ls -G'
-alias ll='ls -Glh'
-alias la='ls -Glha'
-alias g="git"
-alias t="task"
-alias p="pass"
+source "$ZDOTDIR/aliases.zsh"
 
 EDITOR=vim # Use vim as the editor
 GREP_OPTIONS="--color --line-number" # Make grep more user-friendly
