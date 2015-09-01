@@ -1,6 +1,7 @@
-source $ZDOTDIR/prompt.zsh
-source $ZDOTDIR/path.zsh
-source $ZDOTDIR/completion.zsh
+source "$ZDOTDIR/base.zsh"
+source "$ZDOTDIR/prompt.zsh"
+source "$ZDOTDIR/path.zsh"
+source "$ZDOTDIR/completion.zsh"
 
 # Shortcuts:
 alias ls='ls -G'
