@@ -1,1 +1,2 @@
 setopt extended_glob
+setopt prompt_subst
