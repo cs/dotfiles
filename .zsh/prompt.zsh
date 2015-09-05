@@ -1,140 +1,127 @@
-# vim:ft=zsh ts=2 sw=2 sts=2
-#
-# agnoster's Theme - https://gist.github.com/3712874
-# A Powerline-inspired theme for ZSH
-#
-# # README
-#
-# In order for this theme to render correctly, you will need a
-# [Powerline-patched font](https://github.com/Lokaltog/powerline-fonts).
-#
-# In addition, I recommend the
-# [Solarized theme](https://github.com/altercation/solarized/) and, if you're
-# using it on Mac OS X, [iTerm 2](http://www.iterm2.com/) over Terminal.app -
-# it has significantly better color fidelity.
-#
-# # Goals
-#
-# The aim of this theme is to only show you *relevant* information. Like most
-# prompts, it will only show git information when in a git working directory.
-# However, it goes a step further: everything from the current user and
-# hostname to whether the last call exited with an error to whether background
-# jobs are running in this shell will all be displayed automatically when
-# appropriate.
+function awesome_prompt() {
+  local retval=$?
 
-### Segment drawing
-# A few utility functions to make it easy and re-usable to draw segmented prompts
+  # ----------------------------------------------------------------------------
+  # Configuration
+  # ----------------------------------------------------------------------------
 
-CURRENT_BG='NONE'
+  local directory_separator=''
+  local cwd_home_bg=31      # = blueish
+  local cwd_home_fg=15      # = white
+  local cwd_dir_bg=237      # = dark gray
+  local cwd_dir_fg=250      # = almost white
+  local cwd_last_dir_bg=237 # = dark gray
+  local cwd_last_dir_fg=254 # = white
 
-# Fix odd char on mac
-if [[ `uname` == 'Darwin' ]]; then
-    SEGMENT_SEPARATOR='\ue0b0'
-else
-    SEGMENT_SEPARATOR=''
-fi
+  local read_only_symbol=''
+  local read_only_bg=124     # = red
+  local read_only_fg=254     # = white
 
-# Begin a segment
-# Takes two arguments, background and foreground. Both can be omitted,
-# rendering default background/foreground.
-prompt_segment() {
-  local bg fg
-  [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
-  [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
-  if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
-    echo -n " %{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%} "
-  else
-    echo -n "%{$bg%}%{$fg%} "
+  local status_symbol='$'
+  local status_cmd_passed_bg=236 # = dark gray
+  local status_cmd_passed_fg=15  # = almost white
+  local status_cmd_failed_bg=161 # = pink
+  local status_cmd_failed_fg=15  # = almost white
+
+  # ----------------------------------------------------------------------------
+  # Segment Drawing Utilities
+  #
+  # Depends on `$current_bg` and `$segment_separator`.
+  # ----------------------------------------------------------------------------
+
+  local segment_separator=''
+  local current_bg='NONE'
+
+  function segment() {
+    local bg fg
+    [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
+    [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
+    if [[ $current_bg != 'NONE' && $1 != $current_bg ]]; then
+      echo -n " %{$bg%F{$current_bg}%}$segment_separator%{$fg%} "
+    else
+      echo -n "%{$bg%}%{$fg%} "
+    fi
+    current_bg=$1
+    [[ -n $3 ]] && echo -n $3
+  }
+
+  # ----------------------------------------------------------------------------
+  # Current Working Directory (aka CWD) Segment
+  #
+  # Depends on `$PWD` and `$HOME`.
+  # ----------------------------------------------------------------------------
+
+  local cwd_list="${PWD/#$HOME/~}"        # replace $HOME with '~'
+  cwd_list=(${(s:/:)cwd_list})            # split at slashes
+  [[ $#cwd_list == 0 ]] && cwd_list=('/') # list empty? => $PWD == '/'
+
+  # Okayyy, list is now ready for rendering...
+
+  # We have a special case, if the first element in the list is a '~'...
+  if [[ $cwd_list[1] == '~' ]] ; then
+    segment $cwd_home_bg $cwd_home_fg '~'
+    cwd_list[1]=() # remove '~' from list
   fi
-  CURRENT_BG=$1
-  [[ -n $3 ]] && echo -n $3
-}
 
-# End the prompt, closing any open segments
-prompt_end() {
-  if [[ -n $CURRENT_BG ]]; then
-    echo -n " %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
+  # Iterate over all other elements in the list...
+  for (( i = 1; i <= $#cwd_list; i++ )) do
+    if [[ $i == $#cwd_list ]]; then
+      # The last element is special again, because the colors should be slightly
+      # different and there's no trailing "separator" symbol needed.
+      segment $cwd_last_dir_bg $cwd_last_dir_fg $cwd_list[$i]
+    else
+      segment $cwd_dir_bg $cwd_dir_fg $cwd_list[$i]
+      echo -n " $directory_separator" # render "separator" symbol
+    fi
+  done
+
+  # ----------------------------------------------------------------------------
+  # Read-Only Segment
+  #
+  # Depends on `$PWD`.
+  # ----------------------------------------------------------------------------
+
+  if [[ ! -w $PWD ]]; then
+    segment $read_only_bg $read_only_fg $read_only_symbol
+  fi
+
+  # ----------------------------------------------------------------------------
+  # Git Segment
+  #
+  # Depends on `git-radar`.
+  # See https://github.com/michaeldfallen/git-radar
+  # ----------------------------------------------------------------------------
+
+  if exists 'git-radar'; then
+    local radar="$(git-radar --zsh)"
+    [[ $radar != '' ]] && segment black 1 "${radar}"
+  fi
+
+  # ----------------------------------------------------------------------------
+  # Status Segment
+  #
+  # Depends on `$retval`.
+  # ----------------------------------------------------------------------------
+
+  if [[ $retval == 0 ]]; then
+    segment $status_cmd_passed_bg $status_cmd_failed_fg $status_symbol
+  else
+    segment $status_cmd_failed_bg $status_cmd_failed_fg $status_symbol
+  fi
+
+  # ----------------------------------------------------------------------------
+  # End Segment
+  #
+  # Depends on `$current_bg` and `$segment_separator`.
+  # ----------------------------------------------------------------------------
+
+  if [[ -n $current_bg ]]; then
+    echo -n " %{%k%F{$current_bg}%}$segment_separator"
   else
     echo -n "%{%k%}"
   fi
   echo -n "%{%f%}"
-  CURRENT_BG=''
+  current_bg=''
 }
 
-### Prompt components
-# Each component will draw itself, and hide itself if no information needs to be shown
-
-# Context: user@hostname (who am I and where am I)
-prompt_context() {
-  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m"
-  fi
-}
-
-# Git: branch/detached head, dirty status
-prompt_git() {
-  local ref dirty mode repo_path
-  repo_path=$(git rev-parse --git-dir 2>/dev/null)
-
-  if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
-    dirty=$(parse_git_dirty)
-    ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git show-ref --head -s --abbrev |head -n1 2> /dev/null)"
-    if [[ -n $dirty ]]; then
-      prompt_segment yellow black
-    else
-      prompt_segment green black
-    fi
-
-    if [[ -e "${repo_path}/BISECT_LOG" ]]; then
-      mode=" <B>"
-    elif [[ -e "${repo_path}/MERGE_HEAD" ]]; then
-      mode=" >M<"
-    elif [[ -e "${repo_path}/rebase" || -e "${repo_path}/rebase-apply" || -e "${repo_path}/rebase-merge" || -e "${repo_path}/../.dotest" ]]; then
-      mode=" >R>"
-    fi
-
-    setopt promptsubst
-    autoload -Uz vcs_info
-
-    zstyle ':vcs_info:*' enable git
-    zstyle ':vcs_info:*' get-revision true
-    zstyle ':vcs_info:*' check-for-changes true
-    zstyle ':vcs_info:*' stagedstr '✚'
-    zstyle ':vcs_info:git:*' unstagedstr '●'
-    zstyle ':vcs_info:*' formats ' %u%c'
-    zstyle ':vcs_info:*' actionformats ' %u%c'
-    vcs_info
-    echo -n "${ref/refs\/heads\// }${vcs_info_msg_0_%% }${mode}"
-  fi
-}
-
-# Dir: current working directory
-prompt_dir() {
-  prompt_segment blue black '%~'
-}
-
-# Status:
-# - was there an error
-# - am I root
-# - are there background jobs?
-prompt_status() {
-  local symbols
-  symbols=()
-  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
-  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
-  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
-
-  [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
-}
-
-## Main prompt
-build_prompt() {
-  RETVAL=$?
-  prompt_context
-  prompt_dir
-  prompt_git
-  prompt_status
-  prompt_end
-}
-
-PROMPT='%{%f%b%k%}$(build_prompt) '
+PROMPT='%{%f%b%k%}$(awesome_prompt) '
