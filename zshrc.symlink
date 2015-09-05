@@ -1,9 +1,9 @@
-source "$ZDOTDIR/base.zsh"
-source "$ZDOTDIR/prompt.zsh"
-source "$ZDOTDIR/path.zsh"
-source "$ZDOTDIR/completion.zsh"
-source "$ZDOTDIR/aliases.zsh"
-source "$ZDOTDIR/history.zsh"
+source "$HOME/.zsh/base.zsh"
+source "$HOME/.zsh/prompt.zsh"
+source "$HOME/.zsh/path.zsh"
+source "$HOME/.zsh/completion.zsh"
+source "$HOME/.zsh/aliases.zsh"
+source "$HOME/.zsh/history.zsh"
 
 EDITOR=vim # Use vim as the editor
 GREP_OPTIONS="--color --line-number" # Make grep more user-friendly

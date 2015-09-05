@@ -1,5 +1,2 @@
-# zsh-specific files:
-.zsh/.history
-
 # Mac OS X - specific files:
 .DS_Store
