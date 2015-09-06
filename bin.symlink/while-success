@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh -e
+
+# ------------------------------------------------------------------------------
+# Usage
+#
+# Examples:
+#   $ while-success rspec
+#   $ while-success make test
+#
+# Executes the given command (e.g. `rspec`) in a loop as long as it succeeds
+# (i.e. it exit with status code `0`).
+# ------------------------------------------------------------------------------
+
+$* # 1st run
+while [[ "$?" -eq "0" ]]; do
+  $* # Nth run
+done
