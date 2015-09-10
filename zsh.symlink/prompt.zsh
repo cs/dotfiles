@@ -6,19 +6,19 @@ function awesome_prompt() {
   # ----------------------------------------------------------------------------
 
   local directory_separator=''
-  local cwd_home_bg=31      # = blueish
-  local cwd_home_fg=15      # = white
-  local cwd_dir_bg=237      # = dark gray
-  local cwd_dir_fg=250      # = almost white
-  local cwd_last_dir_bg=237 # = dark gray
-  local cwd_last_dir_fg=254 # = white
+  local cwd_home_bg=31           # = blueish
+  local cwd_home_fg=15           # = white
+  local cwd_dir_bg=237           # = dark gray
+  local cwd_dir_fg=250           # = almost white
+  local cwd_last_dir_bg=237      # = dark gray
+  local cwd_last_dir_fg=254      # = white
 
   local read_only_symbol=''
-  local read_only_bg=124     # = red
-  local read_only_fg=254     # = white
+  local read_only_bg=124         # = red
+  local read_only_fg=254         # = white
 
   local status_symbol='$'
-  local status_cmd_passed_bg=236 # = dark gray
+  local status_cmd_passed_bg=235 # = dark gray
   local status_cmd_passed_fg=15  # = almost white
   local status_cmd_failed_bg=161 # = pink
   local status_cmd_failed_fg=15  # = almost white
@@ -94,7 +94,7 @@ function awesome_prompt() {
 
   if exists 'git-radar'; then
     local radar="$(git-radar --zsh)"
-    [[ $radar != '' ]] && segment black 1 "${radar}"
+    [[ "$radar" != '' ]] && segment black 1 "$radar"
   fi
 
   # ----------------------------------------------------------------------------
@@ -104,7 +104,7 @@ function awesome_prompt() {
   # ----------------------------------------------------------------------------
 
   if [[ $retval == 0 ]]; then
-    segment $status_cmd_passed_bg $status_cmd_failed_fg $status_symbol
+    segment $status_cmd_passed_bg $status_cmd_passed_fg $status_symbol
   else
     segment $status_cmd_failed_bg $status_cmd_failed_fg $status_symbol
   fi
@@ -124,4 +124,4 @@ function awesome_prompt() {
   current_bg=''
 }
 
-PROMPT='%{%f%b%k%}$(awesome_prompt) '
+export PROMPT='%{%f%b%k%}$(awesome_prompt) '
