@@ -33,6 +33,14 @@ function awesome_prompt() {
   local current_bg='NONE'
 
   function segment() {
+    #
+    # Color cheat sheet:
+    # %F{red} (%f) -- Set (unset) foreground color to red.
+    # %K{red} (%k) -- Set (unset) background color to red.
+    # %B (%b)      -- Start (stop) boldface mode.
+    # %U (%u)      -- Start (stop) underline mode.
+    # %S (%s)      -- Start (stop) standout mode.
+    #
     local bg fg
     [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
     [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
@@ -117,11 +125,8 @@ function awesome_prompt() {
 
   if [[ -n $current_bg ]]; then
     echo -n " %{%k%F{$current_bg}%}$segment_separator"
-  else
-    echo -n "%{%k%}"
   fi
-  echo -n "%{%f%}"
-  current_bg=''
+  echo -n "%{%k%f%}"
 }
 
-export PROMPT='%{%f%b%k%}$(awesome_prompt) '
+export PROMPT='%{%k%f%b%}$(awesome_prompt) '
