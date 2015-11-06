@@ -101,7 +101,18 @@ function awesome_prompt() {
   # ----------------------------------------------------------------------------
 
   if exists 'git-radar'; then
-    local radar="$(git-radar --zsh)"
+    autoload colors && colors
+
+    radar_fragments=()
+    radar_fragments+="%{$fg_bold[grey]%}git:(%{$reset_color%}"
+    radar_fragments+='%{remote: }'
+    radar_fragments+='%{branch}'
+    radar_fragments+='%{ :local}'
+    radar_fragments+="%{$fg_bold[grey]%})%{$reset_color%}"
+    radar_fragments+="%{ :stash}"
+    radar_fragments+="%{ :changes}"
+
+    local radar="$(GIT_RADAR_FORMAT="${(j::)radar_fragments}" git-radar --zsh)"
     [[ "$radar" != '' ]] && segment '' '' "$radar"
   fi
 
