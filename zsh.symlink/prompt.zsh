@@ -101,7 +101,7 @@ function awesome_prompt() {
   # ----------------------------------------------------------------------------
 
   if exists 'git-radar'; then
-    local radar="$(GREP_OPTIONS='' git-radar --zsh)"
+    local radar="$(git-radar --zsh)"
     [[ "$radar" != '' ]] && segment '' '' "$radar"
   fi
 

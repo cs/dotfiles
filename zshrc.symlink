@@ -5,8 +5,7 @@ source "$HOME/.zsh/completion.zsh"
 source "$HOME/.zsh/aliases.zsh"
 source "$HOME/.zsh/history.zsh"
 
-EDITOR=vim # Use vim as the editor
-GREP_OPTIONS="--color --line-number" # Make grep more user-friendly
+export EDITOR=vim # Use vim as the editor
 
 # Use ESC to edit the current command line:
 autoload -U edit-command-line
