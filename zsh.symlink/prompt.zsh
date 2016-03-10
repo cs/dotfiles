@@ -11,17 +11,17 @@ function awesome_prompt() {
   local cwd_dir_bg=237           # = dark gray
   local cwd_dir_fg=250           # = almost white
   local cwd_last_dir_bg=237      # = dark gray
-  local cwd_last_dir_fg=254      # = white
+  local cwd_last_dir_fg=255      # = white
 
   local read_only_symbol=''
   local read_only_bg=124         # = red
-  local read_only_fg=254         # = white
+  local read_only_fg=255         # = white
 
   local status_symbol='$'
-  local status_cmd_passed_bg=235 # = dark gray
-  local status_cmd_passed_fg=15  # = almost white
+  local status_cmd_passed_bg=238 # = dark gray
+  local status_cmd_passed_fg=255 # = white
   local status_cmd_failed_bg=161 # = pink
-  local status_cmd_failed_fg=15  # = almost white
+  local status_cmd_failed_fg=255 # = white
 
   # ----------------------------------------------------------------------------
   # Segment Drawing Utilities
