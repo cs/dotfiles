@@ -43,7 +43,7 @@
   sa = stash apply
   ss = stash save --include-untracked
   sd = stash drop
-  ssh = show -p
+  ssh = stash show -p
 
 [push]
   default = simple
