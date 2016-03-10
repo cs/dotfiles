@@ -1,6 +1,5 @@
 source "$HOME/.zsh/base.zsh"
 source "$HOME/.zsh/prompt.zsh"
-source "$HOME/.zsh/path.zsh"
 source "$HOME/.zsh/completion.zsh"
 source "$HOME/.zsh/aliases.zsh"
 source "$HOME/.zsh/history.zsh"
@@ -11,3 +10,8 @@ export EDITOR=vim # Use vim as the editor
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '\033' edit-command-line
+
+#-------------------------------------------------------------------------------
+# Private .bin
+#-------------------------------------------------------------------------------
+export PATH="$HOME/.bin:$PATH"
