@@ -1,6 +1,6 @@
-alias ls="ls -G"
-alias ll="ls -Glh"
-alias la="ls -Glha"
+alias ls="ls -G --color"
+alias ll="ls -Glh --color"
+alias la="ls -Glha --color"
 alias grep="grep --color --line-number"
 
 exists "git" && alias g="git"
