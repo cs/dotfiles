@@ -1,7 +1,8 @@
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
 HISTFILE="$HOME/.zsh-history"
-setopt hist_ignore_space
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt inc_append_history
+setopt HIST_IGNORE_SPACE
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt INC_APPEND_HISTORY
+unsetopt HIST_SAVE_BY_COPY
