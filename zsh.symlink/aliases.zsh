@@ -3,6 +3,10 @@ alias ll="ls -Glh --color"
 alias la="ls -Glha --color"
 alias grep="grep --color --line-number"
 
+if exists "less"; then
+  alias less="LESSHISTFILE=$HOME/.histories/less less"
+fi
+
 # CLI interface for GitHub installed?
 exists "hub" && eval "$(hub alias -s)"
 
