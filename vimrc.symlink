@@ -1,0 +1,13 @@
+set nocompatible
+
+" Enable highlighting for syntax
+syntax on
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" COLOR SCHEMES
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+source ~/.colors/Tomorrow.vim
+" source ~/.colors/Tomorrow-Night.vim
+" source ~/.colors/Tomorrow-Night-Blue.vim
+source ~/.colors/Tomorrow-Night-Bright.vim
+" source ~/.colors/Tomorrow-Night-Eighties.vim
