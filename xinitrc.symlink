@@ -2,6 +2,7 @@ if [[ -f ~/.Xresources ]]; then
   xrdb -merge -I$HOME .Xresources
 fi
 
+feh --no-fehbg --bg-fill .wallpapers/snowy-mountains.jpg &
 xbindkeys
 
 urxvt &
