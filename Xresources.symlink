@@ -1,1 +1,5 @@
-#include ".colors/XresourcesTomorrowNightBright"
+!#include ".colors/Tomorrow.Xresources"
+!#include ".colors/Tomorrow-Night.Xresources"
+!#include ".colors/Tomorrow-Night-Blue.Xresources"
+#include ".colors/Tomorrow-Night-Bright.Xresources"
+!#include ".colors/Tomorrow-Night-Eighties.Xresources"
