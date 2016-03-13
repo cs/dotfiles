@@ -2,6 +2,8 @@ if [[ -f ~/.Xresources ]]; then
   xrdb -merge -I$HOME .Xresources
 fi
 
+xbindkeys
+
 urxvt &
 google-chrome-stable &
 
