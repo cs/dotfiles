@@ -1,1 +1,4 @@
 histories.symlink/*
+
+xmonad.symlink/*
+!xmonad.symlink/xmonad.hs
