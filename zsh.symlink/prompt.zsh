@@ -1,3 +1,5 @@
+autoload colors && colors
+
 function awesome_prompt() {
   local retval=$?
 
@@ -78,7 +80,7 @@ function awesome_prompt() {
       # different and there's no trailing "separator" symbol needed.
       segment $cwd_last_dir_bg $cwd_last_dir_fg $cwd_list[$i]
     else
-      segment $cwd_dir_bg $cwd_dir_fg $cwd_list[$i]
+      segment $cwd_dir_bg $cwd_dir_fg ${cwd_list[$i]:0:1}
       echo -n " $directory_separator" # render "separator" symbol
     fi
   done
@@ -101,8 +103,6 @@ function awesome_prompt() {
   # ----------------------------------------------------------------------------
 
   if exists 'git-radar'; then
-    autoload colors && colors
-
     radar_fragments=()
     radar_fragments+="%{$fg_bold[grey]%}git:(%{$reset_color%}"
     radar_fragments+='%{remote: }'
