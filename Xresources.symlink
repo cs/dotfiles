@@ -4,7 +4,6 @@
 #include ".colors/Tomorrow-Night-Bright.Xresources"
 !#include ".colors/Tomorrow-Night-Eighties.Xresources"
 
-URxvt.perl-lib: ~/.urxvt
 URxvt.perl-ext-common: clear-screen
 
 URxvt.iso14755: false
