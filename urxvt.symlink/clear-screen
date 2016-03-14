@@ -1,0 +1,25 @@
+#!/usr/bin/env perl
+
+# Fix the odd urxvt's behavior for clearing the screen.
+#
+# When clearing the screen (Ctrl+L or Ctrl+l), urxvt erases the visible lines
+# but leaves the scrollback buffer unchanged, which is very confusing. This
+# script overrides the behavior to always clear *everything* including the
+# scrollback buffer.
+
+sub on_key_press {
+  my ($self, $event, $keysym, $octets) = @_;
+  my $state = $event->{state};
+
+  # Disabled in the alternate screen (e.g. in Vim).
+  $self->current_screen and return ();
+
+  # State Bitmask: Shift = 1, Ctrl = 4, Alt = 8
+  # Keysym:        L = 76, l = 108
+  if ($state & 4 && ($keysym eq 108 || $keysym eq 76)) {
+    # Ctrl+L: clear everything.
+    $self->cmd_parse("\ec");
+  }
+
+  ()
+}
