@@ -6,3 +6,6 @@
 
 URxvt.perl-lib: ~/.urxvt
 URxvt.perl-ext-common: clear-screen
+
+URxvt.iso14755: false
+URxvt.iso14755_52: false
