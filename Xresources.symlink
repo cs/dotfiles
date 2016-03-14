@@ -4,7 +4,16 @@
 #include ".colors/Tomorrow-Night-Bright.Xresources"
 !#include ".colors/Tomorrow-Night-Eighties.Xresources"
 
-URxvt.perl-ext-common: clear-screen
+URxvt.perl-ext-common: font-size,clear-screen
 
 URxvt.iso14755: false
 URxvt.iso14755_52: false
+
+!-------------------------------------------------------------------------------
+! Fonts
+!-------------------------------------------------------------------------------
+URxvt.font:           xft:Menlo for Powerline:size=14
+URxvt.keysym.C-0x30:  font-size:reset
+URxvt.keysym.C-equal: font-size:increase
+URxvt.keysym.C-minus: font-size:decrease
+URxvt.font-size.step: 2
