@@ -24,3 +24,8 @@ URxvt.font-size.step: 2
 URxvt.scrollBar: false
 URxvt.internalBorder: 3
 URxvt.letterSpace: -1
+
+!-------------------------------------------------------------------------------
+! Behavior
+!-------------------------------------------------------------------------------
+URxvt.urgentOnBell: true
