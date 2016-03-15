@@ -103,7 +103,7 @@ function awesome_prompt() {
   # ----------------------------------------------------------------------------
 
   if exists 'git-radar'; then
-    radar_fragments=()
+    local radar_fragments=()
     radar_fragments+="%{$fg_bold[grey]%}git:(%{$reset_color%}"
     radar_fragments+='%{remote: }'
     radar_fragments+='%{branch}'
@@ -112,7 +112,13 @@ function awesome_prompt() {
     radar_fragments+="%{ :stash}"
     radar_fragments+="%{ :changes}"
 
-    local radar="$(GIT_RADAR_FORMAT="${(j::)radar_fragments}" git-radar --zsh)"
+    local italic_m='%{\x1b[3m%}m%{\x1b[0m%}'
+    local master_symbol="%{$reset_color%}$italic_m%{$reset_color%}"
+
+    local radar="$(GIT_RADAR_FORMAT="${(j::)radar_fragments}" \
+                   GIT_RADAR_MASTER_SYMBOL="$master_symbol" \
+                   git-radar --zsh)"
+
     [[ "$radar" != '' ]] && segment '' '' "$radar"
   fi
 
