@@ -17,3 +17,9 @@ URxvt.keysym.C-0x30:  font-size:reset
 URxvt.keysym.C-equal: font-size:increase
 URxvt.keysym.C-minus: font-size:decrease
 URxvt.font-size.step: 2
+
+!-------------------------------------------------------------------------------
+! Appearance
+!-------------------------------------------------------------------------------
+URxvt.scrollBar: false
+URxvt.internalBorder: 3
