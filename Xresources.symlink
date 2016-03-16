@@ -28,4 +28,8 @@ URxvt.letterSpace: -1
 !-------------------------------------------------------------------------------
 ! Behavior
 !-------------------------------------------------------------------------------
+URxvt.scrollTtyOutput: false
+URxvt.scrollWithBuffer: true
+URxvt.scrollTtyKeypress: true
+URxvt.saveLines: 10000
 URxvt.urgentOnBell: true
