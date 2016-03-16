@@ -32,4 +32,9 @@ URxvt.scrollTtyOutput: false
 URxvt.scrollWithBuffer: true
 URxvt.scrollTtyKeypress: true
 URxvt.saveLines: 10000
+
+! Disable the scrollback buffer on the secondary screen
+URxvt.secondaryScreen: true
+URxvt.secondaryScroll: false
+
 URxvt.urgentOnBell: true
