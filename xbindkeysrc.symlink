@@ -13,6 +13,11 @@
   m:0x0 + c:123 # Fn + F3
   XF86AudioUpperVolume
 
+# Enable or disable the Touchpad
+"touchpad-toggle"
+  m:0x0 + c:124 # Fn + F4
+  XF86TouchpadToggle
+
 # Decrease backlight by 20%
 "xbacklight -dec 20%"
   m:0x0 + c:232 # Fn + F5
