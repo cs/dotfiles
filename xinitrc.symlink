@@ -1,6 +1,5 @@
-if [[ -f ~/.Xresources ]]; then
-  xrdb -merge -I$HOME .Xresources
-fi
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME .Xresources
+[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
 
 feh --no-fehbg --bg-fill .wallpapers/snowy-mountains.jpg &
 xbindkeys
