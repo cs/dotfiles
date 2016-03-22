@@ -1,18 +1,22 @@
 import XMonad
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.ManageDocks
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Spacing
 
 main :: IO ()
 main = do
-  xmonad defaultConfig
+  xmonad =<< xmobar defaultConfig
     { terminal = "urxvt"
     , borderWidth = 3
     , normalBorderColor = "#333333"
     , focusedBorderColor = "#00ff00"
     , modMask = mod1Mask
     , workspaces = fmap show [1..9]
-    , layoutHook = smartBorders $ awesomeLayout
+    , layoutHook = smartBorders $ avoidStruts awesomeLayout
+    , manageHook = manageHook defaultConfig <+> manageDocks
+    , handleEventHook = handleEventHook defaultConfig <+> docksEventHook
     }
 
 awesomeLayout = tiled ||| Mirror tiled ||| Full
