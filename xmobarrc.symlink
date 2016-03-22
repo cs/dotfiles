@@ -1,0 +1,13 @@
+Config {
+  -- appearance:
+    font = "xft:Menlo for Powerline:bold:size=12:antialias=true"
+  , position = Top
+
+  -- general behavior:
+  , lowerOnStart = True
+  , hideOnStart = False
+  , allDesktops = True
+  , overrideRedirect = True
+  , pickBroadest = False
+  , persistent = True
+}
