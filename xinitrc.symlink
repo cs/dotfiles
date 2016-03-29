@@ -2,6 +2,7 @@
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
 
 feh --no-fehbg --bg-fill .wallpapers/snowy-mountains.jpg &
+xsetroot -cursor_name left_ptr &
 xbindkeys
 
 urxvt &
