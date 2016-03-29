@@ -38,3 +38,11 @@ URxvt.secondaryScreen: true
 URxvt.secondaryScroll: false
 
 URxvt.urgentOnBell: true
+
+Xft.dpi:       138
+Xft.autohint:  false
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting:   true
+Xft.antialias: true
+Xft.rgba:      rgb
