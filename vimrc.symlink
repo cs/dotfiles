@@ -48,6 +48,24 @@ source ~/.colors/Tomorrow-Night-Bright.vim
 " source ~/.colors/Tomorrow-Night-Eighties.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Array Keys are unacceptable (Normal & Insert Mode)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <Left>  <Nop>
+imap <Left>  <Nop>
+nmap <Right> <Nop>
+imap <Right> <Nop>
+nmap <Up>    <Nop>
+imap <Up>    <Nop>
+nmap <Down>  <Nop>
+imap <Down>  <Nop>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" <F1> for :help is annoying (Normal & Insert Mode)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <F1>    <Nop>
+imap <F1>    <Nop>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CtrlP
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>f :CtrlP<CR>
