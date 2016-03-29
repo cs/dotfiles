@@ -10,6 +10,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'bling/vim-airline'
+Plugin 'kien/ctrlp.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -17,10 +18,17 @@ filetype plugin indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BASIC EDITING CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" allow unsaved background buffers and remember marks/undo for them
+set hidden
+" remember more commands and search history
+set history=10000
+
 set showtabline=2
 
 " Enable highlighting for syntax
 syntax on
+
+let mapleader = "\<Space>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM Airline
@@ -38,3 +46,13 @@ source ~/.colors/Tomorrow.vim
 " source ~/.colors/Tomorrow-Night-Blue.vim
 source ~/.colors/Tomorrow-Night-Bright.vim
 " source ~/.colors/Tomorrow-Night-Eighties.vim
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CtrlP
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>f :CtrlP<CR>
+map <leader>F :CtrlP %%<CR>
+map <leader>b :CtrlPBuffer<CR>
+
+let g:ctrlp_match_window='bottom,max:15'
+let g:ctrlp_working_path_mode = 'a'
