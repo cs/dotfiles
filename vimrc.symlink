@@ -74,3 +74,10 @@ map <leader>b :CtrlPBuffer<CR>
 
 let g:ctrlp_match_window='bottom,max:15'
 let g:ctrlp_working_path_mode = 'a'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" X Integration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has('clipboard')
+  set clipboard=unnamedplus
+endif
