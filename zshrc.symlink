@@ -13,6 +13,13 @@ bindkey '\033' edit-command-line
 bindkey '^R' history-incremental-search-backward
 
 #-------------------------------------------------------------------------------
+# PostgreSQL defaults (i.e. don't use Unix domain sockets, which is more
+#   convenient for dockerized DBs).
+#-------------------------------------------------------------------------------
+export PGHOST="localhost"
+export PGPORT="5432"
+
+#-------------------------------------------------------------------------------
 # Private ~/.bin
 #-------------------------------------------------------------------------------
 export PATH="$HOME/.bin:$PATH"
