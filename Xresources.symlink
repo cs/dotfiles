@@ -1,8 +1,6 @@
-!#include ".colors/Tomorrow.Xresources"
-!#include ".colors/Tomorrow-Night.Xresources"
-!#include ".colors/Tomorrow-Night-Blue.Xresources"
-#include ".colors/Tomorrow-Night-Bright.Xresources"
-!#include ".colors/Tomorrow-Night-Eighties.Xresources"
+#include ".colors/Solarized-Dark.Xresources"
+!#include ".colors/Solarized-Light.Xresources"
+#include ".colors/Solarized-Common.Xresources"
 
 URxvt.perl-ext-common: font-size,clear-screen
 
