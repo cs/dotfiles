@@ -11,6 +11,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
+Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()
 filetype plugin indent on
@@ -41,11 +42,9 @@ let g:airline_powerline_fonts = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLOR SCHEMES
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-source ~/.colors/Tomorrow.vim
-" source ~/.colors/Tomorrow-Night.vim
-" source ~/.colors/Tomorrow-Night-Blue.vim
-source ~/.colors/Tomorrow-Night-Bright.vim
-" source ~/.colors/Tomorrow-Night-Eighties.vim
+set background=dark
+colorscheme solarized
+call togglebg#map("<F5>")
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Array Keys are unacceptable (Normal & Insert Mode)
