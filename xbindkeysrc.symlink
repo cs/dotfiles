@@ -1,29 +1,23 @@
-# Mute/Unmute audio
+# Mute/Unmute audio (with Fn + F1)
 "pactl set-sink-mute @DEFAULT_SINK@ toggle"
-  m:0x0 + c:121 # Fn + F1
   XF86AudioMute
 
-# Decrease audio volume by 10%
+# Decrease audio volume by 10% (with Fn + F2)
 "pactl set-sink-volume @DEFAULT_SINK@ -10%"
-  m:0x0 + c:122 # Fn + F2
   XF86AudioLowerVolume
 
-# Increase audio volume by 10%
+# Increase audio volume by 10% (with Fn + F3)
 "pactl set-sink-volume @DEFAULT_SINK@ +10%"
-  m:0x0 + c:123 # Fn + F3
-  XF86AudioUpperVolume
+  XF86AudioRaiseVolume
 
-# Enable or disable the Touchpad
+# Enable or disable the Touchpad (with Fn + F4)
 "touchpad-toggle"
-  m:0x0 + c:124 # Fn + F4
   XF86TouchpadToggle
 
-# Decrease backlight by 10%
+# Decrease backlight by 10% (with Fn + F5)
 "xbacklight -dec 10%"
-  m:0x0 + c:232 # Fn + F5
   XF86MonBrightnessDown
 
-# Increase backlight by 10%
+# Increase backlight by 10% (with Fn + F6)
 "xbacklight -inc 10%"
-  m:0x0 + c:233 # Fn + F6
   XF86MonBrightnessUp
