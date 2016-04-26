@@ -22,6 +22,7 @@ URxvt.font-size.step: 1
 URxvt.scrollBar: false
 URxvt.internalBorder: 3
 URxvt.letterSpace: -1
+URxvt.intensityStyles: false
 
 !-------------------------------------------------------------------------------
 ! Behavior
