@@ -1,6 +1,19 @@
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME .Xresources
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
 
+function check_monitor() {
+  xrandr --current | grep -G "^$1 connected"
+  if [[ $? -eq 0 ]]; then
+    xrandr --output eDP1 --off # Turn off internal Monitor
+    xrandr --output $1 --auto --primary
+  fi
+}
+
+check_monitor "DP1"
+check_monitor "DP2"
+check_monitor "HDMI1"
+check_monitor "HDMI2"
+
 feh --no-fehbg --bg-fill .wallpapers/snowy-mountains.jpg &
 xsetroot -cursor_name left_ptr &
 unclutter -grab -noevents -root &
