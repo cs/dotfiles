@@ -1,6 +1,8 @@
 config.symlink/*
 !config.symlink/chrome-flags.conf
 histories.symlink/*
+task.symlink/*
+!task.symlink/.keep
+vim.symlink/*
 xmonad.symlink/*
 !xmonad.symlink/xmonad.hs
-vim.symlink/*
