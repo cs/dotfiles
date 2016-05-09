@@ -21,7 +21,7 @@ main = do
 
 awesomeLayout = tiled ||| Mirror tiled ||| Full
   where
-    tiled = spacing 10 $ ResizableTall nmaster delta ratio []
+    tiled = spacing 5 $ ResizableTall nmaster delta ratio []
     -- Default number of windows in master pane
     nmaster = 1
     -- Percent of the screen to increment when resizing
