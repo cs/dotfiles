@@ -21,3 +21,7 @@
 # Increase backlight by 10% (with Fn + F6)
 "xbacklight -inc 10%"
   XF86MonBrightnessUp
+
+# Launch Nautilus (with Fn + F12)
+"nautilus"
+  XF86Explorer
