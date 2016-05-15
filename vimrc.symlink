@@ -74,6 +74,24 @@ map <leader>b :CtrlPBuffer<CR>
 let g:ctrlp_match_window='bottom,max:15'
 let g:ctrlp_working_path_mode = 'a'
 
+" Configure CtrlP to use `git ls-files`, if we are in a Git repository (i.e. the
+" current working directory or one of its parent directories contain a '.git'
+" directory).
+"
+" Why `git ls-files`?
+"   1. Better performance.
+"   2. Interprets all '.gitignore' files correctly.
+"
+" If we are not in a Git repository, we simply use `find` as a fallback.
+let g:ctrlp_user_command = [
+   \ '.git',
+   \ 'cd %s && git ls-files . --others --exclude-standard',
+   \ 'find %s -type f'
+ \ ]
+
+" With `git ls-files` or `find` we can afford to disable caching :)
+let g:ctrlp_use_caching = 0
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " X Integration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
