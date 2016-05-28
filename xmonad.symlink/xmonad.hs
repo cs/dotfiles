@@ -36,6 +36,7 @@ awesomeLayout = tiled ||| Mirror tiled ||| Full
 awesomeKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 awesomeKeys conf = M.unions [ defaultKeys conf
                             , layoutKeys conf
+                            , focusKeys conf
                             , workspaceKeys conf ]
 
 defaultKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
@@ -44,13 +45,6 @@ defaultKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf) -- %! Launch terminal
     , ((modMask .|. shiftMask, xK_p     ), spawn "gmrun") -- %! Launch gmrun
     , ((modMask .|. shiftMask, xK_c     ), kill) -- %! Close the focused window
-
-    -- move focus up or down the window stack
-    , ((modMask,               xK_Tab   ), windows W.focusDown) -- %! Move focus to the next window
-    , ((modMask .|. shiftMask, xK_Tab   ), windows W.focusUp  ) -- %! Move focus to the previous window
-    , ((modMask,               xK_j     ), windows W.focusDown) -- %! Move focus to the next window
-    , ((modMask,               xK_k     ), windows W.focusUp  ) -- %! Move focus to the previous window
-    , ((modMask,               xK_m     ), windows W.focusMaster  ) -- %! Move focus to the master window
 
     -- floating layer support
     , ((modMask,               xK_t     ), withFocused $ windows . W.sink) -- %! Push window back into tiling
@@ -88,6 +82,19 @@ layoutKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask              , xK_comma ), sendMessage (IncMasterN 1))
   -- Deincrement the number of windows in the master area:
   , ((modMask              , xK_period), sendMessage (IncMasterN (-1))) ]
+
+focusKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
+focusKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+  -- Move focus to the next window:
+  [ ((modMask              , xK_Tab   ), windows W.focusDown)
+  -- Move focus to the previous window:
+  , ((modMask .|. shiftMask, xK_Tab   ), windows W.focusUp)
+  -- Move focus to the next window:
+  , ((modMask              , xK_j     ), windows W.focusDown)
+  -- Move focus to the previous window:
+  , ((modMask              , xK_k     ), windows W.focusUp)
+  -- Move focus to the master window:
+  , ((modMask              , xK_m     ), windows W.focusMaster) ]
 
 workspaceKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 workspaceKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
