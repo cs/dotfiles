@@ -35,17 +35,14 @@ awesomeLayout = tiled ||| Mirror tiled ||| Full
 
 awesomeKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 awesomeKeys conf = M.unions [ defaultKeys conf
+                            , programKeys conf
                             , layoutKeys conf
                             , focusKeys conf
                             , workspaceKeys conf ]
 
 defaultKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 defaultKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
-    -- launching and killing programs
-    [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf) -- %! Launch terminal
-    , ((modMask .|. shiftMask, xK_p     ), spawn "gmrun") -- %! Launch gmrun
-    , ((modMask .|. shiftMask, xK_c     ), kill) -- %! Close the focused window
-
+    [
     -- floating layer support
     , ((modMask,               xK_t     ), withFocused $ windows . W.sink) -- %! Push window back into tiling
 
@@ -53,6 +50,15 @@ defaultKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask, xK_q     ), io (exitWith ExitSuccess)) -- %! Quit xmonad
     , ((modMask              , xK_q     ), spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi") -- %! Restart xmonad
     ]
+
+programKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
+programKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+  -- Launch a new terminal:
+  [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+  -- Start program launcher:
+  , ((modMask .|. shiftMask, xK_p     ), spawn "gmrun")
+  -- Close the focused window:
+  , ((modMask .|. shiftMask, xK_c     ), kill) ]
 
 layoutKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 layoutKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
