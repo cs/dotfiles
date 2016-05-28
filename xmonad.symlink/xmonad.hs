@@ -33,12 +33,12 @@ awesomeLayout = tiled ||| Mirror tiled ||| Full
     -- Default proportion of the screen taken up by main pane
     ratio = toRational (2/(1 + sqrt 5 :: Double))
 
--- | The xmonad key bindings. Add, modify or remove key bindings here.
---
--- (The comment formatting character is used when generating the manpage)
---
 awesomeKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-awesomeKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+awesomeKeys conf = M.unions [ defaultKeys conf
+                            , workspaceKeys conf ]
+
+defaultKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
+defaultKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- launching and killing programs
     [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf) -- %! Launch terminal
     , ((modMask .|. shiftMask, xK_p     ), spawn "gmrun") -- %! Launch gmrun
@@ -77,14 +77,17 @@ awesomeKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask              , xK_q     ), spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi") -- %! Restart xmonad
     ]
     ++
-    -- mod-[1..9] %! Switch to workspace N
-    -- mod-shift-[1..9] %! Move client to workspace N
-    [((m .|. modMask, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
-    ++
     -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r} %! Move client to screen 1, 2, or 3
     [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+
+workspaceKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
+workspaceKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+  -- Switch to workspace N:
+  [ ((modMask              , k        ), windows $ W.greedyView i)
+      | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ] ++
+  -- Move window to workspace N:
+  [ ((modMask .|. shiftMask, k        ), windows $ W.shift i)
+      | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ]
