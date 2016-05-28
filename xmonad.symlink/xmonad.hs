@@ -34,22 +34,11 @@ awesomeLayout = tiled ||| Mirror tiled ||| Full
     ratio = toRational (2/(1 + sqrt 5 :: Double))
 
 awesomeKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-awesomeKeys conf = M.unions [ defaultKeys conf
-                            , programKeys conf
+awesomeKeys conf = M.unions [ programKeys conf
                             , layoutKeys conf
                             , focusKeys conf
-                            , workspaceKeys conf ]
-
-defaultKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-defaultKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
-    [
-    -- floating layer support
-    , ((modMask,               xK_t     ), withFocused $ windows . W.sink) -- %! Push window back into tiling
-
-    -- quit, or restart
-    , ((modMask .|. shiftMask, xK_q     ), io (exitWith ExitSuccess)) -- %! Quit xmonad
-    , ((modMask              , xK_q     ), spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi") -- %! Restart xmonad
-    ]
+                            , workspaceKeys conf
+                            , miscKeys conf ]
 
 programKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 programKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
@@ -112,3 +101,10 @@ workspaceKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [ ((modMask .|. shiftMask, k        ),
      screenWorkspace sc >>= flip whenJust (windows . W.shift))
       | (k, sc) <- zip [xK_w, xK_e, xK_r] [0..] ]
+
+miscKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
+miscKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+  -- Push window back into tiling:
+  [ ((modMask              , xK_t     ), withFocused $ windows . W.sink)
+  -- Quit xmonad:
+  , ((modMask .|. shiftMask, xK_q     ), io (exitWith ExitSuccess)) ]
