@@ -85,7 +85,7 @@ let g:ctrlp_working_path_mode = 'a'
 " If we are not in a Git repository, we simply use `find` as a fallback.
 let g:ctrlp_user_command = [
    \ '.git',
-   \ 'cd %s && git ls-files . --others --exclude-standard',
+   \ 'cd %s && git ls-files . --cached --others --exclude-standard',
    \ 'find %s -type f'
  \ ]
 
