@@ -7,6 +7,7 @@ import XMonad.Layout.Spacing
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 import System.Exit
+import Graphics.X11.ExtraTypes.XF86
 
 main :: IO ()
 main = do
@@ -38,6 +39,7 @@ awesomeKeys conf = M.unions [ programKeys conf
                             , layoutKeys conf
                             , focusKeys conf
                             , workspaceKeys conf
+                            , functionKeys conf
                             , miscKeys conf ]
 
 programKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
@@ -101,6 +103,59 @@ workspaceKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [ ((modMask .|. shiftMask, k        ),
      screenWorkspace sc >>= flip whenJust (windows . W.shift))
       | (k, sc) <- zip [xK_w, xK_e, xK_r] [0..] ]
+
+functionKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
+functionKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+  -- Mute/Unmute audio output (Fn + F1):
+  [ ((noModMask, xF86XK_AudioMute),
+     spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+  -- Decrease audio volume by 10% (Fn + F2):
+  , ((noModMask, xF86XK_AudioLowerVolume),
+     spawn "pactl set-sink-volume @DEFAULT_SINK@ -10%")
+  -- Increase audio volume by 10% (Fn + F3):
+  , ((noModMask, xF86XK_AudioRaiseVolume),
+     spawn "pactl set-sink-volume @DEFAULT_SINK@ +10%")
+  -- Mute/Unmute audio input (Fn + F4):
+  -- This doesn't work currently, due to a bug in the kernel.
+  -- See https://sourceforge.net/p/ibm-acpi/mailman/message/34988427/
+  , ((noModMask, xK_VoidSymbol), -- TODO: find correct keysym
+     spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle")
+  -- Decrease backlight by 10% (Fn + F5):
+  , ((noModMask, xF86XK_MonBrightnessDown),
+     spawn "xbacklight -dec 10%")
+  -- Increase backlight by 10% (Fn + F6):
+  , ((noModMask, xF86XK_MonBrightnessUp),
+     spawn "xbacklight -inc 10%")
+  -- ??? (Fn + F7):
+  -- This doesn't work currently, due to a bug in the kernel.
+  -- See https://sourceforge.net/p/ibm-acpi/mailman/message/34988427/
+  , ((noModMask, xK_VoidSymbol), -- TODO: find correct keysym
+     spawn "")
+  -- ??? (Fn + F8):
+  -- This doesn't work currently, due to a bug in the kernel.
+  -- See https://sourceforge.net/p/ibm-acpi/mailman/message/34988427/
+  , ((noModMask, xK_VoidSymbol), -- TODO: find correct keysym
+     spawn "")
+  -- ??? (Fn + F9):
+  -- This doesn't work currently, due to a bug in the kernel.
+  -- See https://sourceforge.net/p/ibm-acpi/mailman/message/34988427/
+  , ((noModMask, xK_VoidSymbol), -- TODO: find correct keysym
+     spawn "")
+  -- ??? (Fn + F10):
+  -- This doesn't work currently, due to a bug in the kernel.
+  -- See https://sourceforge.net/p/ibm-acpi/mailman/message/34988427/
+  , ((noModMask, xK_VoidSymbol), -- TODO: find correct keysym
+     spawn "")
+  -- ??? (Fn + F11):
+  -- This doesn't work currently, due to a bug in the kernel.
+  -- See https://sourceforge.net/p/ibm-acpi/mailman/message/34988427/
+  , ((noModMask, xK_VoidSymbol), -- TODO: find correct keysym
+     spawn "")
+  -- Launch Nautilus (Fn + F12):
+  -- This doesn't work currently, due to a bug in the kernel.
+  -- See https://sourceforge.net/p/ibm-acpi/mailman/message/34988427/
+  , ((noModMask, xK_VoidSymbol), -- TODO: find correct keysym
+     spawn "nautilus") ]
 
 miscKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 miscKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
