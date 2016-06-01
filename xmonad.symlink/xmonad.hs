@@ -1,13 +1,13 @@
-import XMonad
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageDocks
-import XMonad.Layout.NoBorders
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.Spacing
-import qualified XMonad.StackSet as W
+import           Graphics.X11.ExtraTypes.XF86
+import           System.Exit
+import           XMonad
+import           XMonad.Hooks.DynamicLog
+import           XMonad.Hooks.ManageDocks
+import           XMonad.Layout.NoBorders
+import           XMonad.Layout.ResizableTile
+import           XMonad.Layout.Spacing
 import qualified Data.Map as M
-import System.Exit
-import Graphics.X11.ExtraTypes.XF86
+import qualified XMonad.StackSet as W
 
 main :: IO ()
 main = do
@@ -47,60 +47,60 @@ programKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Launch a new terminal:
   [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
   -- Start program launcher:
-  , ((modMask .|. shiftMask, xK_p     ), spawn "gmrun")
+  , ((modMask .|. shiftMask, xK_p), spawn "gmrun")
   -- Close the focused window:
-  , ((modMask .|. shiftMask, xK_c     ), kill) ]
+  , ((modMask .|. shiftMask, xK_c), kill) ]
 
 layoutKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 layoutKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Rotate through the available layout algorithms:
-  [ ((modMask              , xK_space ), sendMessage NextLayout)
+  [ ((modMask, xK_space), sendMessage NextLayout)
   -- Reset the layouts on the current workspace to default:
-  , ((modMask .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
+  , ((modMask .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
   -- Resize viewed windows to the correct size:
-  , ((modMask              , xK_n     ), refresh)
+  , ((modMask, xK_n), refresh)
   -- Swap the focused window and the master window:
-  , ((modMask              , xK_Return), windows W.swapMaster)
+  , ((modMask, xK_Return), windows W.swapMaster)
   -- Swap the focused window with the next window:
-  , ((modMask .|. shiftMask, xK_j     ), windows W.swapDown)
+  , ((modMask .|. shiftMask, xK_j), windows W.swapDown)
   -- Swap the focused window with the previous window:
-  , ((modMask .|. shiftMask, xK_k     ), windows W.swapUp)
+  , ((modMask .|. shiftMask, xK_k), windows W.swapUp)
   -- Shrink the master area:
-  , ((modMask              , xK_h     ), sendMessage Shrink)
+  , ((modMask, xK_h), sendMessage Shrink)
   -- Expand the master area:
-  , ((modMask              , xK_l     ), sendMessage Expand)
+  , ((modMask, xK_l), sendMessage Expand)
   -- Increment the number of windows in the master area:
-  , ((modMask              , xK_comma ), sendMessage (IncMasterN 1))
+  , ((modMask, xK_comma), sendMessage (IncMasterN 1))
   -- Deincrement the number of windows in the master area:
-  , ((modMask              , xK_period), sendMessage (IncMasterN (-1))) ]
+  , ((modMask, xK_period), sendMessage (IncMasterN (-1))) ]
 
 focusKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 focusKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Move focus to the next window:
-  [ ((modMask              , xK_Tab   ), windows W.focusDown)
+  [ ((modMask, xK_Tab), windows W.focusDown)
   -- Move focus to the previous window:
-  , ((modMask .|. shiftMask, xK_Tab   ), windows W.focusUp)
+  , ((modMask .|. shiftMask, xK_Tab), windows W.focusUp)
   -- Move focus to the next window:
-  , ((modMask              , xK_j     ), windows W.focusDown)
+  , ((modMask, xK_j), windows W.focusDown)
   -- Move focus to the previous window:
-  , ((modMask              , xK_k     ), windows W.focusUp)
+  , ((modMask, xK_k), windows W.focusUp)
   -- Move focus to the master window:
-  , ((modMask              , xK_m     ), windows W.focusMaster) ]
+  , ((modMask, xK_m), windows W.focusMaster) ]
 
 workspaceKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 workspaceKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Switch to workspace N:
-  [ ((modMask              , k        ), windows $ W.greedyView i)
+  [ ((modMask, k), windows $ W.greedyView i)
       | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ] ++
   -- Move window to workspace N:
-  [ ((modMask .|. shiftMask, k        ), windows $ W.shift i)
+  [ ((modMask .|. shiftMask, k), windows $ W.shift i)
       | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ] ++
   -- Switch to physical/Xinerama screens 1, 2, or 3:
-  [ ((modMask              , k        ),
+  [ ((modMask, k),
      screenWorkspace sc >>= flip whenJust (windows . W.view))
       | (k, sc) <- zip [xK_w, xK_e, xK_r] [0..] ] ++
   -- Move window to screen 1, 2, or 3:
-  [ ((modMask .|. shiftMask, k        ),
+  [ ((modMask .|. shiftMask, k),
      screenWorkspace sc >>= flip whenJust (windows . W.shift))
       | (k, sc) <- zip [xK_w, xK_e, xK_r] [0..] ]
 
@@ -160,6 +160,6 @@ functionKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 miscKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 miscKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Push window back into tiling:
-  [ ((modMask              , xK_t     ), withFocused $ windows . W.sink)
+  [ ((modMask, xK_t), withFocused $ windows . W.sink)
   -- Quit xmonad:
-  , ((modMask .|. shiftMask, xK_q     ), io (exitWith ExitSuccess)) ]
+  , ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess)) ]
