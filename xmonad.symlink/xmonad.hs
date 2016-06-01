@@ -1,48 +1,63 @@
 import           XMonad.Core as XMonad hiding (
-  borderWidth, clickJustFocuses, focusFollowsMouse, focusedBorderColor,
-  handleEventHook, keys, layoutHook, logHook, manageHook, modMask,
-  mouseBindings, normalBorderColor, startupHook, terminal, workspaces )
+  borderWidth, clickJustFocuses, clientMask, focusFollowsMouse,
+  focusedBorderColor, handleEventHook, handleExtraArgs, keys, layoutHook,
+  logHook, manageHook, modMask, mouseBindings, normalBorderColor, rootMask,
+  startupHook, terminal, workspaces )
 import qualified XMonad.Core as XMonad (
-  borderWidth, clickJustFocuses, focusFollowsMouse, focusedBorderColor,
-  handleEventHook, keys, layoutHook, logHook, manageHook, modMask,
-  mouseBindings, normalBorderColor, startupHook, terminal, workspaces )
+  borderWidth, clickJustFocuses, clientMask, focusFollowsMouse,
+  focusedBorderColor, handleEventHook, handleExtraArgs, keys, layoutHook,
+  logHook, manageHook, modMask, mouseBindings, normalBorderColor, rootMask,
+  startupHook, terminal, workspaces )
 
+import           Data.Bits ((.|.))
+import           Data.Monoid
 import           Graphics.X11.ExtraTypes.XF86
+import           Graphics.X11.Xlib
 import           System.Exit
-import           XMonad hiding (mouseBindings, keys)
-import           XMonad.Hooks.DynamicLog
+import           XMonad.Hooks.DynamicLog (xmobar)
 import           XMonad.Hooks.ManageDocks
+import           XMonad.Layout
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.ResizableTile
 import           XMonad.Layout.Spacing
+import           XMonad.Main (xmonad)
+import           XMonad.ManageHook
+import           XMonad.Operations
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 
 main :: IO ()
 main = do
-  xmonad =<< xmobar defaultConfig
+  xmonad =<< xmobar XConfig
     { XMonad.borderWidth = 3
+    , XMonad.clickJustFocuses = True
+    , XMonad.clientMask = clientMask
+    , XMonad.focusFollowsMouse = True
     , XMonad.focusedBorderColor = "#00ff00"
-    , XMonad.handleEventHook = handleEventHook defaultConfig <+> docksEventHook
+    , XMonad.handleEventHook = (\_ -> return (All True)) <+> docksEventHook
+    , XMonad.handleExtraArgs = handleExtraArgs
     , XMonad.keys = keys
     , XMonad.layoutHook = smartBorders $ avoidStruts layout
-    , XMonad.manageHook = manageHook defaultConfig <+> manageDocks
+    , XMonad.logHook = return ()
+    , XMonad.manageHook = manageHook <+> manageDocks
     , XMonad.modMask = mod1Mask
     , XMonad.mouseBindings = mouseBindings
     , XMonad.normalBorderColor = "#333333"
+    , XMonad.rootMask = rootMask
+    , XMonad.startupHook = return ()
     , XMonad.terminal = "urxvt"
-    , XMonad.workspaces = fmap show [1..9]
-    }
+    , XMonad.workspaces = fmap show [1..9] }
 
-layout = tiled ||| Mirror tiled ||| Full
-  where
-    tiled = spacing 5 $ ResizableTall nmaster delta ratio []
-    -- Default number of windows in master pane
-    nmaster = 1
-    -- Percent of the screen to increment when resizing
-    delta = 5/100
-    -- Default proportion of the screen taken up by main pane
-    ratio = toRational (2/(1 + sqrt 5 :: Double))
+clientMask :: EventMask
+clientMask = structureNotifyMask .|. enterWindowMask .|. propertyChangeMask
+
+manageHook :: ManageHook
+manageHook = composeAll [ className =? "MPlayer"  --> doFloat
+                        , className =? "mplayer2" --> doFloat ]
+
+handleExtraArgs = \ xs theConf -> case xs of
+  [] -> return theConf
+  _  -> fail ("unrecognized flags:" ++ show xs)
 
 keys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
@@ -149,8 +164,26 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      screenWorkspace sc >>= flip whenJust (windows . W.shift))
       | (k, sc) <- zip [xK_w, xK_e, xK_r] [0..] ]
 
+layout = tiled ||| Mirror tiled ||| Full
+  where
+    tiled = spacing 5 $ ResizableTall nmaster delta ratio []
+    -- Default number of windows in master pane
+    nmaster = 1
+    -- Percent of the screen to increment when resizing
+    delta = 5/100
+    -- Default proportion of the screen taken up by main pane
+    ratio = toRational (2/(1 + sqrt 5 :: Double))
+
 mouseBindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
 mouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList
   -- Raise the window to the top of the stack:
   [ ((modMask, button2),
      windows . (W.shiftMaster .) . W.focusWindow) ]
+
+rootMask :: EventMask
+rootMask = substructureRedirectMask
+        .|. substructureNotifyMask
+        .|. enterWindowMask
+        .|. leaveWindowMask
+        .|. structureNotifyMask
+        .|. buttonPressMask
