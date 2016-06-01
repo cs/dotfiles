@@ -1,6 +1,15 @@
+import           XMonad.Core as XMonad hiding (
+  borderWidth, clickJustFocuses, focusFollowsMouse, focusedBorderColor,
+  handleEventHook, keys, layoutHook, logHook, manageHook, modMask,
+  mouseBindings, normalBorderColor, startupHook, terminal, workspaces )
+import qualified XMonad.Core as XMonad (
+  borderWidth, clickJustFocuses, focusFollowsMouse, focusedBorderColor,
+  handleEventHook, keys, layoutHook, logHook, manageHook, modMask,
+  mouseBindings, normalBorderColor, startupHook, terminal, workspaces )
+
 import           Graphics.X11.ExtraTypes.XF86
 import           System.Exit
-import           XMonad
+import           XMonad hiding (mouseBindings, keys)
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Layout.NoBorders
@@ -12,20 +21,20 @@ import qualified XMonad.StackSet as W
 main :: IO ()
 main = do
   xmonad =<< xmobar defaultConfig
-    { terminal = "urxvt"
-    , borderWidth = 3
-    , normalBorderColor = "#333333"
-    , focusedBorderColor = "#00ff00"
-    , modMask = mod1Mask
-    , keys = awesomeKeys
-    , mouseBindings = awesomeMouseBindings
-    , workspaces = fmap show [1..9]
-    , layoutHook = smartBorders $ avoidStruts awesomeLayout
-    , manageHook = manageHook defaultConfig <+> manageDocks
-    , handleEventHook = handleEventHook defaultConfig <+> docksEventHook
+    { XMonad.borderWidth = 3
+    , XMonad.focusedBorderColor = "#00ff00"
+    , XMonad.handleEventHook = handleEventHook defaultConfig <+> docksEventHook
+    , XMonad.keys = keys
+    , XMonad.layoutHook = smartBorders $ avoidStruts layout
+    , XMonad.manageHook = manageHook defaultConfig <+> manageDocks
+    , XMonad.modMask = mod1Mask
+    , XMonad.mouseBindings = mouseBindings
+    , XMonad.normalBorderColor = "#333333"
+    , XMonad.terminal = "urxvt"
+    , XMonad.workspaces = fmap show [1..9]
     }
 
-awesomeLayout = tiled ||| Mirror tiled ||| Full
+layout = tiled ||| Mirror tiled ||| Full
   where
     tiled = spacing 5 $ ResizableTall nmaster delta ratio []
     -- Default number of windows in master pane
@@ -35,13 +44,13 @@ awesomeLayout = tiled ||| Mirror tiled ||| Full
     -- Default proportion of the screen taken up by main pane
     ratio = toRational (2/(1 + sqrt 5 :: Double))
 
-awesomeKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-awesomeKeys conf = M.unions [ programKeys conf
-                            , layoutKeys conf
-                            , focusKeys conf
-                            , workspaceKeys conf
-                            , functionKeys conf
-                            , miscKeys conf ]
+keys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
+keys conf = M.unions [ programKeys conf
+                     , layoutKeys conf
+                     , focusKeys conf
+                     , workspaceKeys conf
+                     , functionKeys conf
+                     , miscKeys conf ]
 
 programKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 programKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
@@ -165,8 +174,8 @@ miscKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Quit xmonad:
   , ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess)) ]
 
-awesomeMouseBindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
-awesomeMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList
+mouseBindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
+mouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList
   -- Set the window to floating mode and move by dragging:
   [ ((modMask, button1),
      \w -> focus w >> mouseMoveWindow w >> windows W.shiftMaster)
