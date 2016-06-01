@@ -18,6 +18,7 @@ main = do
     , focusedBorderColor = "#00ff00"
     , modMask = mod1Mask
     , keys = awesomeKeys
+    , mouseBindings = awesomeMouseBindings
     , workspaces = fmap show [1..9]
     , layoutHook = smartBorders $ avoidStruts awesomeLayout
     , manageHook = manageHook defaultConfig <+> manageDocks
@@ -163,3 +164,15 @@ miscKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [ ((modMask, xK_t), withFocused $ windows . W.sink)
   -- Quit xmonad:
   , ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess)) ]
+
+awesomeMouseBindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
+awesomeMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList
+  -- Set the window to floating mode and move by dragging:
+  [ ((modMask, button1),
+     \w -> focus w >> mouseMoveWindow w >> windows W.shiftMaster)
+  -- Raise the window to the top of the stack:
+  , ((modMask, button2),
+     windows . (W.shiftMaster .) . W.focusWindow)
+  -- Set the window to floating mode and resize by dragging:
+  , ((modMask, button3),
+     \w -> focus w >> mouseResizeWindow w >> windows W.shiftMaster) ]
