@@ -169,19 +169,11 @@ functionKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 miscKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 miscKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
-  -- Push window back into tiling:
-  [ ((modMask, xK_t), withFocused $ windows . W.sink)
   -- Quit xmonad:
-  , ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess)) ]
+  [ ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess)) ]
 
 mouseBindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
 mouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList
-  -- Set the window to floating mode and move by dragging:
-  [ ((modMask, button1),
-     \w -> focus w >> mouseMoveWindow w >> windows W.shiftMaster)
   -- Raise the window to the top of the stack:
-  , ((modMask, button2),
-     windows . (W.shiftMaster .) . W.focusWindow)
-  -- Set the window to floating mode and resize by dragging:
-  , ((modMask, button3),
-     \w -> focus w >> mouseResizeWindow w >> windows W.shiftMaster) ]
+  [ ((modMask, button2),
+     windows . (W.shiftMaster .) . W.focusWindow) ]
