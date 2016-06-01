@@ -45,26 +45,15 @@ layout = tiled ||| Mirror tiled ||| Full
     ratio = toRational (2/(1 + sqrt 5 :: Double))
 
 keys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-keys conf = M.unions [ programKeys conf
-                     , layoutKeys conf
-                     , focusKeys conf
-                     , workspaceKeys conf
-                     , functionKeys conf
-                     , miscKeys conf ]
-
-programKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-programKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Launch a new terminal:
   [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
   -- Start program launcher:
   , ((modMask .|. shiftMask, xK_p), spawn "gmrun")
   -- Close the focused window:
-  , ((modMask .|. shiftMask, xK_c), kill) ]
-
-layoutKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-layoutKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+  , ((modMask .|. shiftMask, xK_c), kill)
   -- Rotate through the available layout algorithms:
-  [ ((modMask, xK_space), sendMessage NextLayout)
+  , ((modMask, xK_space), sendMessage NextLayout)
   -- Reset the layouts on the current workspace to default:
   , ((modMask .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
   -- Resize viewed windows to the correct size:
@@ -82,12 +71,9 @@ layoutKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Increment the number of windows in the master area:
   , ((modMask, xK_comma), sendMessage (IncMasterN 1))
   -- Deincrement the number of windows in the master area:
-  , ((modMask, xK_period), sendMessage (IncMasterN (-1))) ]
-
-focusKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-focusKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+  , ((modMask, xK_period), sendMessage (IncMasterN (-1)))
   -- Move focus to the next window:
-  [ ((modMask, xK_Tab), windows W.focusDown)
+  , ((modMask, xK_Tab), windows W.focusDown)
   -- Move focus to the previous window:
   , ((modMask .|. shiftMask, xK_Tab), windows W.focusUp)
   -- Move focus to the next window:
@@ -95,29 +81,9 @@ focusKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Move focus to the previous window:
   , ((modMask, xK_k), windows W.focusUp)
   -- Move focus to the master window:
-  , ((modMask, xK_m), windows W.focusMaster) ]
-
-workspaceKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-workspaceKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
-  -- Switch to workspace N:
-  [ ((modMask, k), windows $ W.greedyView i)
-      | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ] ++
-  -- Move window to workspace N:
-  [ ((modMask .|. shiftMask, k), windows $ W.shift i)
-      | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ] ++
-  -- Switch to physical/Xinerama screens 1, 2, or 3:
-  [ ((modMask, k),
-     screenWorkspace sc >>= flip whenJust (windows . W.view))
-      | (k, sc) <- zip [xK_w, xK_e, xK_r] [0..] ] ++
-  -- Move window to screen 1, 2, or 3:
-  [ ((modMask .|. shiftMask, k),
-     screenWorkspace sc >>= flip whenJust (windows . W.shift))
-      | (k, sc) <- zip [xK_w, xK_e, xK_r] [0..] ]
-
-functionKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-functionKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+  , ((modMask, xK_m), windows W.focusMaster)
   -- Mute/Unmute audio output (Fn + F1):
-  [ ((noModMask, xF86XK_AudioMute),
+  , ((noModMask, xF86XK_AudioMute),
      spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
   -- Decrease audio volume by 10% (Fn + F2):
   , ((noModMask, xF86XK_AudioLowerVolume),
@@ -165,12 +131,23 @@ functionKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- This doesn't work currently, due to a bug in the kernel.
   -- See https://sourceforge.net/p/ibm-acpi/mailman/message/34988427/
   , ((noModMask, xK_VoidSymbol), -- TODO: find correct keysym
-     spawn "nautilus") ]
-
-miscKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-miscKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+     spawn "nautilus")
   -- Quit xmonad:
-  [ ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess)) ]
+  , ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess)) ] ++
+  -- Switch to workspace N:
+  [ ((modMask, k), windows $ W.greedyView i)
+      | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ] ++
+  -- Move window to workspace N:
+  [ ((modMask .|. shiftMask, k), windows $ W.shift i)
+      | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ] ++
+  -- Switch to physical/Xinerama screens 1, 2, or 3:
+  [ ((modMask, k),
+     screenWorkspace sc >>= flip whenJust (windows . W.view))
+      | (k, sc) <- zip [xK_w, xK_e, xK_r] [0..] ] ++
+  -- Move window to screen 1, 2, or 3:
+  [ ((modMask .|. shiftMask, k),
+     screenWorkspace sc >>= flip whenJust (windows . W.shift))
+      | (k, sc) <- zip [xK_w, xK_e, xK_r] [0..] ]
 
 mouseBindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
 mouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList
