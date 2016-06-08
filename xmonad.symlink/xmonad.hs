@@ -39,7 +39,7 @@ main = do
     , XMonad.keys = keys
     , XMonad.layoutHook = smartBorders $ avoidStruts layout
     , XMonad.logHook = return ()
-    , XMonad.manageHook = manageHook <+> manageDocks
+    , XMonad.manageHook = manageDocks
     , XMonad.modMask = mod1Mask
     , XMonad.mouseBindings = mouseBindings
     , XMonad.normalBorderColor = "#333333"
@@ -50,10 +50,6 @@ main = do
 
 clientMask :: EventMask
 clientMask = structureNotifyMask .|. enterWindowMask .|. propertyChangeMask
-
-manageHook :: ManageHook
-manageHook = composeAll [ className =? "MPlayer"  --> doFloat
-                        , className =? "mplayer2" --> doFloat ]
 
 handleExtraArgs = \ xs theConf -> case xs of
   [] -> return theConf
