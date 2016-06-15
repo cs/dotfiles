@@ -154,11 +154,11 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Switch to physical/Xinerama screens 1, 2, or 3:
   [ ((modMask, k),
      screenWorkspace sc >>= flip whenJust (windows . W.view))
-      | (k, sc) <- zip [xK_w, xK_e, xK_r] [0..] ] ++
+      | (k, sc) <- zip [xK_w, xK_r] [0..] ] ++
   -- Move window to screen 1, 2, or 3:
   [ ((modMask .|. shiftMask, k),
      screenWorkspace sc >>= flip whenJust (windows . W.shift))
-      | (k, sc) <- zip [xK_w, xK_e, xK_r] [0..] ]
+      | (k, sc) <- zip [xK_w, xK_r] [0..] ]
 
 layout = tiled ||| Mirror tiled ||| Full
   where
