@@ -158,7 +158,20 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Move window to screen 1, 2, or 3:
   [ ((modMask .|. shiftMask, k),
      screenWorkspace sc >>= flip whenJust (windows . W.shift))
-      | (k, sc) <- zip [xK_w, xK_r] [0..] ]
+      | (k, sc) <- zip [xK_w, xK_r] [0..] ] ++
+  [ ((modMask, xK_a),               insertKeySym "adiaeresis" ),
+    ((modMask .|. shiftMask, xK_a), insertKeySym "Shift+Adiaeresis" ),
+    ((modMask, xK_o),               insertKeySym "odiaeresis" ),
+    ((modMask .|. shiftMask, xK_o), insertKeySym "Shift+Odiaeresis" ),
+    ((modMask, xK_u),               insertKeySym "udiaeresis" ),
+    ((modMask .|. shiftMask, xK_u), insertKeySym "Shift+Udiaeresis" ),
+    ((modMask, xK_s),               insertKeySym "ssharp" ),
+    ((modMask .|. shiftMask, xK_s), insertKeySym "ssharp" ),
+    ((modMask, xK_e),               insertKeySym "EuroSign" ),
+    ((modMask .|. shiftMask, xK_e), insertKeySym "EuroSign" ) ]
+  where insertKeySym :: String -> X ()
+        insertKeySym keySym = withFocused $ \window ->
+          spawn $ "xdotool key -w " ++ show window ++ " " ++ keySym
 
 layout = tiled ||| Mirror tiled ||| Full
   where
