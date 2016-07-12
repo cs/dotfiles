@@ -159,19 +159,19 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [ ((modMask .|. shiftMask, k),
      screenWorkspace sc >>= flip whenJust (windows . W.shift))
       | (k, sc) <- zip [xK_w, xK_r] [0..] ] ++
-  [ ((modMask, xK_a),               insertKeySym "adiaeresis" ),
-    ((modMask .|. shiftMask, xK_a), insertKeySym "Shift+Adiaeresis" ),
-    ((modMask, xK_o),               insertKeySym "odiaeresis" ),
-    ((modMask .|. shiftMask, xK_o), insertKeySym "Shift+Odiaeresis" ),
-    ((modMask, xK_u),               insertKeySym "udiaeresis" ),
-    ((modMask .|. shiftMask, xK_u), insertKeySym "Shift+Udiaeresis" ),
-    ((modMask, xK_s),               insertKeySym "ssharp" ),
-    ((modMask .|. shiftMask, xK_s), insertKeySym "ssharp" ),
-    ((modMask, xK_e),               insertKeySym "EuroSign" ),
-    ((modMask .|. shiftMask, xK_e), insertKeySym "EuroSign" ) ]
-  where insertKeySym :: String -> X ()
-        insertKeySym keySym = withFocused $ \window ->
-          spawn $ "xdotool key -w " ++ show window ++ " " ++ keySym
+  [ ((modMask, xK_a),               fakeKeySym "adiaeresis" ),
+    ((modMask .|. shiftMask, xK_a), fakeKeySym "Adiaeresis" ),
+    ((modMask, xK_o),               fakeKeySym "odiaeresis" ),
+    ((modMask .|. shiftMask, xK_o), fakeKeySym "Odiaeresis" ),
+    ((modMask, xK_u),               fakeKeySym "udiaeresis" ),
+    ((modMask .|. shiftMask, xK_u), fakeKeySym "Udiaeresis" ),
+    ((modMask, xK_s),               fakeKeySym "ssharp" ),
+    ((modMask .|. shiftMask, xK_s), fakeKeySym "ssharp" ),
+    ((modMask, xK_e),               fakeKeySym "EuroSign" ),
+    ((modMask .|. shiftMask, xK_e), fakeKeySym "EuroSign" ) ]
+  where fakeKeySym :: String -> X ()
+        fakeKeySym keySym = withFocused $ \window ->
+          spawn $ "xfakekeysym " ++ show window ++ " " ++ keySym
 
 layout = tiled ||| Mirror tiled ||| Full
   where
