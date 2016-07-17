@@ -179,44 +179,22 @@ sub handle_type {
 }
 
 sub handle_font {
-    my ($term, $font, $change, $basesize) = @_;
+  my ($term, $font, $change, $basesize) = @_;
 
-    my $newfont;
-    my $newsize;
-    my $prefix = 0;
+  my $newfont;
+  my $newsize;
+  my $prefix = 0;
 
-    if ($font =~ /^\s*x:/) {
-        $font =~ s/^\s*x://;
-        $prefix = 1;
-    }
-    if ($font =~ /^\s*(\[.*\])?xft:/) {
-        ($newfont, $newsize) = font_change_size_xft($term, $font, $change, $basesize);
-    } elsif ($font =~ /^\s*-/) {
-        ($newfont, $newsize) = font_change_size_xlfd($term, $font, $change, $basesize);
-    } else {
-        # check whether the font is a valid alias and if yes resolve it to the
-        # actual font
-        my $lsfinfo = `xlsfonts -l $font 2>/dev/null`;
+  if ($font =~ /^\s*x:/) { $font =~ s/^\s*x://; $prefix = 1; }
 
-        if ($lsfinfo eq "") {
-            # not a valid alias, ring the bell if it is the base font and just
-            # return the current font
-            if ($basesize == 0) {
-                $term->scr_bell;
-            }
-            return ($font, $basesize);
-        }
+  if ($font =~ /^\s*(\[.*\])?xft:/) {
+    ($newfont, $newsize) = font_change_size_xft($term, $font, $change, $basesize);
+  } else {
+    # Only XFT fonts are supported ...
+  }
 
-        my $fontinfo = (split(/\n/, $lsfinfo))[-1];
-        my ($fontfull) = ($fontinfo =~ /\s+([-a-z0-9]+$)/);
-        ($newfont, $newsize) = font_change_size_xlfd($term, $fontfull, $change, $basesize);
-    }
-
-    # $term->scr_add_lines("\r\nNew font is $newfont\n");
-    if ($prefix) {
-        $newfont = "x:$newfont";
-    }
-    return ($newfont, $newsize);
+  if ($prefix) { $newfont = "x:$newfont"; }
+  return ($newfont, $newsize);
 }
 
 sub font_change_size_xft {
@@ -252,109 +230,6 @@ sub font_change_size_xft {
             $term->scr_bell;
         }
         return ($fontstring, $size);
-    }
-}
-
-sub font_change_size_xlfd {
-    my ($term, $fontstring, $change, $basesize) = @_;
-
-    #-xos4-terminus-medium-r-normal-*-12-*-*-*-*-*-*-1
-
-    my @fields = qw(foundry family weight slant setwidth style pixelSize pointSize Xresolution Yresolution spacing averageWidth registry encoding);
-
-    my %font;
-    $fontstring =~ s/^-//;  # Strip leading - before split
-    @font{@fields} = split(/-/, $fontstring);
-
-    if ($font{pixelSize} eq '*') {
-        $term->scr_add_lines("\r\nWarning: Font size undefined, assuming 12.\r\nPlease set the 'URxvt.font' resource to a font with a concrete size.");
-        $font{pixelSize} = '12'
-    }
-    if ($font{registry} eq '*') {
-        $font{registry} ='iso8859';
-    }
-
-    # Blank out the size for the pattern
-    my %pattern = %font;
-    $pattern{foundry} = '*';
-    $pattern{setwidth} = '*';
-    $pattern{pixelSize} = '*';
-    $pattern{pointSize} = '*';
-    # if ($basesize != 0) {
-    #     $pattern{Xresolution} = '*';
-    #     $pattern{Yresolution} = '*';
-    # }
-    $pattern{averageWidth} = '*';
-    # make sure there are no empty fields
-    foreach my $field (@fields) {
-        $pattern{$field} = '*' unless defined($pattern{$field});
-    }
-    my $new_fontstring = '-' . join('-', @pattern{@fields});
-
-    my @possible;
-    # $term->scr_add_lines("\r\nPattern is $new_fontstring\n");
-    open(FOO, "xlsfonts -fn '$new_fontstring' | sort -u |") or die $!;
-    while (<FOO>) {
-        chomp;
-        s/^-//;  # Strip leading '-' before split
-        my @fontdata = split(/-/, $_);
-
-        push @possible, [$fontdata[6], "-$_"];
-        # $term->scr_add_lines("\r\npossibly $fontdata[6] $_\n");
-    }
-    close(FOO);
-
-    if (!@possible) {
-        die "No possible fonts!";
-    }
-
-    if ($basesize != 0) {
-        # sort by font size, descending
-        @possible = sort {$b->[0] <=> $a->[0]} @possible;
-
-        # font is not the base font, so find the largest font that is at most
-        # as large as the base font. If the largest possible font is smaller
-        # than the base font bail and hope that a 0-size font can be found at
-        # the end of the function
-        if ($possible[0]->[0] > $basesize) {
-            foreach my $candidate (@possible) {
-                if ($candidate->[0] <= $basesize) {
-                    return ($candidate->[1], $candidate->[0]);
-                }
-            }
-        }
-    } elsif ($change > 0) {
-        # sort by font size, ascending
-        @possible = sort {$a->[0] <=> $b->[0]} @possible;
-
-        foreach my $candidate (@possible) {
-            if ($candidate->[0] >= $font{pixelSize} + $change) {
-                return ($candidate->[1], $candidate->[0]);
-            }
-        }
-    } elsif ($change < 0) {
-        # sort by font size, descending
-        @possible = sort {$b->[0] <=> $a->[0]} @possible;
-
-        foreach my $candidate (@possible) {
-            if ($candidate->[0] <= $font{pixelSize} + $change && $candidate->[0] != 0) {
-                return ($candidate->[1], $candidate->[0]);
-            }
-        }
-    }
-
-    # no fitting font available, check whether a 0-size font can be used to
-    # fit the size of the base font
-    @possible = sort {$a->[0] <=> $b->[0]} @possible;
-    if ($basesize != 0 && $possible[0]->[0] == 0) {
-        return ($possible[0]->[1], $basesize);
-    } else {
-        # if there is absolutely no smaller/larger font that can be used
-        # return the current one, and beep if this is the base font
-        if ($basesize == 0) {
-            $term->scr_bell;
-        }
-        return ("-$fontstring", $font{pixelSize});
     }
 }
 
