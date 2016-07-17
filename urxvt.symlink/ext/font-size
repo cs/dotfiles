@@ -48,15 +48,6 @@ Add some keybindings:
 
   URxvt.keysym.C-Up:     font-size:increase
   URxvt.keysym.C-Down:   font-size:decrease
-  URxvt.keysym.C-S-Up:   font-size:incglobal
-  URxvt.keysym.C-S-Down: font-size:decglobal
-
-Note that for urxvt versions older than 9.21 the resources have to look like this:
-
-  URxvt.keysym.C-Up:     perl:font-size:increase
-  URxvt.keysym.C-Down:   perl:font-size:decrease
-  URxvt.keysym.C-S-Up:   perl:font-size:incglobal
-  URxvt.keysym.C-S-Down: perl:font-size:decglobal
 
 Supported functions:
 
@@ -65,11 +56,6 @@ Supported functions:
 =item * increase/decrease:
 
       increase or decrease the font size of the current terminal.
-
-=item * incglobal/decglobal:
-
-      same as above and also adjust the X server values so all newly
-      started terminals will use the same fontsize.
 
 =back
 
@@ -113,13 +99,9 @@ sub on_action {
 
   foreach my $term (urxvt::termlist) {
     if ($action eq "increase") {
-      fonts_change_size($term,  $step, 0);
+      fonts_change_size($term,  $step);
     } elsif ($action eq "decrease") {
-      fonts_change_size($term, -$step, 0);
-    } elsif ($action eq "incglobal") {
-      fonts_change_size($term,  $step, 1);
-    } elsif ($action eq "decglobal") {
-      fonts_change_size($term, -$step, 1);
+      fonts_change_size($term, -$step);
     } elsif ($action eq "reset") {
       fonts_reset($term);
     }
@@ -127,7 +109,7 @@ sub on_action {
 }
 
 sub fonts_change_size {
-    my ($term, $change, $save) = @_;
+    my ($term, $change) = @_;
 
     my @newfonts = ();
 
@@ -149,11 +131,11 @@ sub fonts_change_size {
             push @newfonts, $newfont;
         }
         my $newres = join(",", @newfonts);
-        font_apply_new($term, $newres, "font", $save);
+        font_apply_new($term, $newres, "font");
 
-        handle_type($term, "boldFont",       $change, $newbasesize, $save);
-        handle_type($term, "italicFont",     $change, $newbasesize, $save);
-        handle_type($term, "boldItalicFont", $change, $newbasesize, $save);
+        handle_type($term, "boldFont",       $change, $newbasesize);
+        handle_type($term, "italicFont",     $change, $newbasesize);
+        handle_type($term, "boldItalicFont", $change, $newbasesize);
     }
 }
 
@@ -169,7 +151,7 @@ sub fonts_reset {
 }
 
 sub handle_type {
-    my ($term, $type, $change, $basesize, $save) = @_;
+    my ($term, $type, $change, $basesize) = @_;
 
     my $curres = $term->resource($type);
     if (!$curres) {
@@ -184,7 +166,7 @@ sub handle_type {
     }
 
     my $newres = join(",", @newfonts);
-    font_apply_new($term, $newres, $type, $save);
+    font_apply_new($term, $newres, $type);
 }
 
 sub handle_font {
@@ -368,20 +350,9 @@ sub font_change_size_xlfd {
 }
 
 sub font_apply_new {
-    my ($term, $newfont, $type, $save) = @_;
+    my ($term, $newfont, $type) = @_;
 
     # $term->scr_add_lines("\r\nnew font is $newfont\n");
 
     $term->cmd_parse("\033]" . $escapecodes{$type} . ";" . $newfont . "\033\\");
-
-    # load the xrdb db
-    # system("xrdb -load " . X_RESOURCES);
-
-    if ($save > 0) {
-        # merge the new values
-        open(XRDB_MERGE, "| xrdb -merge") || die "can't fork: $!";
-        local $SIG{PIPE} = sub { die "xrdb pipe broken" };
-        print XRDB_MERGE "URxvt." . $type . ": " . $newfont;
-        close(XRDB_MERGE) || die "bad xrdb: $! $?";
-    }
 }
