@@ -17,7 +17,8 @@ feh --no-fehbg --bg-fill .wallpapers/snowy-mountains.jpg &
 xsetroot -cursor_name left_ptr &
 unclutter -grab -noevents -root &
 
-urxvt &
+urxvtd -q -o -f
+urxvtc
 google-chrome-stable &
 
 exec xmonad

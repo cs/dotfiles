@@ -45,7 +45,7 @@ main = do
     , XMonad.normalBorderColor = "#333333"
     , XMonad.rootMask = rootMask
     , XMonad.startupHook = return ()
-    , XMonad.terminal = "urxvt"
+    , XMonad.terminal = "urxvtc"
     , XMonad.workspaces = fmap show [1..9] }
 
 clientMask :: EventMask
