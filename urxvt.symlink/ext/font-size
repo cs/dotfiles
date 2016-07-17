@@ -113,30 +113,6 @@ sub on_start
     }
 }
 
-# Needed for backwards compatibility with < 9.21
-sub on_user_command
-{
-    my ($self, $cmd) = @_;
-
-    my $step = $self->{step};
-
-    if ($cmd eq "font-size:increase") {
-        fonts_change_size($self,  $step, 0);
-    } elsif ($cmd eq "font-size:decrease") {
-        fonts_change_size($self, -$step, 0);
-    } elsif ($cmd eq "font-size:incglobal") {
-        fonts_change_size($self,  $step, 1);
-    } elsif ($cmd eq "font-size:decglobal") {
-        fonts_change_size($self, -$step, 1);
-    } elsif ($cmd eq "font-size:incsave") {
-        fonts_change_size($self,  $step, 2);
-    } elsif ($cmd eq "font-size:decsave") {
-        fonts_change_size($self, -$step, 2);
-    } elsif ($cmd eq "font-size:reset") {
-        fonts_reset($self);
-    }
-}
-
 sub on_action
 {
     my ($self, $action) = @_;
