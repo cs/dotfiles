@@ -76,20 +76,33 @@ use strict;
 use warnings;
 
 my %escapecodes = (
-    "font"           => 710,
-    "boldFont"       => 711,
-    "italicFont"     => 712,
-    "boldItalicFont" => 713
+  "font"           => 710,
+  "boldFont"       => 711,
+  "italicFont"     => 712,
+  "boldItalicFont" => 713
 );
 
-my %initialFonts = ();
+my %defaultFonts = (
+  "font"           => "undef",
+  "boldFont"       => "undef",
+  "italicFont"     => "undef",
+  "boldItalicFont" => "undef"
+);
+
+my %currentFonts = %defaultFonts;
 
 sub on_start {
   my ($self) = @_;
 
   foreach my $type (qw(font boldFont italicFont boldItalicFont)) {
-    $initialFonts{$type} = $self->x_resource($type) || "undef";
+    $defaultFonts{$type} = $self->x_resource($type) || "undef";
+    # Use default font if current font is undefined ...
+    if ($currentFonts{$type} eq "undef") {
+      $currentFonts{$type} = $defaultFonts{$type};
+    }
   }
+
+  fonts_set($self, %currentFonts);
 }
 
 sub on_action {
@@ -103,7 +116,7 @@ sub on_action {
     } elsif ($action eq "decrease") {
       fonts_change_size($term, -$step);
     } elsif ($action eq "reset") {
-      fonts_set($term, %initialFonts);
+      fonts_set($term, %defaultFonts);
     }
   }
 }
@@ -142,10 +155,7 @@ sub fonts_change_size {
 sub fonts_set {
   my ($term, %fonts) = @_;
   foreach my $type (qw(font boldFont italicFont boldItalicFont)) {
-    my $newfont = $fonts{$type};
-    if ($newfont ne "undef") {
-      font_apply_new($term, $newfont, $type, 0);
-    }
+    font_apply_new($term, $fonts{$type}, $type, 0);
   }
 }
 
@@ -349,9 +359,13 @@ sub font_change_size_xlfd {
 }
 
 sub font_apply_new {
-    my ($term, $newfont, $type) = @_;
+  my ($term, $newfont, $type) = @_;
 
-    # $term->scr_add_lines("\r\nnew font is $newfont\n");
-
+  if ($newfont ne "undef") {
+    # Set the new font in $term ...
     $term->cmd_parse("\033]" . $escapecodes{$type} . ";" . $newfont . "\033\\");
+
+    # Current font has changed. Save it in $currentFonts for new windows ...
+    $currentFonts{$type} = $newfont;
+  }
 }
