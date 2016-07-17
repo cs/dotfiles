@@ -103,7 +103,7 @@ sub on_action {
     } elsif ($action eq "decrease") {
       fonts_change_size($term, -$step);
     } elsif ($action eq "reset") {
-      fonts_reset($term);
+      fonts_set($term, %initialFonts);
     }
   }
 }
@@ -139,15 +139,14 @@ sub fonts_change_size {
     }
 }
 
-sub fonts_reset {
-    my ($term) = @_;
-
-    foreach my $type (qw(font boldFont italicFont boldItalicFont)) {
-        my $initial = $initialFonts{$type};
-        if ($initial ne "undef") {
-            font_apply_new($term, $initial, $type, 0);
-        }
+sub fonts_set {
+  my ($term, %fonts) = @_;
+  foreach my $type (qw(font boldFont italicFont boldItalicFont)) {
+    my $newfont = $fonts{$type};
+    if ($newfont ne "undef") {
+      font_apply_new($term, $newfont, $type, 0);
     }
+  }
 }
 
 sub handle_type {
