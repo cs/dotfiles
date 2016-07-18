@@ -13,7 +13,10 @@ check_monitor "DP2"
 check_monitor "HDMI1"
 check_monitor "HDMI2"
 
-feh --no-fehbg --bg-fill .wallpapers/snowy-mountains.jpg &
+if [[ -f ~/.wallpapers/current ]]; then
+  feh --no-fehbg --bg-fill .wallpapers/current &
+fi
+
 xsetroot -cursor_name left_ptr &
 unclutter -grab -noevents -root &
 

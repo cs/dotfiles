@@ -6,3 +6,4 @@ task.symlink/*
 vim.symlink/*
 xmonad.symlink/*
 !xmonad.symlink/xmonad.hs
+wallpapers.symlink/*
