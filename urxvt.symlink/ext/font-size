@@ -102,7 +102,7 @@ sub on_start {
     }
   }
 
-  fonts_set($self, %currentFonts);
+  set_fonts($self, %currentFonts);
 }
 
 sub on_action {
@@ -112,70 +112,70 @@ sub on_action {
 
   foreach my $term (urxvt::termlist) {
     if ($action eq "increase") {
-      fonts_change_size($term,  $step);
+      change_font_size($term,  $step);
     } elsif ($action eq "decrease") {
-      fonts_change_size($term, -$step);
+      change_font_size($term, -$step);
     } elsif ($action eq "reset") {
-      fonts_set($term, %defaultFonts);
+      set_fonts($term, %defaultFonts);
     }
   }
 }
 
-sub fonts_change_size {
-    my ($term, $change) = @_;
+sub change_font_size {
+  my ($term, $change) = @_;
 
-    my @newfonts = ();
+  my @newfonts = ();
 
-    my $curres = $term->resource('font');
-    if (!$curres) {
-        $term->scr_add_lines("\r\nWarning: No font configured, trying a default.\r\nPlease set a font with the 'URxvt.font' resource.");
-        $curres = "fixed";
+  my $curres = $term->resource('font');
+  if (!$curres) {
+    $term->scr_add_lines("\r\nWarning: No font configured, trying a default.\r\nPlease set a font with the 'URxvt.font' resource.");
+    $curres = "fixed";
+  }
+  my @curfonts = split(/\s*,\s*/, $curres);
+
+  my $basefont = shift(@curfonts);
+  my ($newbasefont, $newbasesize) = handle_font($term, $basefont, $change, 0);
+  push @newfonts, $newbasefont;
+
+  # Only adjust other fonts if base font changed
+  if ($newbasefont ne $basefont) {
+    foreach my $font (@curfonts) {
+      my ($newfont, $newsize) = handle_font($term, $font, $change, $newbasesize);
+      push @newfonts, $newfont;
     }
-    my @curfonts = split(/\s*,\s*/, $curres);
+    my $newres = join(",", @newfonts);
+    apply_new_font($term, $newres, "font");
 
-    my $basefont = shift(@curfonts);
-    my ($newbasefont, $newbasesize) = handle_font($term, $basefont, $change, 0);
-    push @newfonts, $newbasefont;
-
-    # Only adjust other fonts if base font changed
-    if ($newbasefont ne $basefont) {
-        foreach my $font (@curfonts) {
-            my ($newfont, $newsize) = handle_font($term, $font, $change, $newbasesize);
-            push @newfonts, $newfont;
-        }
-        my $newres = join(",", @newfonts);
-        font_apply_new($term, $newres, "font");
-
-        handle_type($term, "boldFont",       $change, $newbasesize);
-        handle_type($term, "italicFont",     $change, $newbasesize);
-        handle_type($term, "boldItalicFont", $change, $newbasesize);
-    }
+    handle_type($term, "boldFont",       $change, $newbasesize);
+    handle_type($term, "italicFont",     $change, $newbasesize);
+    handle_type($term, "boldItalicFont", $change, $newbasesize);
+  }
 }
 
-sub fonts_set {
+sub set_fonts {
   my ($term, %fonts) = @_;
   foreach my $type (qw(font boldFont italicFont boldItalicFont)) {
-    font_apply_new($term, $fonts{$type}, $type, 0);
+    apply_new_font($term, $fonts{$type}, $type, 0);
   }
 }
 
 sub handle_type {
-    my ($term, $type, $change, $basesize) = @_;
+  my ($term, $type, $change, $basesize) = @_;
 
-    my $curres = $term->resource($type);
-    if (!$curres) {
-        return;
-    }
-    my @curfonts = split(/\s*,\s*/, $curres);
-    my @newfonts = ();
+  my $curres = $term->resource($type);
+  if (!$curres) {
+      return;
+  }
+  my @curfonts = split(/\s*,\s*/, $curres);
+  my @newfonts = ();
 
-    foreach my $font (@curfonts) {
-        my ($newfont, $newsize) = handle_font($term, $font, $change, $basesize);
-        push @newfonts, $newfont;
-    }
+  foreach my $font (@curfonts) {
+    my ($newfont, $newsize) = handle_font($term, $font, $change, $basesize);
+    push @newfonts, $newfont;
+  }
 
-    my $newres = join(",", @newfonts);
-    font_apply_new($term, $newres, $type);
+  my $newres = join(",", @newfonts);
+  apply_new_font($term, $newres, $type);
 }
 
 sub handle_font {
@@ -188,7 +188,7 @@ sub handle_font {
   if ($font =~ /^\s*x:/) { $font =~ s/^\s*x://; $prefix = 1; }
 
   if ($font =~ /^\s*(\[.*\])?xft:/) {
-    ($newfont, $newsize) = font_change_size_xft($term, $font, $change, $basesize);
+    ($newfont, $newsize) = change_font_size_xft($term, $font, $change, $basesize);
   } else {
     # Only XFT fonts are supported ...
   }
@@ -197,43 +197,43 @@ sub handle_font {
   return ($newfont, $newsize);
 }
 
-sub font_change_size_xft {
-    my ($term, $fontstring, $change, $basesize) = @_;
+sub change_font_size_xft {
+  my ($term, $fontstring, $change, $basesize) = @_;
 
-    my @pieces   = split(/:/, $fontstring);
-    my @resized  = ();
-    my $size     = 0;
-    my $new_size = 0;
+  my @pieces   = split(/:/, $fontstring);
+  my @resized  = ();
+  my $size     = 0;
+  my $new_size = 0;
 
-    foreach my $piece (@pieces) {
-        if ($piece =~ /^(?:(?:pixel)?size=|[^=-]+-)(\d+(\.\d*)?)$/) {
-            $size = $1;
+  foreach my $piece (@pieces) {
+    if ($piece =~ /^(?:(?:pixel)?size=|[^=-]+-)(\d+(\.\d*)?)$/) {
+      $size = $1;
 
-            if ($basesize != 0) {
-                $new_size = $basesize;
-            } else {
-                $new_size = $size + $change
-            }
+      if ($basesize != 0) {
+        $new_size = $basesize;
+      } else {
+        $new_size = $size + $change
+      }
 
-            $piece =~ s/(=|-)$size/$1$new_size/;
-        }
-        push @resized, $piece;
+      $piece =~ s/(=|-)$size/$1$new_size/;
     }
+    push @resized, $piece;
+  }
 
-    my $resized_str = join(":", @resized);
+  my $resized_str = join(":", @resized);
 
-    # don't make fonts too small
-    if ($new_size >= 6) {
-        return ($resized_str, $new_size);
-    } else {
-        if ($basesize == 0) {
-            $term->scr_bell;
-        }
-        return ($fontstring, $size);
+  # don't make fonts too small
+  if ($new_size >= 6) {
+    return ($resized_str, $new_size);
+  } else {
+    if ($basesize == 0) {
+      $term->scr_bell;
     }
+    return ($fontstring, $size);
+  }
 }
 
-sub font_apply_new {
+sub apply_new_font {
   my ($term, $newfont, $type) = @_;
 
   if ($newfont ne "undef") {
