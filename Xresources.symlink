@@ -1,8 +1,16 @@
+!-------------------------------------------------------------------------------
+! Colors
+!-------------------------------------------------------------------------------
+
 #include ".colors/Solarized-Dark.Xresources"
 !#include ".colors/Solarized-Light.Xresources"
 #include ".colors/Solarized-Common.Xresources"
 
-URxvt.perl-ext-common: font-size,clear-screen
+!-------------------------------------------------------------------------------
+! urxvt General
+!-------------------------------------------------------------------------------
+
+URxvt.perl-ext-common: font-size,clear-screen,colors
 
 URxvt.iso14755: false
 URxvt.iso14755_52: false
@@ -11,6 +19,8 @@ URxvt.iso14755_52: false
 ! Fonts
 !-------------------------------------------------------------------------------
 URxvt.font:           xft:Menlo for Powerline:size=14
+
+URxvt.keysym.F5:      colors:cycle
 URxvt.keysym.C-0x30:  font-size:reset
 URxvt.keysym.C-equal: font-size:increase
 URxvt.keysym.C-minus: font-size:decrease
