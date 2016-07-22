@@ -2,9 +2,51 @@
 ! Colors
 !-------------------------------------------------------------------------------
 
-#include ".colors/Solarized-Dark.Xresources"
-!#include ".colors/Solarized-Light.Xresources"
-#include ".colors/Solarized-Common.Xresources"
+*solarized-dark.background:              #002b36
+*solarized-dark.border:                  #002b36
+*solarized-dark.foreground:              #839496
+*solarized-dark.cursorColor:             #93a1a1
+*solarized-dark.pointerColorBackground:  #586e75
+*solarized-dark.pointerColorForeground:  #93a1a1
+*solarized-dark.color0:                  #073642
+*solarized-dark.color1:                  #dc322f
+*solarized-dark.color2:                  #859900
+*solarized-dark.color3:                  #b58900
+*solarized-dark.color4:                  #268bd2
+*solarized-dark.color5:                  #d33682
+*solarized-dark.color6:                  #2aa198
+*solarized-dark.color7:                  #eee8d5
+*solarized-dark.color9:                  #cb4b16
+*solarized-dark.color8:                  #002b36
+*solarized-dark.color10:                 #586e75
+*solarized-dark.color11:                 #657b83
+*solarized-dark.color12:                 #839496
+*solarized-dark.color13:                 #6c71c4
+*solarized-dark.color14:                 #93a1a1
+*solarized-dark.color15:                 #fdf6e3
+
+*solarized-light.background:             #fdf6e3
+*solarized-light.border:                 #fdf6e3
+*solarized-light.foreground:             #657b83
+*solarized-light.cursorColor:            #586e75
+*solarized-light.pointerColorBackground: #93a1a1
+*solarized-light.pointerColorForeground: #586e75
+*solarized-light.color0:                 #eee8d5
+*solarized-light.color1:                 #dc322f
+*solarized-light.color2:                 #859900
+*solarized-light.color3:                 #b58900
+*solarized-light.color4:                 #268bd2
+*solarized-light.color5:                 #d33682
+*solarized-light.color6:                 #2aa198
+*solarized-light.color7:                 #073642
+*solarized-light.color9:                 #cb4b16
+*solarized-light.color8:                 #fdf6e3
+*solarized-light.color10:                #93a1a1
+*solarized-light.color11:                #839496
+*solarized-light.color12:                #657b83
+*solarized-light.color13:                #6c71c4
+*solarized-light.color14:                #586e75
+*solarized-light.color15:                #002b36
 
 !-------------------------------------------------------------------------------
 ! urxvt General

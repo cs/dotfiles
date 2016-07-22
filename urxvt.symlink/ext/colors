@@ -16,65 +16,21 @@ for my $i (0..15) { $escapecodes{"color$i"} = "4;$i"; }
 
 my @colors = keys(%escapecodes);
 
-# TODO@cs: get the actual theme colors from Xresources, somehow ...
-my %solarizedLight = (
-  "foreground"             => "#657b83",
-  "background"             => "#fdf6e3",
-  "border"                 => "#fdf6e3",
-  "cursorColor"            => "#586e75",
-  "pointerColorBackground" => "#93a1a1",
-  "pointerColorForeground" => "#586e75",
-  "color0"                 => "#eee8d5",
-  "color1"                 => "#dc322f",
-  "color2"                 => "#859900",
-  "color3"                 => "#b58900",
-  "color4"                 => "#268bd2",
-  "color5"                 => "#d33682",
-  "color6"                 => "#2aa198",
-  "color7"                 => "#073642",
-  "color9"                 => "#cb4b16",
-  "color8"                 => "#fdf6e3",
-  "color10"                => "#93a1a1",
-  "color11"                => "#839496",
-  "color12"                => "#657b83",
-  "color13"                => "#6c71c4",
-  "color14"                => "#586e75",
-  "color15"                => "#002b36"
-);
-
-# TODO@cs: get the actual theme colors from Xresources, somehow ...
-my %solarizedDark = (
-  "foreground"             => "#839496",
-  "background"             => "#002b36",
-  "border"                 => "#002b36",
-  "cursorColor"            => "#93a1a1",
-  "pointerColorBackground" => "#586e75",
-  "pointerColorForeground" => "#93a1a1",
-  "color0"                 => "#073642",
-  "color1"                 => "#dc322f",
-  "color2"                 => "#859900",
-  "color3"                 => "#b58900",
-  "color4"                 => "#268bd2",
-  "color5"                 => "#d33682",
-  "color6"                 => "#2aa198",
-  "color7"                 => "#eee8d5",
-  "color9"                 => "#cb4b16",
-  "color8"                 => "#002b36",
-  "color10"                => "#586e75",
-  "color11"                => "#657b83",
-  "color12"                => "#839496",
-  "color13"                => "#6c71c4",
-  "color14"                => "#93a1a1",
-  "color15"                => "#fdf6e3"
-);
+my %solarizedLight = ();
+my %solarizedDark = ();
 
 my $currentTheme = "undef";
 
 sub on_start {
   my ($self) = @_;
 
+  for (@colors) {
+    $solarizedDark{$_} = $self->x_resource("%.solarized-dark.$_");
+    $solarizedLight{$_} = $self->x_resource("%.solarized-light.$_");
+  }
+
   if ($currentTheme eq "undef") {
-    $currentTheme = "solarizedDark"; # default
+    $currentTheme = "solarized-dark"; # default
   }
 
   apply_current_theme();
@@ -84,14 +40,14 @@ sub on_action {
   my ($self, $action) = @_;
 
   if ($action eq "cycle") {
-    if ($currentTheme eq "solarizedDark") { $currentTheme = "solarizedLight"; }
-    else { $currentTheme = "solarizedDark"; }
+    if ($currentTheme eq "solarized-dark") { $currentTheme = "solarized-light"; }
+    else { $currentTheme = "solarized-dark"; }
     apply_current_theme();
   } elsif ($action eq "dark") {
-    $currentTheme = "solarizedDark";
+    $currentTheme = "solarized-dark";
     apply_current_theme();
   } elsif ($action eq "light") {
-    $currentTheme = "solarizedLight";
+    $currentTheme = "solarized-light";
     apply_current_theme();
   }
 }
@@ -100,8 +56,8 @@ sub apply_current_theme {
   my $cmd = "";
   my %theme = ();
 
-  if ($currentTheme eq "solarizedDark") { %theme = %solarizedDark; }
-  elsif ($currentTheme eq "solarizedLight") { %theme = %solarizedLight; }
+  if ($currentTheme eq "solarized-dark") { %theme = %solarizedDark; }
+  elsif ($currentTheme eq "solarized-light") { %theme = %solarizedLight; }
 
   for (@colors) {
     $cmd .= "\033]" . $escapecodes{$_} . ";" . $theme{$_} . "\033\\";
