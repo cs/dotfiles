@@ -103,9 +103,7 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((noModMask, xF86XK_AudioRaiseVolume),
      spawn "pactl set-sink-volume @DEFAULT_SINK@ +10%")
   -- Mute/Unmute audio input (Fn + F4):
-  -- This doesn't work currently, but a fix is included in linux 4.7.
-  -- See https://sourceforge.net/p/ibm-acpi/mailman/message/34988427/
-  , ((noModMask, xK_VoidSymbol), -- TODO: find correct keysym
+  , ((noModMask, 0x1008FFB2), -- i.e. XF86AudioMicMute
      spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle")
   -- Decrease backlight by 10% (Fn + F5):
   , ((noModMask, xF86XK_MonBrightnessDown),
@@ -114,34 +112,22 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((noModMask, xF86XK_MonBrightnessUp),
      spawn "xbacklight -inc 10%")
   -- ??? (Fn + F7):
-  -- This doesn't work currently, but a fix is included in linux 4.7.
-  -- See https://sourceforge.net/p/ibm-acpi/mailman/message/34988427/
-  , ((noModMask, xK_VoidSymbol), -- TODO: find correct keysym
-     spawn "")
+  , ((noModMask, 0x1008FF59), -- i.e. XF86Display
+     return ())
   -- ??? (Fn + F8):
-  -- This doesn't work currently, but a fix is included in linux 4.7.
-  -- See https://sourceforge.net/p/ibm-acpi/mailman/message/34988427/
-  , ((noModMask, xK_VoidSymbol), -- TODO: find correct keysym
-     spawn "")
+  , ((noModMask, 0x1008FF95), -- i.e. XF86WLAN
+     return ())
   -- ??? (Fn + F9):
-  -- This doesn't work currently, but a fix is included in linux 4.7.
-  -- See https://sourceforge.net/p/ibm-acpi/mailman/message/34988427/
-  , ((noModMask, xK_VoidSymbol), -- TODO: find correct keysym
-     spawn "")
+  , ((noModMask, 0x1008FF81), -- i.e. XF86Tools
+     return ())
   -- ??? (Fn + F10):
-  -- This doesn't work currently, but a fix is included in linux 4.7.
-  -- See https://sourceforge.net/p/ibm-acpi/mailman/message/34988427/
-  , ((noModMask, xK_VoidSymbol), -- TODO: find correct keysym
-     spawn "")
+  , ((noModMask, 0x1008FF1B), -- i.e. XF86Search
+     return ())
   -- ??? (Fn + F11):
-  -- This doesn't work currently, but a fix is included in linux 4.7.
-  -- See https://sourceforge.net/p/ibm-acpi/mailman/message/34988427/
-  , ((noModMask, xK_VoidSymbol), -- TODO: find correct keysym
-     spawn "")
+  , ((noModMask, 0x1008FF4A), -- i.e. XF86LaunchA
+     return ())
   -- Launch Nautilus (Fn + F12):
-  -- This doesn't work currently, but a fix is included in linux 4.7.
-  -- See https://sourceforge.net/p/ibm-acpi/mailman/message/34988427/
-  , ((noModMask, xK_VoidSymbol), -- TODO: find correct keysym
+  , ((noModMask, 0x1008FF5D), -- i.e. XF86Explorer
      spawn "nautilus")
   -- Quit xmonad:
   , ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess)) ] ++
