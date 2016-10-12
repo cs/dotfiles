@@ -3,6 +3,7 @@ source "$HOME/.zsh/prompt.zsh"
 source "$HOME/.zsh/completion.zsh"
 source "$HOME/.zsh/aliases.zsh"
 source "$HOME/.zsh/history.zsh"
+source "$HOME/.zsh/title.zsh"
 
 # Use ESC to edit the current command line:
 autoload -U edit-command-line
