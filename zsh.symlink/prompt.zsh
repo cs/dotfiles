@@ -8,22 +8,22 @@ function awesome_prompt() {
   # ----------------------------------------------------------------------------
 
   local directory_separator=''
-  local cwd_home_bg=31           # = blueish
-  local cwd_home_fg=15           # = white
-  local cwd_dir_bg=237           # = dark gray
-  local cwd_dir_fg=250           # = almost white
-  local cwd_last_dir_bg=237      # = dark gray
-  local cwd_last_dir_fg=255      # = white
+  local cwd_home_bg=0           # = blue
+  local cwd_home_fg=7           # = pale white
+  local cwd_dir_bg=0            # = black
+  local cwd_dir_fg=7            # = pale white
+  local cwd_last_dir_bg=0       # = black
+  local cwd_last_dir_fg=7       # = pale white
 
   local read_only_symbol=''
-  local read_only_bg=124         # = red
-  local read_only_fg=255         # = white
+  local read_only_bg=1          # = red
+  local read_only_fg=7          # = pale white
 
   local status_symbol='$'
-  local status_cmd_passed_bg=238 # = dark gray
-  local status_cmd_passed_fg=255 # = white
-  local status_cmd_failed_bg=161 # = pink
-  local status_cmd_failed_fg=255 # = white
+  local status_cmd_passed_bg=4  # = dark gray
+  local status_cmd_passed_fg=0  # = black
+  local status_cmd_failed_bg=1  # = red
+  local status_cmd_failed_fg=0  # = black
 
   # ----------------------------------------------------------------------------
   # Segment Drawing Utilities
@@ -71,6 +71,9 @@ function awesome_prompt() {
   if [[ $cwd_list[1] == '~' ]] ; then
     segment $cwd_home_bg $cwd_home_fg '~'
     cwd_list[1]=() # remove '~' from list
+    if [[ $#cwd_list > 0 ]]; then
+      echo -n " $directory_separator" # render "separator" symbol
+    fi
   fi
 
   # Iterate over all other elements in the list...
@@ -104,11 +107,9 @@ function awesome_prompt() {
 
   if exists 'git-radar'; then
     local radar_fragments=()
-    radar_fragments+="%{$fg_bold[grey]%}git:(%{$reset_color%}"
     radar_fragments+='%{remote: }'
     radar_fragments+='%{branch}'
     radar_fragments+='%{ :local}'
-    radar_fragments+="%{$fg_bold[grey]%})%{$reset_color%}"
     radar_fragments+="%{ :stash}"
     radar_fragments+="%{ :changes}"
 
@@ -119,7 +120,7 @@ function awesome_prompt() {
                    GIT_RADAR_MASTER_SYMBOL="$master_symbol" \
                    git-radar --zsh)"
 
-    [[ "$radar" != '' ]] && segment '' '' "$radar"
+    [[ "$radar" != '' ]] && segment '8' '' "$radar"
   fi
 
   # ----------------------------------------------------------------------------
