@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+disconnectedOutputs=($(xrandr --query | grep " disconnected" | cut -d " " -f1))
+connectedOutputs=($(xrandr --query | grep " connected" | cut -d " " -f1))
+internalOutput="eDP1"
+
+if [[ ${#connectedOutputs[@]} > 1 ]]; then
+  # Using multiple outputs =>
+  #   1) Activate all external outputs.
+  #   2) Deactivate all disconnected outputs.
+  #   2) Deactivate internal output.
+
+  for output in "${connectedOutputs[@]}"; do
+    if [[ $output != $internalOutput ]]; then # Is it an external output?
+      # Calculate scale and panning for outputs with low resolution ...
+      preferred=$(xrandr --query | grep -A1000 "^$output" | head --lines=2 | tail --lines=1 | cut -d" " -f4)
+      preferredX=$(echo $preferred | cut -d"x" -f1)
+      preferredY=$(echo $preferred | cut -d"x" -f2)
+      if [[ ! $preferredX > 2560 ]]; then
+        scale="--scale 1.5x1.5"
+        panning="--panning $((preferredX*15/10))x$((preferredY*15/10))"
+      fi
+      eval "xrandr --output $output --auto $scale $panning --primary"
+    fi
+  done
+
+  for output in "${disconnectedOutputs[@]}"; do
+    eval "xrandr --output $output --off"
+  done
+
+  eval "xrandr --output $internalOutput --off"
+else
+  # Using single output =>
+  #   1) Activate internal output.
+  #   2) Deactivate all disconnected outputs.
+  #   3) Reset size of the framebuffer.
+
+  eval "xrandr --output $internalOutput --auto --primary"
+  for output in "${disconnectedOutputs[@]}"; do
+    eval "xrandr --output $output --off"
+  done
+  eval "xrandr --fb 2560x1440"
+fi
