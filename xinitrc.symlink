@@ -11,6 +11,5 @@ unclutter -grab -noevents -root &
 
 urxvtd -q -o -f
 urxvtc
-google-chrome-stable &
 
 exec xmonad
