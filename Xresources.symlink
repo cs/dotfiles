@@ -72,7 +72,7 @@ URxvt.font-size.step: 1
 ! Appearance
 !-------------------------------------------------------------------------------
 URxvt.scrollBar: false
-URxvt.internalBorder: 3
+URxvt.internalBorder: 4
 URxvt.letterSpace: -1
 URxvt.intensityStyles: false
 URxvt.fading: 0

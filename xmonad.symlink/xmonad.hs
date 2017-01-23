@@ -29,7 +29,7 @@ import qualified XMonad.StackSet as W
 main :: IO ()
 main = do
   xmonad =<< xmobar XConfig
-    { XMonad.borderWidth = 3
+    { XMonad.borderWidth = 2
     , XMonad.clickJustFocuses = True
     , XMonad.clientMask = clientMask
     , XMonad.focusFollowsMouse = True
@@ -161,7 +161,7 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 layout = tiled ||| Mirror tiled ||| Full
   where
-    tiled = spacing 5 $ ResizableTall nmaster delta ratio []
+    tiled = spacing 8 $ ResizableTall nmaster delta ratio []
     -- Default number of windows in master pane
     nmaster = 1
     -- Percent of the screen to increment when resizing
