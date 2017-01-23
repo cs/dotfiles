@@ -5,5 +5,8 @@ task.symlink/*
 !task.symlink/.keep
 vim.symlink/*
 xmonad.symlink/*
-!xmonad.symlink/xmonad.hs
+!xmonad.symlink/*.hs
+!xmonad.symlink/lib
+xmonad.symlink/lib/*
+!xmonad.symlink/lib/*.hs
 wallpapers.symlink/*
