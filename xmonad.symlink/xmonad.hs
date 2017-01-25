@@ -16,6 +16,7 @@ import           Graphics.X11.Xlib
 import           System.Exit
 import           XMonad.Hooks.DynamicLog (xmobar)
 import           XMonad.Hooks.ManageDocks
+import           XMonad.Hooks.SetWMName
 import           XMonad.Layout
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.ResizableTile
@@ -44,7 +45,7 @@ main = do
     , XMonad.mouseBindings = mouseBindings
     , XMonad.normalBorderColor = "#333333"
     , XMonad.rootMask = rootMask
-    , XMonad.startupHook = return ()
+    , XMonad.startupHook = setWMName "LG3D"
     , XMonad.terminal = "urxvtc"
     , XMonad.workspaces = fmap show [1..9] }
 
