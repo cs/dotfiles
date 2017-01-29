@@ -1,7 +1,6 @@
 !-------------------------------------------------------------------------------
-! Colors
+! Color Theme: Solarized Dark
 !-------------------------------------------------------------------------------
-
 *solarized-dark.background:              #002b36
 *solarized-dark.border:                  #002b36
 *solarized-dark.foreground:              #839496
@@ -25,6 +24,9 @@
 *solarized-dark.color14:                 #93a1a1
 *solarized-dark.color15:                 #fdf6e3
 
+!-------------------------------------------------------------------------------
+! Color Theme: Solarized Light
+!-------------------------------------------------------------------------------
 *solarized-light.background:             #fdf6e3
 *solarized-light.border:                 #fdf6e3
 *solarized-light.foreground:             #657b83
@@ -49,7 +51,7 @@
 *solarized-light.color15:                #002b36
 
 !-------------------------------------------------------------------------------
-! urxvt General
+! URxvt General
 !-------------------------------------------------------------------------------
 
 URxvt.perl-ext-common: font-size,clear-screen,colors
@@ -58,18 +60,22 @@ URxvt.iso14755: false
 URxvt.iso14755_52: false
 
 !-------------------------------------------------------------------------------
-! Fonts
+! URxvt Fonts
 !-------------------------------------------------------------------------------
 URxvt.font:           xft:Menlo for Powerline:size=14
-
-URxvt.keysym.F5:      colors:cycle
+URxvt.font-size.step: 1
 URxvt.keysym.C-0x30:  font-size:reset
 URxvt.keysym.C-equal: font-size:increase
 URxvt.keysym.C-minus: font-size:decrease
-URxvt.font-size.step: 1
 
 !-------------------------------------------------------------------------------
-! Appearance
+! URxvt Colors
+!-------------------------------------------------------------------------------
+URxvt.colors.themes: solarized-dark,solarized-light
+URxvt.keysym.F5:     colors:cycle
+
+!-------------------------------------------------------------------------------
+! URxvt Appearance
 !-------------------------------------------------------------------------------
 URxvt.scrollBar: false
 URxvt.internalBorder: 4
@@ -78,7 +84,7 @@ URxvt.intensityStyles: false
 URxvt.fading: 0
 
 !-------------------------------------------------------------------------------
-! Behavior
+! URxvt Behavior
 !-------------------------------------------------------------------------------
 URxvt.scrollTtyOutput: false
 URxvt.scrollWithBuffer: true

@@ -16,21 +16,20 @@ for my $i (0..15) { $escapecodes{"color$i"} = "4;$i"; }
 
 my @colors = keys(%escapecodes);
 
-my %solarizedLight = ();
-my %solarizedDark = ();
-
-my $currentTheme = "undef";
+my @theme_sequence = ();
+my $current_theme = 0; # 1st theme in sequence is the default
+my %themes = ();
 
 sub on_start {
   my ($self) = @_;
 
-  for (@colors) {
-    $solarizedDark{$_} = $self->x_resource("%.solarized-dark.$_");
-    $solarizedLight{$_} = $self->x_resource("%.solarized-light.$_");
-  }
+  @theme_sequence = split(/,/, $self->x_resource("%.themes"));
 
-  if ($currentTheme eq "undef") {
-    $currentTheme = "solarized-dark"; # default
+  foreach my $theme_id (@theme_sequence) {
+    $themes{$theme_id} = ();
+    for (@colors) {
+      $themes{$theme_id}{$_} = $self->x_resource("%.$theme_id.$_");
+    }
   }
 
   apply_current_theme();
@@ -40,27 +39,19 @@ sub on_action {
   my ($self, $action) = @_;
 
   if ($action eq "cycle") {
-    if ($currentTheme eq "solarized-dark") { $currentTheme = "solarized-light"; }
-    else { $currentTheme = "solarized-dark"; }
-    apply_current_theme();
-  } elsif ($action eq "dark") {
-    $currentTheme = "solarized-dark";
-    apply_current_theme();
-  } elsif ($action eq "light") {
-    $currentTheme = "solarized-light";
+    $current_theme++;
+    if ($current_theme > $#theme_sequence) { $current_theme = 0; } # wheel
     apply_current_theme();
   }
 }
 
 sub apply_current_theme {
   my $cmd = "";
-  my %theme = ();
-
-  if ($currentTheme eq "solarized-dark") { %theme = %solarizedDark; }
-  elsif ($currentTheme eq "solarized-light") { %theme = %solarizedLight; }
+  my $theme_id = $theme_sequence[$current_theme];
 
   for (@colors) {
-    $cmd .= "\033]" . $escapecodes{$_} . ";" . $theme{$_} . "\033\\";
+    $cmd .= "\033]" . $escapecodes{$_} . ";";
+    $cmd .= $themes{$theme_id}{$_} . "\033\\";
   }
 
   foreach my $term (urxvt::termlist) { $term->cmd_parse($cmd); }
