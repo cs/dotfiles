@@ -17,6 +17,7 @@
   wdi = diff --word-diff
   dc = diff --cached
   dsc = diff --cached --stat
+  dcs = dsc # For some reason I keep mis-typing it like this ;)
   wdc = diff --cached --word-diff
   f = fetch
   fa = fetch --all
