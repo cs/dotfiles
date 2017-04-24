@@ -75,30 +75,6 @@
 *tomorrow.color15:      #efefef
 
 !-------------------------------------------------------------------------------
-! Color Theme: Tomorrow Night
-!-------------------------------------------------------------------------------
-*tomorrow-night.background:   #1d1f21
-*tomorrow-night.border:       #1d1f21
-*tomorrow-night.foreground:   #c5c8c6
-*tomorrow-night.cursorColor:  #aeafad
-*tomorrow-night.color0:       #000000
-*tomorrow-night.color1:       #cc6666
-*tomorrow-night.color2:       #b5bd68
-*tomorrow-night.color3:       #de935f
-*tomorrow-night.color4:       #81a2be
-*tomorrow-night.color5:       #b294bb
-*tomorrow-night.color6:       #8abeb7
-*tomorrow-night.color7:       #373b41
-*tomorrow-night.color8:       #666666
-*tomorrow-night.color9:       #ff3334
-*tomorrow-night.color10:      #9ec400
-*tomorrow-night.color11:      #f0c674
-*tomorrow-night.color12:      #81a2be
-*tomorrow-night.color13:      #b777e0
-*tomorrow-night.color14:      #54ced6
-*tomorrow-night.color15:      #282a2e
-
-!-------------------------------------------------------------------------------
 ! Color Theme: Tomorrow Night Bright
 !-------------------------------------------------------------------------------
 *tomorrow-night-bright.background:   #000000
@@ -166,7 +142,7 @@ URxvt.keysym.C-minus: font-size:decrease
 !-------------------------------------------------------------------------------
 ! URxvt Colors
 !-------------------------------------------------------------------------------
-URxvt.colors.themes: tomorrow-night-bright,solarized-dark,solarized-light,tomorrow,tomorrow-night,tomorrow-night-eighties
+URxvt.colors.themes: tomorrow-night-bright,solarized-dark,solarized-light,tomorrow,tomorrow-night-eighties
 URxvt.keysym.F5:     colors:cycle
 
 !-------------------------------------------------------------------------------
