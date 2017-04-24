@@ -37,8 +37,8 @@ function awesome_prompt() {
   function segment() {
     #
     # Color cheat sheet:
-    # %F{red} (%f) -- Set (unset) foreground color to red.
-    # %K{red} (%k) -- Set (unset) background color to red.
+    # %F{red} (%f) -- Set (unset) foreground color.
+    # %K{red} (%k) -- Set (unset) background color.
     # %B (%b)      -- Start (stop) boldface mode.
     # %U (%u)      -- Start (stop) underline mode.
     # %S (%s)      -- Start (stop) standout mode.
