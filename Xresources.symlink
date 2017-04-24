@@ -190,7 +190,7 @@ URxvt.keysym.C-minus: font-size:decrease
 !-------------------------------------------------------------------------------
 ! URxvt Colors
 !-------------------------------------------------------------------------------
-URxvt.colors.themes: solarized-dark,solarized-light
+URxvt.colors.themes: tomorrow-night-bright,solarized-dark,solarized-light,tomorrow,tomorrow-night,tomorrow-night-eighties,tomorrow-night-blue
 URxvt.keysym.F5:     colors:cycle
 
 !-------------------------------------------------------------------------------
