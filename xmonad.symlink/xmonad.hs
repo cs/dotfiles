@@ -131,7 +131,9 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((noModMask, 0x1008FF5D), -- i.e. XF86Explorer
      spawn "nautilus")
   -- Quit xmonad:
-  , ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess)) ] ++
+  , ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess))
+  -- Lock the screen:
+  , ((modMask, xK_q), spawn "slock") ] ++
   -- Switch to workspace N:
   [ ((modMask, k), windows $ W.greedyView i)
       | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ] ++
