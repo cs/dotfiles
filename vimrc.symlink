@@ -97,3 +97,5 @@ let g:ctrlp_use_caching = 0
 if has('clipboard')
   set clipboard=unnamedplus
 endif
+
+set mouse=a
