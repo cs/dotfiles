@@ -2,8 +2,6 @@
 
 reconfigure-monitors
 
-setxkbmap -option ctrl:nocaps
-
 if [[ -f ~/.wallpapers/current ]]; then
   feh --no-fehbg --bg-fill .wallpapers/current &
 fi
