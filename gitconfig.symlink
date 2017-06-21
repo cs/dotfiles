@@ -52,6 +52,9 @@
 [diff]
   tool = vimdiff
 
+[diff "pdf"]
+  binary = true
+
 [difftool]
   prompt = false
 
@@ -60,3 +63,4 @@
 
 [core]
   excludesFile = ~/.gitignore
+  attributesFile = ~/.gitattributes
