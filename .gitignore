@@ -1,5 +1,6 @@
 config.symlink/*
 !config.symlink/chrome-flags.conf
+!config.symlink/git
 histories.symlink/*
 task.symlink/*
 !task.symlink/.keep
