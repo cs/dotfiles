@@ -12,4 +12,7 @@ unclutter -noevents -root &
 urxvtd -q -o -f
 urxvtc
 
+export XMONAD_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/xmonad"
+export XMONAD_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/xmonad"
+export XMONAD_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/xmonad"
 exec stack exec xmonad
