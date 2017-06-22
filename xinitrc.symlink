@@ -12,4 +12,4 @@ unclutter -noevents -root &
 urxvtd -q -o -f
 urxvtc
 
-exec xmonad
+exec stack exec xmonad
