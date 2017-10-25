@@ -2,7 +2,7 @@
 
 disconnectedOutputs=($(xrandr --query | grep " disconnected" | cut -d " " -f1))
 connectedOutputs=($(xrandr --query | grep " connected" | cut -d " " -f1))
-internalOutput="eDP1"
+internalOutput="eDP-1"
 
 if [[ ${#connectedOutputs[@]} > 1 ]]; then
   # Using multiple outputs =>
@@ -39,5 +39,5 @@ else
   for output in "${disconnectedOutputs[@]}"; do
     eval "xrandr --output $output --off"
   done
-  eval "xrandr --fb 2560x1440"
+  eval "xrandr --fb 3840x2160"
 fi
