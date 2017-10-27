@@ -1,14 +1,14 @@
 #!/usr/bin/env ruby
 
-BATTERIES = [0, 1].freeze
+BATTERIES = [0].freeze
 
-energy_full = 0
-energy_now = 0
+charge_full = 0
+charge_now = 0
 
 BATTERIES.each do |b|
-  energy_full += File.read("/sys/class/power_supply/BAT#{b}/energy_full").to_f
-  energy_now += File.read("/sys/class/power_supply/BAT#{b}/energy_now").to_f
+  charge_full += File.read("/sys/class/power_supply/BAT#{b}/charge_full").to_f
+  charge_now += File.read("/sys/class/power_supply/BAT#{b}/charge_now").to_f
 end
 
-percentage = energy_now / energy_full * 100.0
+percentage = charge_now / charge_full * 100.0
 puts format("%.2f%", percentage)
