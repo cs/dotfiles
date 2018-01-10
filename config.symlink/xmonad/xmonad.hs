@@ -14,7 +14,8 @@ import           Data.Monoid
 import           Graphics.X11.ExtraTypes.XF86
 import           Graphics.X11.Xlib
 import           System.Exit
-import           XMonad.Hooks.DynamicLog (xmobar)
+import           XMonad.Hooks.DynamicLog (PP(..), dynamicLogWithPP, dzenPP)
+import           XMonad.Hooks.EwmhDesktops (ewmh)
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.SetWMName
 import           XMonad.Layout
@@ -24,14 +25,16 @@ import           XMonad.Layout.Spacing
 import           XMonad.Main (xmonad)
 import           XMonad.ManageHook
 import           XMonad.Operations
+import           XMonad.Util.Run (hPutStrLn, spawnPipe)
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 
 main :: IO ()
 main = do
+  dzenTop <- spawnPipe "dzen2 -dock -e 'onstart=lower' -ta l -h 30"
   let focusedColor = "#dc322f"
   let normalColor = "#586e75"
-  xmonad =<< xmobar XConfig
+  xmonad $ ewmh $ XConfig
     { XMonad.borderWidth = 2
     , XMonad.clickJustFocuses = True
     , XMonad.clientMask = clientMask
@@ -40,8 +43,9 @@ main = do
     , XMonad.handleEventHook = (\_ -> return (All True)) <+> docksEventHook
     , XMonad.handleExtraArgs = handleExtraArgs
     , XMonad.keys = keys
-    , XMonad.layoutHook = smartBorders $ avoidStruts layout
-    , XMonad.logHook = return ()
+    , XMonad.layoutHook = avoidStruts layout
+    , XMonad.logHook = do
+        dynamicLogWithPP $ dzenPP { ppOutput = hPutStrLn dzenTop }
     , XMonad.manageHook = manageDocks
     , XMonad.modMask = mod1Mask
     , XMonad.mouseBindings = mouseBindings
