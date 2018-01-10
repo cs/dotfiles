@@ -29,12 +29,14 @@ import qualified XMonad.StackSet as W
 
 main :: IO ()
 main = do
+  let focusedColor = "#dc322f"
+  let normalColor = "#586e75"
   xmonad =<< xmobar XConfig
     { XMonad.borderWidth = 2
     , XMonad.clickJustFocuses = True
     , XMonad.clientMask = clientMask
     , XMonad.focusFollowsMouse = True
-    , XMonad.focusedBorderColor = "#dc322f"
+    , XMonad.focusedBorderColor = focusedColor
     , XMonad.handleEventHook = (\_ -> return (All True)) <+> docksEventHook
     , XMonad.handleExtraArgs = handleExtraArgs
     , XMonad.keys = keys
@@ -43,7 +45,7 @@ main = do
     , XMonad.manageHook = manageDocks
     , XMonad.modMask = mod1Mask
     , XMonad.mouseBindings = mouseBindings
-    , XMonad.normalBorderColor = "#333333"
+    , XMonad.normalBorderColor = normalColor
     , XMonad.rootMask = rootMask
     , XMonad.startupHook = setWMName "LG3D"
     , XMonad.terminal = "urxvtc"
