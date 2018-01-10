@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh -e
+#!/bin/sh
 
 # ------------------------------------------------------------------------------
 # Usage
@@ -8,7 +8,7 @@
 #   $ while-success make test
 #
 # Executes the given command (e.g. `rspec`) in a loop as long as it succeeds
-# (i.e. it exit with status code `0`).
+# (i.e. exits with status code `== 0`).
 # ------------------------------------------------------------------------------
 
 $* # 1st run
