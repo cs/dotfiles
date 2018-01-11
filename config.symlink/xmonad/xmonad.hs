@@ -14,7 +14,8 @@ import           Data.Monoid
 import           Graphics.X11.ExtraTypes.XF86
 import           Graphics.X11.Xlib
 import           System.Exit
-import           XMonad.Hooks.DynamicLog (PP(..), dynamicLogWithPP, dzenPP)
+import           System.IO (Handle)
+import           XMonad.Hooks.DynamicLog (PP(..), dynamicLogWithPP, defaultPP, dzenColor, dzenEscape, wrap)
 import           XMonad.Hooks.EwmhDesktops (ewmh)
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.SetWMName
@@ -31,7 +32,9 @@ import qualified XMonad.StackSet as W
 
 main :: IO ()
 main = do
-  dzenTop <- spawnPipe "dzen2 -dock -e 'onstart=lower' -ta l -h 30"
+  dzenLeft <- spawnPipe "dzen2 -dock -e 'onstart=lower' -ta l -h 40 -fn 'xft:Menlo for Powerline:size=16'"
+  -- dzenRight <- spawnPipe "while-success echo 'xxx' | dzen2 -dock -ta r -x 960 -h 40 -fn 'xft:Menlo for Powerline:size=16'"
+
   let focusedColor = "#dc322f"
   let normalColor = "#586e75"
   xmonad $ ewmh $ XConfig
@@ -44,8 +47,7 @@ main = do
     , XMonad.handleExtraArgs = handleExtraArgs
     , XMonad.keys = keys
     , XMonad.layoutHook = avoidStruts layout
-    , XMonad.logHook = do
-        dynamicLogWithPP $ dzenPP { ppOutput = hPutStrLn dzenTop }
+    , XMonad.logHook = dzenLogHook dzenLeft
     , XMonad.manageHook = manageDocks
     , XMonad.modMask = mod1Mask
     , XMonad.mouseBindings = mouseBindings
@@ -54,6 +56,19 @@ main = do
     , XMonad.startupHook = setWMName "LG3D"
     , XMonad.terminal = "urxvtc"
     , XMonad.workspaces = fmap show [1..9] }
+
+dzenLogHook :: Handle -> X ()
+dzenLogHook dzenLeft = dynamicLogWithPP $
+  defaultPP { ppCurrent         = dzenColor "black" "orange" . wrap "  " "  "
+            , ppVisible         = dzenColor "black" "red" . wrap "  " "  "
+            , ppHidden          = dzenColor "white" "#333333" . wrap "  " "  "
+            , ppHiddenNoWindows = const ""
+            , ppUrgent          = dzenColor "white" "red" . wrap "  " "  "
+            , ppSep             = " "
+            , ppWsSep           = " "
+            , ppTitle           = const ""
+            , ppLayout          = dzenColor "#222222" "black" . wrap " " " "
+            , ppOutput          = hPutStrLn dzenLeft }
 
 clientMask :: EventMask
 clientMask = structureNotifyMask .|. enterWindowMask .|. propertyChangeMask
