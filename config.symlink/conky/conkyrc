@@ -6,7 +6,13 @@ conky.config = {
   total_run_times = 0,
   use_spacer = none,
   override_utf8_locale = true,
-  template0 = [[^fn()^fg(\\#e2abd4)${time %Y-%m-%d %H:%M:%S}]]
+  template8 = [[^i(/home/cs/.config/conky/delimiter-right.xbm)]],
+  template9 = [[^i(/home/cs/.config/conky/delimiter-left.xbm)]]
 };
 
-conky.text = [[^fg(\#333333)^i(/home/cs/.config/conky/left-delimiter.xbm)^fg()^bg(\#333333)${template0}]];
+conky.text = [[^fg(\#333333)^bg()${template9}^fg()^bg(\#333333)]] ..
+             [[$battery_short]] ..
+             [[^fg(\#000000)^bg(\#333333)${template9}^fg()^bg()]] ..
+             [[^fg(\#ff0000)${if_pa_sink_muted}OFF$else${pa_sink_volume}%$endif]] ..
+             [[^fg(\#333333)^bg()${template9}^fg()^bg(\#333333)]] ..
+             [[^fn()^fg(\\#e2abd4)${time %Y-%m-%d %H:%M:%S}]];
