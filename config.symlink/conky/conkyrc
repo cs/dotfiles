@@ -9,4 +9,4 @@ conky.config = {
   template0 = [[^fn()^fg(\\#e2abd4)${time %Y-%m-%d %H:%M:%S}]]
 };
 
-conky.text = [[${template0}]];
+conky.text = [[^fg(\#333333)^i(/home/cs/.config/conky/left-delimiter.xbm)^fg()^bg(\#333333)${template0}]];
