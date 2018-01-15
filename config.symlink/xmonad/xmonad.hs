@@ -32,8 +32,8 @@ import qualified XMonad.StackSet as W
 
 main :: IO ()
 main = do
-  dzenLeft <- spawnPipe "dzen2 -dock -e 'onstart=lower' -ta l -h 40 -fn 'xft:Menlo for Powerline:size=16'"
-  dzenRight <- spawnPipe "conky -c ~/.config/conky/conkyrc | dzen2 -dock -ta r -x 960 -h 40 -fn 'xft:Menlo for Powerline:size=16'"
+  dzenLeft <- spawnPipe "dzen2 -dock -e 'onstart=lower' -ta l -h 40 -fn 'xft:Menlo for Powerline:size=18'"
+  dzenRight <- spawnPipe "conky -c ~/.config/conky/conkyrc | dzen2 -dock -ta r -x 960 -h 40 -fn 'xft:Menlo for Powerline:size=18'"
 
   let focusedColor = "#dc322f"
   let normalColor = "#586e75"
