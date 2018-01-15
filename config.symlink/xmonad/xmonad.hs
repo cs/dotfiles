@@ -117,16 +117,16 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_m), windows W.focusMaster)
   -- Mute/Unmute audio output (Fn + F1):
   , ((noModMask, xF86XK_AudioMute),
-     spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+     spawn "pamixer --toggle-mute")
   -- Decrease audio volume by 10% (Fn + F2):
   , ((noModMask, xF86XK_AudioLowerVolume),
-     spawn "pactl set-sink-volume @DEFAULT_SINK@ -10%")
+     spawn "pamixer --decrease 10")
   -- Increase audio volume by 10% (Fn + F3):
   , ((noModMask, xF86XK_AudioRaiseVolume),
-     spawn "pactl set-sink-volume @DEFAULT_SINK@ +10%")
+     spawn "pamixer --increase 10")
   -- Mute/Unmute audio input (Fn + F4):
   , ((noModMask, 0x1008FFB2), -- i.e. XF86AudioMicMute
-     spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle")
+     spawn "pamixer --default-source --toggle-mute")
   -- Decrease backlight by 10% (Fn + F5):
   , ((noModMask, xF86XK_MonBrightnessDown),
      spawn "xbacklight -dec 10%")
