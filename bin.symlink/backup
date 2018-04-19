@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+set -e
+
+PROGRAM=$0
+function usage() {
+  echo "Usage: $PROGRAM <command>"
+  echo "  where <command> is one of: create, check, info, list, prune"
+}
+
+
+export BORG_REPO=/run/media/cs/8e1bfaaa-278a-418e-8802-94710bf58624/backup
+archive_prefix="xps-"
+
+
+subcommand="$1"
+shift # Discard first argument (i.e. the subcommand)
+
+
+case "$subcommand" in
+  create )
+    borg create --stats --progress --compression lz4 "::${archive_prefix}{now}" $HOME
+    ;;
+  check )
+    borg check --verify-data -v
+    ;;
+  info )
+    borg info
+    ;;
+  list )
+    borg list
+    ;;
+  prune )
+    # Keep daily for last month,
+    # weekly for the last year,
+    # and monthly backups for the last 10 years.
+    borg prune --keep-daily 30 \
+               --keep-weekly 52 \
+               --keep-monthly 120 \
+               --prefix "${archive_prefix}"
+    ;;
+  * )
+    usage
+    ;;
+esac
