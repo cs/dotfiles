@@ -6,6 +6,8 @@ config.symlink/xmonad/*.hi
 config.symlink/xmonad/*.o
 config.symlink/xmonad/lib/*.hi
 config.symlink/xmonad/lib/*.o
+fonts.symlink/.uuid
+fonts.symlink/Font Awesome 5 Pro*
 histories.symlink/*
 task.symlink/*
 !task.symlink/.keep
