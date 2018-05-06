@@ -9,13 +9,16 @@ import qualified XMonad.Core as XMonad (
   logHook, manageHook, modMask, mouseBindings, normalBorderColor, rootMask,
   startupHook, terminal, workspaces )
 
+import           Control.Monad (join)
+import           Control.Monad.State (gets)
 import           Data.Bits ((.|.))
+import           Data.Function (on)
+import           Data.List (sortBy)
 import           Data.Monoid
 import           Graphics.X11.ExtraTypes.XF86
 import           Graphics.X11.Xlib
 import           System.Exit
 import           System.IO (Handle)
-import           XMonad.Hooks.DynamicLog (PP(..), dynamicLogWithPP, defaultPP, dzenColor, dzenEscape, wrap)
 import           XMonad.Hooks.EwmhDesktops (ewmh)
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.SetWMName
@@ -26,14 +29,15 @@ import           XMonad.Layout.Spacing
 import           XMonad.Main (xmonad)
 import           XMonad.ManageHook
 import           XMonad.Operations
-import           XMonad.Util.Run (hPutStrLn, spawnPipe)
+import           XMonad.Util.NamedWindows (getName)
+import           XMonad.Util.Run (safeSpawn)
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 
 main :: IO ()
 main = do
-  dzenLeft <- spawnPipe "dzen2 -dock -e 'onstart=lower' -ta l -h 40 -fn 'xft:Menlo for Powerline:size=18'"
-  dzenRight <- spawnPipe "conky -c ~/.config/conky/conkyrc | dzen2 -dock -ta r -x 960 -h 40 -fn 'xft:Menlo for Powerline:size=18'"
+  safeSpawn "mkfifo" ["/tmp/.xmonad-workspace-log"]
+  safeSpawn "mkfifo" ["/tmp/.xmonad-title-log"]
 
   let focusedColor = "#dc322f"
   let normalColor = "#586e75"
@@ -47,28 +51,33 @@ main = do
     , XMonad.handleExtraArgs = handleExtraArgs
     , XMonad.keys = keys
     , XMonad.layoutHook = avoidStruts layout
-    , XMonad.logHook = dzenLogHook dzenLeft
+    , XMonad.logHook = polybarLogHook
     , XMonad.manageHook = manageDocks
     , XMonad.modMask = mod1Mask
     , XMonad.mouseBindings = mouseBindings
     , XMonad.normalBorderColor = normalColor
     , XMonad.rootMask = rootMask
-    , XMonad.startupHook = setWMName "LG3D"
+    , XMonad.startupHook = do
+        setWMName "LG3D"
+        spawn "polybar desktop"
     , XMonad.terminal = "urxvtc"
     , XMonad.workspaces = fmap show [1..9] }
 
-dzenLogHook :: Handle -> X ()
-dzenLogHook dzenLeft = dynamicLogWithPP $
-  defaultPP { ppCurrent         = dzenColor "black" "orange" . wrap "  " "  "
-            , ppVisible         = dzenColor "black" "red" . wrap "  " "  "
-            , ppHidden          = dzenColor "white" "#333333" . wrap "  " "  "
-            , ppHiddenNoWindows = const ""
-            , ppUrgent          = dzenColor "white" "red" . wrap "  " "  "
-            , ppSep             = " "
-            , ppWsSep           = " "
-            , ppTitle           = const ""
-            , ppLayout          = dzenColor "#222222" "black" . wrap " " " "
-            , ppOutput          = hPutStrLn dzenLeft }
+polybarLogHook :: X ()
+polybarLogHook = do
+  winset <- gets XMonad.windowset
+  title <- maybe (return "") (fmap show . getName) . W.peek $ winset
+  let currWs = W.currentTag winset
+  let wss = fmap W.tag $ W.workspaces winset
+  let wsStr = join $ map (fmt currWs) $ sort' wss
+
+  io $ appendFile "/tmp/.xmonad-title-log" (title ++ "\n")
+  io $ appendFile "/tmp/.xmonad-workspace-log" (wsStr ++ "\n")
+
+  where fmt currWs ws
+          | currWs == ws = "[" ++ ws ++ "]"
+          | otherwise    = " " ++ ws ++ " "
+        sort' = sortBy (compare `on` (!! 0))
 
 clientMask :: EventMask
 clientMask = structureNotifyMask .|. enterWindowMask .|. propertyChangeMask
