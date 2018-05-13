@@ -11,6 +11,8 @@ unclutter -noevents -root -jitter 10 &
 
 urxvtd -q -o -f
 
+export GDK_SCALE=2
+
 export XMONAD_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/xmonad"
 export XMONAD_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/xmonad"
 export XMONAD_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/xmonad"
