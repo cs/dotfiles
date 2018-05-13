@@ -15,15 +15,14 @@ import           Data.Bits ((.|.))
 import           Data.Function (on)
 import           Data.List (sortBy)
 import           Data.Monoid
+import           Decoration (Theme(..), decorateWindows)
 import           Graphics.X11.ExtraTypes.XF86
 import           Graphics.X11.Xlib
 import           System.Exit
-import           System.IO (Handle)
 import           XMonad.Hooks.EwmhDesktops (ewmh)
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.SetWMName
 import           XMonad.Layout
-import           XMonad.Layout.NoBorders
 import           XMonad.Layout.ResizableTile
 import           XMonad.Layout.Spacing
 import           XMonad.Main (xmonad)
@@ -36,26 +35,33 @@ import qualified XMonad.StackSet as W
 
 main :: IO ()
 main = do
+  let decoTheme = Theme { focusedColor     = "#00a4e0"
+                        , focusedTextColor = "#ffffff"
+                        , normalColor      = "#004e6b"
+                        , normalTextColor  = "#ffffff"
+                        , fontName         = "xft:Menlo for Powerline:size=12"
+                        , decoWidth        = 30000
+                        , decoHeight       = 28
+                        }
+
   safeSpawn "mkfifo" ["/tmp/.xmonad-workspace-log"]
   safeSpawn "mkfifo" ["/tmp/.xmonad-title-log"]
 
-  let focusedColor = "#00a4e0"
-  let normalColor = "#004e6b"
   xmonad $ ewmh $ XConfig
     { XMonad.borderWidth = 2
     , XMonad.clickJustFocuses = True
     , XMonad.clientMask = clientMask
     , XMonad.focusFollowsMouse = True
-    , XMonad.focusedBorderColor = focusedColor
+    , XMonad.focusedBorderColor = focusedColor decoTheme
     , XMonad.handleEventHook = (\_ -> return (All True)) <+> docksEventHook
     , XMonad.handleExtraArgs = handleExtraArgs
     , XMonad.keys = keys
-    , XMonad.layoutHook = avoidStruts layout
+    , XMonad.layoutHook = decorateWindows decoTheme $ avoidStruts layout
     , XMonad.logHook = polybarLogHook
     , XMonad.manageHook = manageDocks
     , XMonad.modMask = mod1Mask
     , XMonad.mouseBindings = mouseBindings
-    , XMonad.normalBorderColor = normalColor
+    , XMonad.normalBorderColor = normalColor decoTheme
     , XMonad.rootMask = rootMask
     , XMonad.startupHook = do
         setWMName "LG3D"
