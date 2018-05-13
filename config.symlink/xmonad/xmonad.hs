@@ -39,8 +39,8 @@ main = do
   safeSpawn "mkfifo" ["/tmp/.xmonad-workspace-log"]
   safeSpawn "mkfifo" ["/tmp/.xmonad-title-log"]
 
-  let focusedColor = "#dc322f"
-  let normalColor = "#586e75"
+  let focusedColor = "#00a4e0"
+  let normalColor = "#004e6b"
   xmonad $ ewmh $ XConfig
     { XMonad.borderWidth = 2
     , XMonad.clickJustFocuses = True
