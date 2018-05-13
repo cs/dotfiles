@@ -7,7 +7,7 @@ if [[ -f ~/.wallpapers/current ]]; then
 fi
 
 xsetroot -cursor_name left_ptr &
-unclutter -noevents -root &
+unclutter -noevents -root -jitter 10 &
 
 urxvtd -q -o -f
 
