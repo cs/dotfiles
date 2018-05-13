@@ -9,11 +9,7 @@ import qualified XMonad.Core as XMonad (
   logHook, manageHook, modMask, mouseBindings, normalBorderColor, rootMask,
   startupHook, terminal, workspaces )
 
-import           Control.Monad (join)
-import           Control.Monad.State (gets)
 import           Data.Bits ((.|.))
-import           Data.Function (on)
-import           Data.List (sortBy)
 import           Data.Monoid
 import           Decoration (Theme(..), decorateWindows)
 import           Graphics.X11.ExtraTypes.XF86
@@ -28,9 +24,9 @@ import           XMonad.Layout.Spacing
 import           XMonad.Main (xmonad)
 import           XMonad.ManageHook
 import           XMonad.Operations
-import           XMonad.Util.NamedWindows (getName)
 import           XMonad.Util.Run (safeSpawn)
 import qualified Data.Map as M
+import qualified Polybar
 import qualified XMonad.StackSet as W
 
 main :: IO ()
@@ -57,7 +53,7 @@ main = do
     , XMonad.handleExtraArgs = handleExtraArgs
     , XMonad.keys = keys
     , XMonad.layoutHook = decorateWindows decoTheme $ avoidStruts layout
-    , XMonad.logHook = polybarLogHook
+    , XMonad.logHook = Polybar.logHook
     , XMonad.manageHook = manageDocks
     , XMonad.modMask = mod1Mask
     , XMonad.mouseBindings = mouseBindings
@@ -68,22 +64,6 @@ main = do
         spawn "polybar desktop"
     , XMonad.terminal = "urxvtc"
     , XMonad.workspaces = fmap show [1..9] }
-
-polybarLogHook :: X ()
-polybarLogHook = do
-  winset <- gets XMonad.windowset
-  title <- maybe (return "") (fmap show . getName) . W.peek $ winset
-  let currWs = W.currentTag winset
-  let wss = fmap W.tag $ W.workspaces winset
-  let wsStr = join $ map (fmt currWs) $ sort' wss
-
-  io $ appendFile "/tmp/.xmonad-title-log" (title ++ "\n")
-  io $ appendFile "/tmp/.xmonad-workspace-log" (wsStr ++ "\n")
-
-  where fmt currWs ws
-          | currWs == ws = "[" ++ ws ++ "]"
-          | otherwise    = " " ++ ws ++ " "
-        sort' = sortBy (compare `on` (!! 0))
 
 clientMask :: EventMask
 clientMask = structureNotifyMask .|. enterWindowMask .|. propertyChangeMask
