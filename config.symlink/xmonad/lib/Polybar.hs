@@ -1,24 +1,25 @@
 module Polybar (logHook) where
 
-import           Control.Monad (join)
-import           Data.Function (on)
-import           Data.List (sortBy)
+import           Codec.Binary.UTF8.String (encodeString)
 import           XMonad hiding (logHook)
+import           XMonad.Hooks.DynamicLog
+import           XMonad.Hooks.UrgencyHook (readUrgents)
 import           XMonad.Util.NamedWindows (getName)
 import qualified XMonad.StackSet as W
 
 logHook :: X ()
-logHook = do
+logHook = logWorkspaces def >> logTitle
+
+logWorkspaces :: PP -> X ()
+logWorkspaces pp = do
   winset <- gets XMonad.windowset
-  title <- maybe (return "") (fmap show . getName) . W.peek $ winset
-  let currWs = W.currentTag winset
-  let wss = fmap W.tag $ W.workspaces winset
-  let wsStr = join $ map (fmt currWs) $ sort' wss
+  urgents <- readUrgents
+  sort' <- ppSort pp
+  let ws = pprWindowSet sort' urgents pp winset
+  io $ appendFile "/tmp/.xmonad-workspace-log" (encodeString ws ++ "\n")
 
-  io $ appendFile "/tmp/.xmonad-title-log" (title ++ "\n")
-  io $ appendFile "/tmp/.xmonad-workspace-log" (wsStr ++ "\n")
-
-  where fmt currWs ws
-          | currWs == ws = "[" ++ ws ++ "]"
-          | otherwise    = " " ++ ws ++ " "
-        sort' = sortBy (compare `on` (!! 0))
+logTitle :: X ()
+logTitle = do
+  winset <- gets XMonad.windowset
+  wt <- maybe (return "") (fmap show . getName) . W.peek $ winset
+  io $ appendFile "/tmp/.xmonad-title-log" (encodeString wt ++ "\n")
