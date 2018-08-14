@@ -12,6 +12,7 @@ colorscheme Tomorrow-Night-Bright
 
 call plug#begin()
 
+Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
@@ -19,6 +20,7 @@ Plug 'vim-airline/vim-airline'
 call plug#end()
 
 let mapleader = "\<Space>"
+let maplocalleader = "\<Space>"
 cnoremap %% <C-R>=expand('%:h').'/'<CR>
 
 set number relativenumber
@@ -45,6 +47,8 @@ set switchbuf=useopen
 set wildmode=full
 set wildmenu
 
+set mouse=a " X Integration
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPPINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -70,28 +74,34 @@ nnoremap <C-k>   <C-w>k
 nnoremap <C-l>   <C-w>l
 
 " Treat long lines as break lines (useful when moving around in them)
-map	 j 	 gj
-map 	 k       gk
+map	     j 	     gj
+map 	   k       gk
 
 " Text formatting to get with with up textwidth characters
-vmap 	 Q       gq
-nmap     Q   	 gqap
+vmap 	   Q       gq
+nmap     Q   	   gqap
 
 " Edit alternate file with <leader><leader>. See `:help CTRL-^`.
 " Note: `:bprevious` is different because it "wraps around".
 nnoremap <leader><leader> <c-^>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CtrlP
+" Config for ElmCast/elm-vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:elm_format_autosave = 1
+let g:elm_format_fail_silently = 1
+let g:elm_setup_keybindings = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Config for ctrlpvim/ctrlp.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>f :CtrlP<CR>
 map <leader>F :CtrlP %%<CR>
 map <leader>b :CtrlPBuffer<CR>
 
-let g:ctrlp_match_window='bottom,max:15'
+let g:ctrlp_match_window = 'bottom,max:15'
 let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_use_caching = 0
-
 let g:ctrlp_user_command = [
    \ '.git',
    \ 'cd %s && git ls-files . --cached --others --exclude-standard',
@@ -99,14 +109,9 @@ let g:ctrlp_user_command = [
  \ ]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Airline
+" Config for vim-airline/vim-airline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#whitespace#enabled = 1
 let g:airline#extensions#whitespace#max_lines = 10000
 let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'mixed-indent-file' ]
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" X Integration
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set mouse=a
