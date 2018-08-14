@@ -37,6 +37,7 @@ set tabstop=2
 set showmatch matchtime=2
 
 set incsearch hlsearch ignorecase smartcase
+nnoremap <silent> <CR> :nohlsearch<CR><CR>
 
 set showtabline=2
 set scrolloff=5
@@ -95,7 +96,7 @@ nnoremap <leader><leader> <c-^>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:elm_format_autosave = 1
 let g:elm_format_fail_silently = 1
-let g:elm_setup_keybindings = 1
+let g:elm_setup_keybindings = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for ctrlpvim/ctrlp.vim
