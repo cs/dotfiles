@@ -1,15 +1,3 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" COLOR SCHEMES
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set background=dark
-
-" colorscheme solarized
-" colorscheme Tomorrow-Night-Blue
-colorscheme Tomorrow-Night-Bright
-" colorscheme Tomorrow-Night-Eighties
-" colorscheme Tomorrow-Night
-" colorscheme Tomorrow
-
 call plug#begin()
 
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
@@ -51,10 +39,25 @@ set wildmenu
 set mouse=a " X Integration
 set clipboard+=unnamedplus
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MISC KEY MAPPINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_altv = 1
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Color Schemes
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set background=dark
+
+" colorscheme solarized
+" colorscheme Tomorrow-Night-Blue
+colorscheme Tomorrow-Night-Bright
+" colorscheme Tomorrow-Night-Eighties
+" colorscheme Tomorrow-Night
+" colorscheme Tomorrow
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key Mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Array Keys are unacceptable
 nmap     <Left>  <Nop>
 imap     <Left>  <Nop>
