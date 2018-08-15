@@ -20,7 +20,7 @@ Plug 'vim-airline/vim-airline'
 call plug#end()
 
 let mapleader = "\<Space>"
-let maplocalleader = "\<Space>"
+let maplocalleader = ","
 cnoremap %% <C-R>=expand('%:h').'/'<CR>
 
 set number relativenumber
@@ -96,7 +96,8 @@ nnoremap <leader><leader> <c-^>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:elm_format_autosave = 1
 let g:elm_format_fail_silently = 1
-let g:elm_setup_keybindings = 0
+let g:elm_setup_keybindings = 1
+let g:elm_make_output_file = "/tmp/elm.js"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for ctrlpvim/ctrlp.vim
