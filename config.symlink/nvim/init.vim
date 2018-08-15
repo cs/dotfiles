@@ -49,6 +49,7 @@ set wildmode=full
 set wildmenu
 
 set mouse=a " X Integration
+set clipboard+=unnamedplus
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC KEY MAPPINGS
