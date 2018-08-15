@@ -2,6 +2,7 @@ call plug#begin()
 
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
