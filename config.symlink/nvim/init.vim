@@ -102,18 +102,17 @@ let g:elm_make_output_file = "/tmp/elm.js"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for ctrlpvim/ctrlp.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>f :CtrlP<CR>
-map <leader>F :CtrlP %%<CR>
-map <leader>b :CtrlPBuffer<CR>
-
 let g:ctrlp_match_window = 'bottom,max:15'
-let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_use_caching = 0
 let g:ctrlp_user_command = [
-   \ '.git',
-   \ 'cd %s && git ls-files . --cached --others --exclude-standard',
-   \ 'find %s -type f'
- \ ]
+    \ '.git',
+    \ 'cd %s && git ls-files . --cached --others --exclude-standard',
+    \ 'find %s -type f'
+  \ ]
+
+map <leader>f :CtrlPCurWD<CR>
+map <leader>F :CtrlPCurFile<CR>
+map <leader>b :CtrlPBuffer<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for vim-airline/vim-airline
