@@ -23,6 +23,8 @@ set expandtab
 set shiftwidth=0
 set tabstop=2
 
+set foldmethod=indent foldlevel=10 foldnestmax=10
+
 set showmatch matchtime=2
 
 set incsearch hlsearch ignorecase smartcase
