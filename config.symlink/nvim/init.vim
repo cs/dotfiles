@@ -2,6 +2,7 @@ call plug#begin()
 
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 
@@ -94,6 +95,16 @@ nmap     Q   	   gqap
 " Edit alternate file with <leader><leader>. See `:help CTRL-^`.
 " Note: `:bprevious` is different because it "wraps around".
 nnoremap <leader><leader> <c-^>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Rename current file
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', old_name, 'file')
+    exec ':Move! ' . new_name
+endfunction
+map <leader>n :call RenameFile()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for ElmCast/elm-vim
