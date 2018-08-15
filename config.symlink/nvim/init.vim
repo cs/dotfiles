@@ -13,8 +13,7 @@ let maplocalleader = ","
 cnoremap %% <C-R>=expand('%:h').'/'<CR>
 
 set number relativenumber
-set textwidth=80
-set colorcolumn=81
+set colorcolumn=80
 set hidden
 set cursorline cursorcolumn
 
