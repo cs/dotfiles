@@ -127,6 +127,11 @@ let g:elm_format_fail_silently = 1
 let g:elm_setup_keybindings = 1
 let g:elm_make_output_file = "/tmp/elm.js"
 
+augroup elmSettings
+  autocmd!
+  autocmd FileType elm set tabstop=4
+augroup END
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for ctrlpvim/ctrlp.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
