@@ -137,7 +137,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ctrlp_match_window = 'bottom,max:15'
 let g:ctrlp_use_caching = 0
-let g:ctrlp_user_command = 'fd --type f . %s'
+let g:ctrlp_user_command = 'fd --type f --hidden . %s'
 
 map <leader>f :CtrlPCurWD<CR>
 map <leader>F :CtrlPCurFile<CR>
