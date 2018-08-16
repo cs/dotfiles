@@ -144,6 +144,14 @@ map <leader>F :CtrlPCurFile<CR>
 map <leader>b :CtrlPBuffer<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Config for tpope/vim-fugitive
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup fugitiveSettings
+  autocmd!
+  autocmd FileType gitcommit set textwidth=0
+augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for vim-airline/vim-airline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_powerline_fonts = 1
