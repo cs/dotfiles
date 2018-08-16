@@ -30,14 +30,11 @@ set showmatch matchtime=2
 set incsearch hlsearch ignorecase smartcase
 nnoremap <silent> <CR> :nohlsearch<CR><CR>
 
-set showtabline=2
-set scrolloff=5
-set sidescrolloff=5
+" Compatible with tpope/vim-sensible:
+set showtabline=2 ruler wildmenu
+set scrolloff=1 sidescrolloff=5 display+=lastline
 
 set switchbuf=useopen
-
-set wildmode=full
-set wildmenu
 
 set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor20
 
