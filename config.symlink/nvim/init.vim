@@ -39,6 +39,8 @@ set switchbuf=useopen
 set wildmode=full
 set wildmenu
 
+set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor20
+
 set mouse=a " X Integration
 set clipboard+=unnamedplus
 
