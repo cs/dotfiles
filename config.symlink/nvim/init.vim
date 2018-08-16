@@ -61,7 +61,6 @@ colorscheme Tomorrow-Night-Bright
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Array Keys are unacceptable
 nmap     <Left>  <Nop>
 imap     <Left>  <Nop>
 nmap     <Right> <Nop>
@@ -70,8 +69,6 @@ nmap     <Up>    <Nop>
 imap     <Up>    <Nop>
 nmap     <Down>  <Nop>
 imap     <Down>  <Nop>
-
-" F1 is annoying
 nmap     <F1>    <Nop>
 imap     <F1>    <Nop>
 
@@ -87,12 +84,12 @@ tnoremap <C-k>   <C-\><C-N><C-w>k
 tnoremap <C-l>   <C-\><C-N><C-w>l
 
 " Treat long lines as break lines (useful when moving around in them)
-map	     j 	     gj
-map 	   k       gk
+map      j       gj
+map      k       gk
 
 " Text formatting to get with with up textwidth characters
-vmap 	   Q       gq
-nmap     Q   	   gqap
+vmap     Q       gq
+nmap     Q       gqap
 
 " Edit alternate file with <leader><leader>. See `:help CTRL-^`.
 " Note: `:bprevious` is different because it "wraps around".
@@ -140,11 +137,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ctrlp_match_window = 'bottom,max:15'
 let g:ctrlp_use_caching = 0
-let g:ctrlp_user_command = [
-    \ '.git',
-    \ 'cd %s && git ls-files . --cached --others --exclude-standard',
-    \ 'find %s -type f'
-  \ ]
+let g:ctrlp_user_command = 'fd --type f . %s'
 
 map <leader>f :CtrlPCurWD<CR>
 map <leader>F :CtrlPCurFile<CR>
