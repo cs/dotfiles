@@ -1,7 +1,6 @@
 call plug#begin()
 
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
@@ -132,13 +131,6 @@ augroup elmSettings
   autocmd!
   autocmd FileType elm set tabstop=4
 augroup END
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Config for ctrlpvim/ctrlp.vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ctrlp_match_window = 'bottom,max:15'
-let g:ctrlp_use_caching = 0
-let g:ctrlp_user_command = 'fd --type f --hidden . %s'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for junegunn/fzf.vim
