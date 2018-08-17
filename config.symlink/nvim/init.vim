@@ -2,6 +2,8 @@ call plug#begin()
 
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
@@ -141,6 +143,17 @@ let g:ctrlp_user_command = 'fd --type f --hidden . %s'
 map <leader>f :CtrlPCurWD<CR>
 map <leader>F :CtrlPCurFile<CR>
 map <leader>b :CtrlPBuffer<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Config for junegunn/fzf.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:fzf_layout = { 'down': '20' }
+
+augroup fzfSettings
+  autocmd!
+  autocmd FileType fzf set laststatus=0 noshowmode noruler nonumber
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler number
+augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for tpope/vim-fugitive
