@@ -140,10 +140,6 @@ let g:ctrlp_match_window = 'bottom,max:15'
 let g:ctrlp_use_caching = 0
 let g:ctrlp_user_command = 'fd --type f --hidden . %s'
 
-map <leader>f :CtrlPCurWD<CR>
-map <leader>F :CtrlPCurFile<CR>
-map <leader>b :CtrlPBuffer<CR>
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for junegunn/fzf.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -154,6 +150,10 @@ augroup fzfSettings
   autocmd FileType fzf set laststatus=0 noshowmode noruler nonumber
     \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler number
 augroup END
+
+map <leader>f :Files<CR>
+map <leader>F :Files %%<CR>
+map <leader>b :Buffers<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for tpope/vim-fugitive
