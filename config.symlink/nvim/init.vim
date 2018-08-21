@@ -96,14 +96,16 @@ nmap     Q       gqap
 nnoremap <leader><leader> <c-^>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Rename current file
+" Move current file
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', old_name, 'file')
+function! MoveFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', old_name, 'file')
+  if new_name != ''
     exec ':Move! ' . new_name
+  endif
 endfunction
-map <leader>n :call RenameFile()<CR>
+map <leader>n :call MoveFile()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Multi-purpose tab key
