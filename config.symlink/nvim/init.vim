@@ -3,6 +3,7 @@ call plug#begin()
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
@@ -151,6 +152,18 @@ map <leader>b :Buffers<CR>
 
 " Override the built-in Ag command to include hidden files:
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--hidden', <bang>0)
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Config for thoughtbot/vim-rspec
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:rspec_command = "split | terminal bundle exec rspec {spec}"
+augroup rubySettings
+  autocmd!
+  autocmd FileType ruby nnoremap <localleader>a :call RunAllSpecs()<CR>
+  autocmd FileType ruby nnoremap <localleader>t :call RunCurrentSpecFile()<CR>
+  autocmd FileType ruby nnoremap <localleader>s :call RunNearestSpec()<CR>
+  autocmd FileType ruby nnoremap <localleader>l :call RunLastSpec()<CR>
+augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for tpope/vim-fugitive
