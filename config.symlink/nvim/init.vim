@@ -78,11 +78,15 @@ nnoremap <C-h>   <C-w>h
 nnoremap <C-j>   <C-w>j
 nnoremap <C-k>   <C-w>k
 nnoremap <C-l>   <C-w>l
-tnoremap <Esc>   <C-\><C-n>
-tnoremap <C-h>   <C-\><C-N><C-w>h
-tnoremap <C-j>   <C-\><C-N><C-w>j
-tnoremap <C-k>   <C-\><C-N><C-w>k
-tnoremap <C-l>   <C-\><C-N><C-w>l
+
+augroup termSettings
+  autocmd!
+  autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
+  autocmd TermOpen * tnoremap <buffer> <C-h> <C-\><C-n><C-w>h
+  autocmd TermOpen * tnoremap <buffer> <C-j> <C-\><C-n><C-w>j
+  autocmd TermOpen * tnoremap <buffer> <C-k> <C-\><C-n><C-w>k
+  autocmd TermOpen * tnoremap <buffer> <C-l> <C-\><C-n><C-w>l
+augroup END
 
 " Treat long lines as break lines (useful when moving around in them)
 map      j       gj
@@ -144,6 +148,11 @@ augroup fzfSettings
   autocmd!
   autocmd FileType fzf set laststatus=0 noshowmode noruler nonumber
     \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler number
+  autocmd FileType fzf tunmap <buffer> <Esc>
+  autocmd FileType fzf tunmap <buffer> <C-h>
+  autocmd FileType fzf tunmap <buffer> <C-j>
+  autocmd FileType fzf tunmap <buffer> <C-k>
+  autocmd FileType fzf tunmap <buffer> <C-l>
 augroup END
 
 map <leader>f :Files<CR>
