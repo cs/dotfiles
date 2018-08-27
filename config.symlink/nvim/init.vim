@@ -142,7 +142,7 @@ let g:elm_make_output_file = "/tmp/elm.js"
 
 augroup elmSettings
   autocmd!
-  autocmd FileType elm set tabstop=4
+  autocmd FileType elm setlocal tabstop=4
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -185,7 +185,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup fugitiveSettings
   autocmd!
-  autocmd FileType gitcommit set textwidth=0
+  autocmd FileType gitcommit setlocal textwidth=0
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
