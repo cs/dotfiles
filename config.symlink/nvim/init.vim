@@ -103,7 +103,11 @@ nnoremap <leader><leader> <c-^>
 augroup vimSettings
   autocmd!
   autocmd FileType vim command! -buffer W w|so %
-                    \| let b:undo_ftplugin = "delcommand W"
+  autocmd FileType vim if exists('b:undo_ftplugin')
+                    \|   let b:undo_ftplugin .= " | delcommand W"
+                    \| else
+                    \|   let b:undo_ftplugin = "delcommand W"
+                    \| endif
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -143,7 +147,11 @@ let g:elm_make_output_file = "/tmp/elm.js"
 augroup elmSettings
   autocmd!
   autocmd FileType elm setlocal tabstop=4
-                    \| let b:undo_ftplugin = "set tabstop<"
+  autocmd FileType elm if exists('b:undo_ftplugin')
+                    \|   let b:undo_ftplugin .= " | set tabstop<"
+                    \| else
+                    \|   let b:undo_ftplugin = "set tabstop<"
+                    \| endif
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -187,7 +195,11 @@ augroup END
 augroup fugitiveSettings
   autocmd!
   autocmd FileType gitcommit setlocal textwidth=0
-                          \| let b:undo_ftplugin = "set textwidth<"
+  autocmd FileType gitcommit if exists('b:undo_ftplugin')
+                          \|   let b:undo_ftplugin .= " | set textwidth<"
+                          \| else
+                          \|   let b:undo_ftplugin = "set textwidth<"
+                          \| endif
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
