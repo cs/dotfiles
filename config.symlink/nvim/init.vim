@@ -100,6 +100,12 @@ nmap     Q       gqap
 " Note: `:bprevious` is different because it "wraps around".
 nnoremap <leader><leader> <c-^>
 
+augroup vimSettings
+  autocmd!
+  autocmd FileType vim command! -buffer W w|so %
+  autocmd FileType vim let b:undo_ftplugin = "delcommand W"
+augroup END
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Move current file
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
