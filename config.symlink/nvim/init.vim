@@ -103,7 +103,7 @@ nnoremap <leader><leader> <c-^>
 augroup vimSettings
   autocmd!
   autocmd FileType vim command! -buffer W w|so %
-  autocmd FileType vim let b:undo_ftplugin = "delcommand W"
+                    \| let b:undo_ftplugin = "delcommand W"
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -143,6 +143,7 @@ let g:elm_make_output_file = "/tmp/elm.js"
 augroup elmSettings
   autocmd!
   autocmd FileType elm setlocal tabstop=4
+                    \| let b:undo_ftplugin = "set tabstop<"
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -186,6 +187,7 @@ augroup END
 augroup fugitiveSettings
   autocmd!
   autocmd FileType gitcommit setlocal textwidth=0
+                          \| let b:undo_ftplugin = "set textwidth<"
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
