@@ -23,7 +23,8 @@ export PGPORT="5432"
 #-------------------------------------------------------------------------------
 # FZF
 #-------------------------------------------------------------------------------
-export FZF_DEFAULT_COMMAND='fd --type f --hidden'
+export FZF_DEFAULT_COMMAND="fd --type f --hidden"
+export FZF_DEFAULT_OPTS="--bind 'ctrl-a:select-all'"
 
 #-------------------------------------------------------------------------------
 # Private ~/.bin
