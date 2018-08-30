@@ -159,19 +159,6 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:fzf_layout = { 'down': '20' }
 
-" Open a QuickFix list for all selections with <c-q>.
-function! s:BuildQuickfixList(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
-endfunction
-
-let g:fzf_action = {
-  \ 'ctrl-q': function('s:BuildQuickfixList'),
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
 augroup fzfSettings
   autocmd!
   autocmd FileType fzf set laststatus=0 noshowmode noruler nonumber
