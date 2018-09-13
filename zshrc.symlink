@@ -4,14 +4,13 @@ source "$HOME/.zsh/completion.zsh"
 source "$HOME/.zsh/aliases.zsh"
 source "$HOME/.zsh/history.zsh"
 source "$HOME/.zsh/title.zsh"
+source "$HOME/.zsh/fzf.zsh"
 
 # Use ESC to edit the current command line:
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '\033' edit-command-line
 
-# Use CTRL-R to incrementally search through the history:
-bindkey '^R' history-incremental-search-backward
 
 #-------------------------------------------------------------------------------
 # PostgreSQL defaults (i.e. don't use Unix domain sockets, which is more
