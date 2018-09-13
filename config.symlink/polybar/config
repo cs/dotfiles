@@ -60,15 +60,13 @@ label-connected = %essid%
 
 format-disconnected = <label-disconnected>
 format-disconnected-underline = ${self.format-connected-underline}
-label-disconnected = no wifi
+label-disconnected = 
 label-disconnected-foreground = ${colors.foreground}
 
 # TODO@cs: https://github.com/FortAwesome/Font-Awesome/issues/7856
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
 ramp-signal-foreground = ${colors.foreground}
 
 [module/date]
