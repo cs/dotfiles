@@ -33,7 +33,7 @@ font-2 = "Font Awesome 5 Pro Regular:size=23;3"
 font-3 = "Font Awesome 5 Pro Solid:size=23;3"
 
 modules-left = workspaces-xmonad title-xmonad
-modules-right = wlan volume battery date time
+modules-right = wlan alsa battery date time
 
 [module/workspaces-xmonad]
 type = custom/script
@@ -53,17 +53,13 @@ format-underline = #444
 type = internal/network
 interface = wlp2s0
 interval = 10
-
-format-connected = <ramp-signal> <label-connected>
-format-connected-underline = ${xrdb:tomorrow.color5}
-label-connected = %essid%
-
 format-disconnected = <label-disconnected>
 format-disconnected-underline = ${self.format-connected-underline}
 label-disconnected = 
 label-disconnected-foreground = ${colors.foreground}
-
-# TODO@cs: https://github.com/FortAwesome/Font-Awesome/issues/7856
+format-connected = <ramp-signal> <label-connected>
+format-connected-underline = ${xrdb:tomorrow.color5}
+label-connected = %essid%
 ramp-signal-0 = 
 ramp-signal-1 = 
 ramp-signal-2 = 
@@ -87,16 +83,17 @@ format-prefix-foreground = ${colors.foreground}
 format-underline = ${xrdb:tomorrow.color12}
 label = "%time%"
 
-[module/volume]
-type = internal/volume
-format-volume = "<ramp-volume> <label-volume>"
-format-volume-foreground = ${colors.foreground}
+[module/alsa]
+type = internal/alsa
+mapped = true
 format-muted = ""
 format-muted-foreground = ${colors.foreground}
+format-muted-underline = ${xrdb:tomorrow.color1}
+format-volume = "<ramp-volume> <label-volume>"
+format-volume-foreground = ${colors.foreground}
+format-volume-underline = ${xrdb:tomorrow.color2}
 ramp-volume-0 = 
 ramp-volume-1 = 
-format-volume-underline = ${xrdb:tomorrow.color2}
-format-muted-underline = ${xrdb:tomorrow.color1}
 
 [module/battery]
 type = internal/battery
