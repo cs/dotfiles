@@ -59,16 +59,14 @@ main = do
     , XMonad.mouseBindings = mouseBindings
     , XMonad.normalBorderColor = normalColor decoTheme
     , XMonad.rootMask = rootMask
-    , XMonad.startupHook = do
-        setWMName "LG3D"
-        spawn "polybar desktop"
+    , XMonad.startupHook = setWMName "LG3D" >> spawn "polybar desktop"
     , XMonad.terminal = "urxvtc"
     , XMonad.workspaces = fmap show [1..9] }
 
 clientMask :: EventMask
 clientMask = structureNotifyMask .|. enterWindowMask .|. propertyChangeMask
 
-handleExtraArgs = \ xs theConf -> case xs of
+handleExtraArgs = \xs theConf -> case xs of
   [] -> return theConf
   _  -> fail ("unrecognized flags:" ++ show xs)
 
@@ -180,7 +178,7 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 layout = tiled ||| Mirror tiled ||| Full
   where
-    tiled = spacing 8 $ ResizableTall nmaster delta ratio []
+    tiled = spacing 12 $ ResizableTall nmaster delta ratio []
     -- Default number of windows in master pane
     nmaster = 1
     -- Percent of the screen to increment when resizing
@@ -196,8 +194,8 @@ mouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList
 
 rootMask :: EventMask
 rootMask = substructureRedirectMask
-        .|. substructureNotifyMask
-        .|. enterWindowMask
-        .|. leaveWindowMask
-        .|. structureNotifyMask
-        .|. buttonPressMask
+       .|. substructureNotifyMask
+       .|. enterWindowMask
+       .|. leaveWindowMask
+       .|. structureNotifyMask
+       .|. buttonPressMask
