@@ -27,6 +27,7 @@ import           XMonad.Operations
 import           XMonad.Util.Run (safeSpawn)
 import qualified Data.Map as M
 import qualified Polybar
+import qualified Scratchpads
 import qualified XMonad.StackSet as W
 
 main :: IO ()
@@ -54,7 +55,7 @@ main = do
     , XMonad.keys = keys
     , XMonad.layoutHook = decorateWindows decoTheme $ avoidStruts layout
     , XMonad.logHook = Polybar.logHook
-    , XMonad.manageHook = manageDocks
+    , XMonad.manageHook = composeAll [manageDocks, Scratchpads.manageHook]
     , XMonad.modMask = mod1Mask
     , XMonad.mouseBindings = mouseBindings
     , XMonad.normalBorderColor = normalColor decoTheme
@@ -108,6 +109,8 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_k), windows W.focusUp)
   -- Move focus to the master window:
   , ((modMask, xK_m), windows W.focusMaster)
+  -- Trello Scratchpad:
+  , ((modMask, xK_t), Scratchpads.trelloAction)
   -- Mute/Unmute audio output (Fn + F1):
   , ((noModMask, xF86XK_AudioMute),
      spawn "pamixer --toggle-mute")
