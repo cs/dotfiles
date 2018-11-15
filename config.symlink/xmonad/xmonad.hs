@@ -15,7 +15,7 @@ import           Decoration (Theme(..), decorateWindows)
 import           Graphics.X11.ExtraTypes.XF86
 import           Graphics.X11.Xlib
 import           System.Exit
-import           XMonad.Hooks.EwmhDesktops (ewmh)
+import           XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.SetWMName
 import           XMonad.Layout
@@ -50,23 +50,29 @@ main = do
     , XMonad.clientMask = clientMask
     , XMonad.focusFollowsMouse = True
     , XMonad.focusedBorderColor = focusedColor decoTheme
-    , XMonad.handleEventHook = (\_ -> return (All True)) <+> docksEventHook
+    , XMonad.handleEventHook = mconcat [ (\_ -> return (All True))
+                                       , docksEventHook
+                                       , fullscreenEventHook ]
     , XMonad.handleExtraArgs = handleExtraArgs
     , XMonad.keys = keys
     , XMonad.layoutHook = decorateWindows decoTheme $ avoidStruts layout
     , XMonad.logHook = Polybar.logHook
-    , XMonad.manageHook = composeAll [manageDocks, Scratchpads.manageHook]
+    , XMonad.manageHook = mconcat [ manageDocks
+                                  , Scratchpads.manageHook ]
     , XMonad.modMask = mod1Mask
     , XMonad.mouseBindings = mouseBindings
     , XMonad.normalBorderColor = normalColor decoTheme
     , XMonad.rootMask = rootMask
     , XMonad.startupHook = setWMName "LG3D" >> spawn "polybar desktop"
     , XMonad.terminal = "urxvtc"
-    , XMonad.workspaces = fmap show [1..9] }
+    , XMonad.workspaces = fmap show [1..9] ++ ["NSP"] }
 
 clientMask :: EventMask
-clientMask = structureNotifyMask .|. enterWindowMask .|. propertyChangeMask
+clientMask = structureNotifyMask
+         .|. enterWindowMask
+         .|. propertyChangeMask
 
+handleExtraArgs :: [String] -> XConfig Layout -> IO (XConfig Layout)
 handleExtraArgs = \xs theConf -> case xs of
   [] -> return theConf
   _  -> fail ("unrecognized flags:" ++ show xs)

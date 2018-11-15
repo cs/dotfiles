@@ -26,4 +26,4 @@ trello = NS name cmd query hook
         name  = tld
         cmd   = "google-chrome-stable --app=https://" ++ tld
         query = appName =? tld :: Query Bool
-        hook  = customFloating $ W.RationalRect (5/100) (5/100) (90/100) (90/100)
+        hook  = customFloating $ W.RationalRect 0.05 0.05 0.90 0.90
