@@ -63,7 +63,7 @@ main = do
     , XMonad.mouseBindings = mouseBindings
     , XMonad.normalBorderColor = normalColor decoTheme
     , XMonad.rootMask = rootMask
-    , XMonad.startupHook = setWMName "LG3D"
+    , XMonad.startupHook = docksStartupHook
     , XMonad.terminal = "urxvtc"
     , XMonad.workspaces = fmap show [1..9] ++ ["NSP"] }
 
