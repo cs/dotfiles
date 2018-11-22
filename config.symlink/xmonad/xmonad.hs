@@ -46,9 +46,9 @@ main = do
 
   xmonad $ ewmh $ XConfig
     { XMonad.borderWidth = 2
-    , XMonad.clickJustFocuses = True
+    , XMonad.clickJustFocuses = False
     , XMonad.clientMask = clientMask
-    , XMonad.focusFollowsMouse = True
+    , XMonad.focusFollowsMouse = False
     , XMonad.focusedBorderColor = focusedColor decoTheme
     , XMonad.handleEventHook = mconcat [ (\_ -> return (All True))
                                        , docksEventHook
