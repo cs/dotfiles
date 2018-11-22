@@ -63,7 +63,7 @@ main = do
     , XMonad.mouseBindings = mouseBindings
     , XMonad.normalBorderColor = normalColor decoTheme
     , XMonad.rootMask = rootMask
-    , XMonad.startupHook = setWMName "LG3D" >> spawn "polybar desktop"
+    , XMonad.startupHook = setWMName "LG3D"
     , XMonad.terminal = "urxvtc"
     , XMonad.workspaces = fmap show [1..9] ++ ["NSP"] }
 
@@ -187,7 +187,7 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 layout = tiled ||| Mirror tiled ||| Full
   where
-    tiled = spacing 12 $ ResizableTall nmaster delta ratio []
+    tiled = spacing 20 $ ResizableTall nmaster delta ratio []
     -- Default number of windows in master pane
     nmaster = 1
     -- Percent of the screen to increment when resizing
