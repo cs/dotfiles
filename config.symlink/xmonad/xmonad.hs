@@ -121,7 +121,9 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Move window to next screen:
   , ((modMask .|. shiftMask, xK_w), shiftNextScreen)
   -- Trello Scratchpad:
-  , ((modMask, xK_t), Scratchpads.trelloAction)
+  , ((modMask, xK_r), Scratchpads.trelloAction)
+  -- Slack Scratchpad:
+  , ((modMask, xK_f), Scratchpads.slackAction)
   -- Mute/Unmute audio output (Fn + F1):
   , ((noModMask, xF86XK_AudioMute),
      spawn "pamixer --toggle-mute")
