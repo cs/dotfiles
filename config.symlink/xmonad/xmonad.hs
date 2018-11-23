@@ -65,7 +65,7 @@ main = do
     , XMonad.rootMask = rootMask
     , XMonad.startupHook = docksStartupHook
     , XMonad.terminal = "urxvtc"
-    , XMonad.workspaces = fmap show [1..9] ++ ["NSP"] }
+    , XMonad.workspaces = fmap show [1..9] }
 
 clientMask :: EventMask
 clientMask = structureNotifyMask
