@@ -15,6 +15,7 @@ import           Decoration (Theme(..), decorateWindows)
 import           Graphics.X11.ExtraTypes.XF86
 import           Graphics.X11.Xlib
 import           System.Exit
+import           XMonad.Actions.CycleWS (nextScreen, shiftNextScreen)
 import           XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.SetWMName
@@ -115,6 +116,10 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_k), windows W.focusUp)
   -- Move focus to the master window:
   , ((modMask, xK_m), windows W.focusMaster)
+  -- Switch to next screen:
+  , ((modMask, xK_w), nextScreen)
+  -- Move window to next screen:
+  , ((modMask .|. shiftMask, xK_w), shiftNextScreen)
   -- Trello Scratchpad:
   , ((modMask, xK_t), Scratchpads.trelloAction)
   -- Mute/Unmute audio output (Fn + F1):
@@ -163,14 +168,6 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Move window to workspace N:
   [ ((modMask .|. shiftMask, k), windows $ W.shift i)
       | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ] ++
-  -- Switch to physical/Xinerama screens 1, 2, or 3:
-  [ ((modMask, k),
-     screenWorkspace sc >>= flip whenJust (windows . W.view))
-      | (k, sc) <- zip [xK_w, xK_r] [0..] ] ++
-  -- Move window to screen 1, 2, or 3:
-  [ ((modMask .|. shiftMask, k),
-     screenWorkspace sc >>= flip whenJust (windows . W.shift))
-      | (k, sc) <- zip [xK_w, xK_r] [0..] ] ++
   [ ((modMask, xK_a),               fakeKeySym "adiaeresis" ),
     ((modMask .|. shiftMask, xK_a), fakeKeySym "Adiaeresis" ),
     ((modMask, xK_o),               fakeKeySym "odiaeresis" ),
