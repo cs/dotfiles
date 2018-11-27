@@ -116,10 +116,6 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_k), windows W.focusUp)
   -- Move focus to the master window:
   , ((modMask, xK_m), windows W.focusMaster)
-  -- Switch to next screen:
-  , ((modMask, xK_w), nextScreen)
-  -- Move window to next screen:
-  , ((modMask .|. shiftMask, xK_w), shiftNextScreen)
   -- Trello Scratchpad:
   , ((modMask, xK_r), Scratchpads.trelloAction)
   -- Slack Scratchpad:
@@ -157,13 +153,17 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- ??? (Fn + F11):
   , ((noModMask, 0x1008FF4A), -- i.e. XF86LaunchA
      return ())
-  -- Launch Nautilus (Fn + F12):
+  -- ??? (Fn + F12):
   , ((noModMask, 0x1008FF5D), -- i.e. XF86Explorer
-     spawn "nautilus")
+     return ())
   -- Quit xmonad:
   , ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess))
-  -- Lock the screen:
-  , ((modMask, xK_q), spawn "slock") ] ++
+  -- Lock all screens:
+  , ((modMask, xK_q), spawn "slock")
+  -- Switch to next screen:
+  , ((modMask, xK_w), nextScreen)
+  -- Move window to next screen:
+  , ((modMask .|. shiftMask, xK_w), shiftNextScreen) ] ++
   -- Switch to workspace N:
   [ ((modMask, k), windows $ W.greedyView i)
       | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ] ++
