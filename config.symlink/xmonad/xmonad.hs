@@ -39,8 +39,7 @@ main = do
                         , normalTextColor  = "#ffffff"
                         , fontName         = "xft:Menlo for Powerline:size=12"
                         , decoWidth        = 30000
-                        , decoHeight       = 28
-                        }
+                        , decoHeight       = 28 }
 
   safeSpawn "mkfifo" ["/tmp/.xmonad-workspace-log"]
   safeSpawn "mkfifo" ["/tmp/.xmonad-title-log"]
@@ -163,7 +162,7 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Switch to next screen:
   , ((modMask, xK_w), nextScreen)
   -- Move window to next screen:
-  , ((modMask .|. shiftMask, xK_w), shiftNextScreen) ] ++
+  , ((modMask .|. shiftMask, xK_w), shiftNextScreen >> nextScreen) ] ++
   -- Switch to workspace N:
   [ ((modMask, k), windows $ W.greedyView i)
       | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ] ++
