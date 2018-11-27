@@ -20,7 +20,7 @@ import           XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.SetWMName
 import           XMonad.Layout
-import           XMonad.Layout.IndependentScreens (countScreens, withScreens)
+import           XMonad.Layout.IndependentScreens as IS
 import           XMonad.Layout.ResizableTile
 import           XMonad.Layout.Spacing
 import           XMonad.Main (xmonad)
@@ -41,7 +41,7 @@ main = do
                         , decoWidth        = 30000
                         , decoHeight       = 28 }
 
-  numScreens <- countScreens
+  numScreens <- IS.countScreens
 
   xmonad $ ewmh $ XConfig
     { XMonad.borderWidth = 2
@@ -64,7 +64,7 @@ main = do
     , XMonad.rootMask = rootMask
     , XMonad.startupHook = docksStartupHook
     , XMonad.terminal = "urxvtc"
-    , XMonad.workspaces = withScreens numScreens $ fmap show [1..9] }
+    , XMonad.workspaces = IS.withScreens numScreens $ fmap show [1..9] }
 
 clientMask :: EventMask
 clientMask = structureNotifyMask
@@ -162,12 +162,12 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_w), nextScreen)
   -- Move window to next screen:
   , ((modMask .|. shiftMask, xK_w), shiftNextScreen >> nextScreen) ] ++
-  -- Switch to workspace N:
-  [ ((modMask, k), windows $ W.greedyView i)
-      | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ] ++
-  -- Move window to workspace N:
-  [ ((modMask .|. shiftMask, k), windows $ W.shift i)
-      | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ] ++
+  -- Switch to workspace N (on current screen):
+  [ ((modMask, k), windows $ IS.onCurrentScreen W.greedyView i)
+      | (i, k) <- zip (IS.workspaces' conf) [xK_1 .. xK_9] ] ++
+  -- Move window to workspace N (on current screen):
+  [ ((modMask .|. shiftMask, k), windows $ IS.onCurrentScreen W.shift i)
+      | (i, k) <- zip (IS.workspaces' conf) [xK_1 .. xK_9] ] ++
   [ ((modMask, xK_a),               fakeKeySym "adiaeresis" ),
     ((modMask .|. shiftMask, xK_a), fakeKeySym "Adiaeresis" ),
     ((modMask, xK_o),               fakeKeySym "odiaeresis" ),
