@@ -20,12 +20,12 @@ import           XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.SetWMName
 import           XMonad.Layout
+import           XMonad.Layout.IndependentScreens (countScreens, withScreens)
 import           XMonad.Layout.ResizableTile
 import           XMonad.Layout.Spacing
 import           XMonad.Main (xmonad)
 import           XMonad.ManageHook
 import           XMonad.Operations
-import           XMonad.Util.Run (safeSpawn)
 import qualified Data.Map as M
 import qualified Polybar
 import qualified Scratchpads
@@ -41,8 +41,7 @@ main = do
                         , decoWidth        = 30000
                         , decoHeight       = 28 }
 
-  safeSpawn "mkfifo" ["/tmp/.xmonad-workspace-log"]
-  safeSpawn "mkfifo" ["/tmp/.xmonad-title-log"]
+  numScreens <- countScreens
 
   xmonad $ ewmh $ XConfig
     { XMonad.borderWidth = 2
@@ -56,7 +55,7 @@ main = do
     , XMonad.handleExtraArgs = handleExtraArgs
     , XMonad.keys = keys
     , XMonad.layoutHook = decorateWindows decoTheme $ avoidStruts layout
-    , XMonad.logHook = Polybar.logHook
+    , XMonad.logHook = Polybar.logHook numScreens
     , XMonad.manageHook = mconcat [ manageDocks
                                   , Scratchpads.manageHook ]
     , XMonad.modMask = mod1Mask
@@ -65,7 +64,7 @@ main = do
     , XMonad.rootMask = rootMask
     , XMonad.startupHook = docksStartupHook
     , XMonad.terminal = "urxvtc"
-    , XMonad.workspaces = fmap show [1..9] }
+    , XMonad.workspaces = withScreens numScreens $ fmap show [1..9] }
 
 clientMask :: EventMask
 clientMask = structureNotifyMask
