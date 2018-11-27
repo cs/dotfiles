@@ -1,14 +1,12 @@
 module Polybar (logHook) where
 
 import           Codec.Binary.UTF8.String (encodeString)
-import           System.Directory (doesFileExist)
+import           Data.List (isPrefixOf, stripPrefix)
+import           Data.Maybe (fromMaybe)
 import           XMonad hiding (logHook)
-import           XMonad.Hooks.DynamicLog
+import           XMonad.Hooks.DynamicLog (ppCurrent, ppHidden, ppSort, ppUrgent, ppVisible, pprWindowSet)
 import           XMonad.Hooks.UrgencyHook (readUrgents)
-import           XMonad.Layout.IndependentScreens (countScreens)
-import           XMonad.Util.NamedScratchpad
 import           XMonad.Util.NamedWindows (getName)
-import           XMonad.Util.Run (safeSpawn)
 import qualified XMonad.StackSet as W
 
 logHook :: ScreenId -> X ()
@@ -19,22 +17,29 @@ logHook numScreens = do
 
 logWorkspaces :: ScreenId -> X ()
 logWorkspaces screenId = do
-  winset  <- gets XMonad.windowset
+  sort    <- filterAndSort
   urgents <- readUrgents
-  sort'   <- ppSort (namedScratchpadFilterOutWorkspacePP def)
-  let ws = pprWindowSet sort' urgents def winset
-  appendFifo fifoPath (encodeString ws)
-  where fifoPath = "/tmp/.xmonad-workspaces-" ++ show (toInteger screenId)
+  winset  <- gets XMonad.windowset
+  let pp = def { ppCurrent = (\w -> "[" ++ fromMaybe w (stripPrefix screenPrefix w) ++ "]")
+               , ppVisible = (\w -> "[" ++ fromMaybe w (stripPrefix screenPrefix w) ++ "]")
+               , ppHidden  = (\w -> fromMaybe w (stripPrefix screenPrefix w))
+               , ppUrgent  = (\w -> fromMaybe w (stripPrefix screenPrefix w)) }
+
+  let ws = pprWindowSet sort urgents pp winset
+  io $ appendFile path (encodeString ws ++ "\n")
+  where path = "/tmp/.xmonad-workspaces-" ++ show (toInteger screenId)
+        screenPrefix = show (toInteger screenId) ++ "_"
+        getWorkspaceId :: WindowSpace -> WorkspaceId
+        getWorkspaceId (W.Workspace id _ _) = id
+        filterAndSort :: X ([WindowSpace] -> [WindowSpace])
+        filterAndSort = do
+          let filterNSP = filter (\w -> getWorkspaceId w /= "NSP")
+          let filterScreens = filter (\w -> screenPrefix `isPrefixOf` (getWorkspaceId w))
+          ppSort def >>= (\sort -> return (sort . filterScreens . filterNSP))
 
 logTitle :: ScreenId -> X ()
 logTitle screenId = do
   winset <- gets XMonad.windowset
   wt     <- maybe (return "") (fmap show . getName) . W.peek $ winset
-  appendFifo fifoPath (encodeString wt)
-  where fifoPath = "/tmp/.xmonad-title-" ++ show (toInteger screenId)
-
-appendFifo :: FilePath -> String -> X ()
-appendFifo path payload = do
-  exist <- io $ doesFileExist path
-  if exist then return () else safeSpawn "mkfifo" [path]
-  io $ appendFile path (payload ++ "\n")
+  io $ appendFile path (encodeString wt ++ "\n")
+  where path = "/tmp/.xmonad-title-" ++ show (toInteger screenId)
