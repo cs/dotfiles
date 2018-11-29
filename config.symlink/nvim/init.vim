@@ -180,13 +180,13 @@ command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--hidden', <bang>0)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for thoughtbot/vim-rspec
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:rspec_command = "split | terminal bundle exec rspec {spec}"
+let g:rspec_command = "split | terminal bundle exec rspec --no-profile {spec}"
 augroup rubySettings
   autocmd!
-  autocmd FileType ruby nnoremap <localleader>a :call RunAllSpecs()<CR>
-  autocmd FileType ruby nnoremap <localleader>t :call RunCurrentSpecFile()<CR>
-  autocmd FileType ruby nnoremap <localleader>s :call RunNearestSpec()<CR>
-  autocmd FileType ruby nnoremap <localleader>l :call RunLastSpec()<CR>
+  autocmd FileType ruby nnoremap <LocalLeader>a :call RunAllSpecs()<CR>
+  autocmd FileType ruby nnoremap <LocalLeader>t :call RunCurrentSpecFile()<CR>
+  autocmd FileType ruby nnoremap <LocalLeader>s :call RunNearestSpec()<CR>
+  autocmd FileType ruby nnoremap <LocalLeader>l :call RunLastSpec()<CR>
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
