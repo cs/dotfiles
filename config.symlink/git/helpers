@@ -10,12 +10,12 @@
 # that looks like time.
 
 HASH="%C(yellow)%h%Creset"
-RELATIVE_TIME="%Cgreen(%ar)%Creset"
+TIME="%Cgreen(%ad)%Creset"
 AUTHOR="%C(bold blue)<%an>%Creset"
 REFS="%C(bold red)%d%Creset"
 SUBJECT="%s"
 
-FORMAT="$HASH $RELATIVE_TIME $AUTHOR $REFS $SUBJECT"
+FORMAT="$HASH $TIME $AUTHOR $REFS $SUBJECT"
 
 ANSI_BLACK='\033[30m'
 ANSI_BLACK_BOLD='\033[0;30;1m'
@@ -35,18 +35,10 @@ ANSI_WHITE='\033[37m'
 ANSI_WHITE_BOLD='\033[0;37;1m'
 ANSI_RESET='\033[0m'
 
-show_git_head() {
-    pretty_git_log -1
-    git show -p --pretty="tformat:"
-}
-
 pretty_git_log() {
     local merge_regex='(Merge (branch|remote-tracking branch|pull request) .*$)'
-    git log --graph --color --pretty="tformat:${FORMAT}" $* |
-        # Replace (2 years ago) with (2 years)
-        sed -Ee 's/(^[^<]*) ago\)/\1)/' |
-        # Replace (2 years, 5 months) with (2 years)
-        sed -Ee 's/(^[^<]*), [[:digit:]]+ .*months?\)/\1)/' |
+    git log --graph --color --date="format:%Y-%m-%d %H:%M:%S" \
+        --pretty="tformat:${FORMAT}" $* |
         # Color merge commits specially
         sed -Ee "s/$merge_regex/$(printf $ANSI_RED)\1$(printf $ANSI_RESET)/" |
         # Page only if needed.
