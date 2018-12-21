@@ -55,7 +55,7 @@ main = do
     , XMonad.handleExtraArgs = handleExtraArgs
     , XMonad.keys = keys
     , XMonad.layoutHook = decorateWindows decoTheme $ avoidStruts layout
-    , XMonad.logHook = Polybar.logHook numScreens
+    , XMonad.logHook = Polybar.logHook
     , XMonad.manageHook = mconcat [ manageDocks
                                   , Scratchpads.manageHook ]
     , XMonad.modMask = mod1Mask
