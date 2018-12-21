@@ -7,7 +7,7 @@ secondary = ${xrdb:tomorrow.color5}
 alert = #bd2c40
 col = #00f
 
-[bar/desktop]
+[bar/default]
 monitor = ${env:MONITOR}
 width = 100%
 height = 50
@@ -30,20 +30,20 @@ font-1 = "Font Awesome 5 Pro Light:size=23;3"
 font-2 = "Font Awesome 5 Pro Regular:size=23;3"
 font-3 = "Font Awesome 5 Pro Solid:size=23;3"
 
-modules-left = workspaces-xmonad title-xmonad
+modules-left = xmonad-workspaces xmonad-title
 modules-right = wlan alsa battery date time
 
-[module/workspaces-xmonad]
+[module/xmonad-workspaces]
 type = custom/script
-exec = tail -F /tmp/.xmonad-workspace-log
-exec-if = [ -p /tmp/.xmonad-workspace-log ]
+exec = tail -F /tmp/.xmonad-workspaces-log
+exec-if = [ -r /tmp/.xmonad-workspaces-log ]
 tail = true
 format-underline = #444
 
-[module/title-xmonad]
+[module/xmonad-title]
 type = custom/script
 exec = tail -F /tmp/.xmonad-title-log
-exec-if = [ -p /tmp/.xmonad-title-log ]
+exec-if = [ -r /tmp/.xmonad-title-log ]
 tail = true
 format-underline = #444
 
