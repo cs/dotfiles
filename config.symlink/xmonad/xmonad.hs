@@ -160,7 +160,7 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Move window to next screen:
   , ((modMask .|. shiftMask, xK_w), shiftNextScreen >> nextScreen) ] ++
   -- Switch to workspace N:
-  [ ((modMask, k), windows $ W.greedyView i)
+  [ ((modMask, k), windows $ W.view i)
       | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ] ++
   -- Move window to workspace N:
   [ ((modMask .|. shiftMask, k), windows $ W.shift i)
