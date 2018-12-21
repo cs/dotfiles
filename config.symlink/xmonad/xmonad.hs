@@ -41,8 +41,6 @@ main = do
                         , decoWidth        = 30000
                         , decoHeight       = 28 }
 
-  numScreens <- IS.countScreens
-
   xmonad $ ewmh $ XConfig
     { XMonad.borderWidth = 2
     , XMonad.clickJustFocuses = False
@@ -64,7 +62,7 @@ main = do
     , XMonad.rootMask = rootMask
     , XMonad.startupHook = docksStartupHook
     , XMonad.terminal = "urxvtc"
-    , XMonad.workspaces = IS.withScreens numScreens $ fmap show [1..9] }
+    , XMonad.workspaces = fmap show [1..9] }
 
 clientMask :: EventMask
 clientMask = structureNotifyMask
