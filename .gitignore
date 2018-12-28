@@ -1,6 +1,7 @@
 config.symlink/*
 !config.symlink/chrome-flags.conf
 !config.symlink/git
+!config.symlink/mpd
 !config.symlink/nvim
 !config.symlink/polybar
 !config.symlink/xmonad
