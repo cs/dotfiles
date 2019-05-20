@@ -32,16 +32,16 @@ import qualified XMonad.StackSet as W
 
 main :: IO ()
 main = do
-  let decoTheme = Theme { focusedColor     = "#00a4e0"
+  let decoTheme = Theme { focusedColor     = "#f36b15"
                         , focusedTextColor = "#ffffff"
-                        , normalColor      = "#004e6b"
-                        , normalTextColor  = "#ffffff"
-                        , fontName         = "xft:Menlo for Powerline:size=12"
+                        , normalColor      = "#000000"
+                        , normalTextColor  = "#bbbbbb"
+                        , fontName         = "xft:Menlo for Powerline:size=10"
                         , decoWidth        = 30000
-                        , decoHeight       = 28 }
+                        , decoHeight       = 20 }
 
   xmonad $ ewmh $ XConfig
-    { XMonad.borderWidth = 2
+    { XMonad.borderWidth = 4
     , XMonad.clickJustFocuses = False
     , XMonad.clientMask = clientMask
     , XMonad.focusFollowsMouse = False
@@ -181,7 +181,7 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 layout = tiled ||| Mirror tiled ||| Full
   where
-    tiled = spacing 20 $ ResizableTall nmaster delta ratio []
+    tiled = spacing 16 $ ResizableTall nmaster delta ratio []
     -- Default number of windows in master pane
     nmaster = 1
     -- Percent of the screen to increment when resizing
