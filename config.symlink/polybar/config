@@ -31,7 +31,7 @@ font-2 = "Font Awesome 5 Pro Regular:size=23;3"
 font-3 = "Font Awesome 5 Pro Solid:size=23;3"
 
 modules-left = xmonad-workspaces xmonad-title
-modules-right = wlan alsa battery date time
+modules-right = wlan pulseaudio battery date time
 
 [module/xmonad-workspaces]
 type = custom/script
@@ -81,17 +81,17 @@ format-prefix-foreground = ${colors.foreground}
 format-underline = ${xrdb:tomorrow.color12}
 label = "%time%"
 
-[module/alsa]
-type = internal/alsa
-mapped = true
-format-muted = ""
+[module/pulseaudio]
+type = internal/pulseaudio
+format-muted = ""
 format-muted-foreground = ${colors.foreground}
 format-muted-underline = ${xrdb:tomorrow.color1}
 format-volume = "<ramp-volume> <label-volume>"
 format-volume-foreground = ${colors.foreground}
 format-volume-underline = ${xrdb:tomorrow.color2}
 ramp-volume-0 = 
-ramp-volume-1 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
 
 [module/battery]
 type = internal/battery
