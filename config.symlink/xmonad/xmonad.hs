@@ -118,12 +118,12 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Mute/Unmute audio output (Fn + F1):
   , ((noModMask, xF86XK_AudioMute),
      spawn "pamixer --toggle-mute")
-  -- Decrease audio volume by 10% (Fn + F2):
+  -- Decrease audio volume by 5% (Fn + F2):
   , ((noModMask, xF86XK_AudioLowerVolume),
-     spawn "pamixer --decrease 10")
-  -- Increase audio volume by 10% (Fn + F3):
+     spawn "pamixer --decrease 5")
+  -- Increase audio volume by 5% (Fn + F3):
   , ((noModMask, xF86XK_AudioRaiseVolume),
-     spawn "pamixer --increase 10")
+     spawn "pamixer --increase 5")
   -- Mute/Unmute audio input (Fn + F4):
   , ((noModMask, 0x1008FFB2), -- i.e. XF86AudioMicMute
      spawn "pamixer --default-source --toggle-mute")
