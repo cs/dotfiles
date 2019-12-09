@@ -111,12 +111,14 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_k), windows W.focusUp)
   -- Move focus to the master window:
   , ((modMask, xK_m), windows W.focusMaster)
-  -- Slack Scratchpad:
-  , ((modMask, xK_f), Scratchpads.slackAction)
-  -- Trello Scratchpad:
-  , ((modMask, xK_r), Scratchpads.trelloAction)
   -- Twitter Scratchpad:
-  , ((modMask, xK_t), Scratchpads.twitterAction)
+  , ((modMask, xK_F1), Scratchpads.twitterAction)
+  -- LinkedIn Scratchpad:
+  , ((modMask, xK_F2), Scratchpads.linkedinAction)
+  -- Slack Scratchpad:
+  , ((modMask, xK_F3), Scratchpads.slackAction)
+  -- Trello Scratchpad:
+  , ((modMask, xK_F4), Scratchpads.trelloAction)
   -- Mute/Unmute audio output (Fn + F1):
   , ((noModMask, xF86XK_AudioMute),
      spawn "pamixer --toggle-mute")
