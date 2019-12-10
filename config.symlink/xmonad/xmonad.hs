@@ -36,7 +36,7 @@ main = do
                         , focusedTextColor = "#ffffff"
                         , normalColor      = "#000000"
                         , normalTextColor  = "#bbbbbb"
-                        , fontName         = "xft:Menlo for Powerline:size=10"
+                        , fontName         = "xft:Noto Sans Mono:style=Bold:pixelsize=20"
                         , decoWidth        = 30000
                         , decoHeight       = 20 }
 
