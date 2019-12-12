@@ -38,9 +38,9 @@ main = do
                         , focusedTextColor = "#ffffff"
                         , normalColor      = "#000000"
                         , normalTextColor  = "#bbbbbb"
-                        , fontName         = "xft:Noto Sans Mono:style=Bold:pixelsize=20"
+                        , fontName         = "xft:Noto Sans Mono:style=Medium,Regular:pixelsize=20"
                         , decoWidth        = 30000
-                        , decoHeight       = 20 }
+                        , decoHeight       = 24 }
 
   xmonad $ ewmh $ XConfig
     { XMonad.borderWidth = 4
