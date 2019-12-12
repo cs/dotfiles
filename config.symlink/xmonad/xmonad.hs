@@ -111,10 +111,10 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_k), windows W.focusUp)
   -- Move focus to the master window:
   , ((modMask, xK_m), windows W.focusMaster)
+  -- GMail Scratchpad:
+  , ((modMask, xK_F1), Scratchpads.gmailAction)
   -- Twitter Scratchpad:
-  , ((modMask, xK_F1), Scratchpads.twitterAction)
-  -- LinkedIn Scratchpad:
-  , ((modMask, xK_F2), Scratchpads.linkedinAction)
+  , ((modMask, xK_F2), Scratchpads.twitterAction)
   -- Slack Scratchpad:
   , ((modMask, xK_F3), Scratchpads.slackAction)
   -- Trello Scratchpad:

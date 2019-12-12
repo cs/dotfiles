@@ -1,6 +1,6 @@
 module Scratchpads
   ( manageHook
-  , linkedinAction
+  , gmailAction
   , slackAction
   , trelloAction
   , twitterAction
@@ -14,8 +14,8 @@ import qualified XMonad.StackSet as W
 manageHook :: ManageHook
 manageHook = namedScratchpadManageHook all
 
-linkedinAction :: X ()
-linkedinAction = namedScratchpadAction all (name linkedin)
+gmailAction :: X ()
+gmailAction = namedScratchpadAction all (name gmail)
 
 slackAction :: X ()
 slackAction = namedScratchpadAction all (name slack)
@@ -31,11 +31,11 @@ twitterAction = namedScratchpadAction all (name twitter)
 -------------------------------------------------------------------------------
 
 all :: [NamedScratchpad]
-all = [linkedin, slack, trello, twitter]
+all = [gmail, slack, trello, twitter]
 
-linkedin :: NamedScratchpad
-linkedin = NS name cmd query hook
-  where tld   = "linkedin.com"
+gmail :: NamedScratchpad
+gmail = NS name cmd query hook
+  where tld   = "mail.google.com"
         name  = tld
         cmd   = "google-chrome-stable --app=https://" ++ tld
         query = appName =? tld :: Query Bool
