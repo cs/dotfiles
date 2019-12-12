@@ -20,6 +20,8 @@ import           XMonad.Hooks.EwmhDesktops (ewmh, fullscreenEventHook)
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.SetWMName
 import           XMonad.Layout
+import           XMonad.Layout.BoringWindows -- required for Scratchpads
+import           XMonad.Layout.Minimize -- required for Scratchpads
 import           XMonad.Layout.ResizableTile
 import           XMonad.Layout.Spacing
 import           XMonad.Main (xmonad)
@@ -51,7 +53,7 @@ main = do
                                        , fullscreenEventHook ]
     , XMonad.handleExtraArgs = handleExtraArgs
     , XMonad.keys = keys
-    , XMonad.layoutHook = decorateWindows decoTheme $ avoidStruts layout
+    , XMonad.layoutHook = minimize $ boringWindows $ decorateWindows decoTheme $ avoidStruts layout
     , XMonad.logHook = Polybar.logHook
     , XMonad.manageHook = mconcat [ manageDocks
                                   , Scratchpads.manageHook ]

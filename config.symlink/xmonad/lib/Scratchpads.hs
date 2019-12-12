@@ -8,59 +8,38 @@ module Scratchpads
 
 import           Prelude hiding (all)
 import           XMonad hiding (manageHook)
-import           XMonad.Util.NamedScratchpad
+import           XMonad.Util.ExclusiveScratchpads
 import qualified XMonad.StackSet as W
 
 manageHook :: ManageHook
-manageHook = namedScratchpadManageHook all
+manageHook = xScratchpadsManageHook all
 
 gmailAction :: X ()
-gmailAction = namedScratchpadAction all (name gmail)
+gmailAction = scratchpadAction all "gmail"
 
 slackAction :: X ()
-slackAction = namedScratchpadAction all (name slack)
+slackAction = scratchpadAction all "slack"
 
 trelloAction :: X ()
-trelloAction = namedScratchpadAction all (name trello)
+trelloAction = scratchpadAction all "trello"
 
 twitterAction :: X ()
-twitterAction = namedScratchpadAction all (name twitter)
+twitterAction = scratchpadAction all "twitter"
 
 -------------------------------------------------------------------------------
 -- Internal
 -------------------------------------------------------------------------------
 
-all :: [NamedScratchpad]
-all = [gmail, slack, trello, twitter]
-
-gmail :: NamedScratchpad
-gmail = NS name cmd query hook
-  where tld   = "mail.google.com"
-        name  = tld
-        cmd   = "google-chrome-stable --app=https://" ++ tld
-        query = appName =? tld :: Query Bool
-        hook  = customFloating $ W.RationalRect 0.05 0.05 0.90 0.90
-
-slack :: NamedScratchpad
-slack = NS name cmd query hook
-  where tld   = "bugfactoryio.slack.com"
-        name  = tld
-        cmd   = "google-chrome-stable --app=https://" ++ tld ++ "/signin"
-        query = appName =? (tld ++ "__signin") :: Query Bool
-        hook  = customFloating $ W.RationalRect 0.05 0.05 0.90 0.90
-
-trello :: NamedScratchpad
-trello = NS name cmd query hook
-  where tld   = "trello.com"
-        name  = tld
-        cmd   = "google-chrome-stable --app=https://" ++ tld
-        query = appName =? tld :: Query Bool
-        hook  = customFloating $ W.RationalRect 0.05 0.05 0.90 0.90
-
-twitter :: NamedScratchpad
-twitter = NS name cmd query hook
-  where tld   = "twitter.com"
-        name  = tld
-        cmd   = "google-chrome-stable --app=https://" ++ tld
-        query = appName =? tld :: Query Bool
-        hook  = customFloating $ W.RationalRect 0.05 0.05 0.90 0.90
+all :: ExclusiveScratchpads
+all = mkXScratchpads
+        [ ("gmail", makeCommand tldGmail, makeQuery tldGmail)
+        , ("slack", makeCommand tldSlack, makeQuery tldSlack)
+        , ("trello", makeCommand tldTrello, makeQuery tldTrello)
+        , ("twitter", makeCommand tldTwitter, makeQuery tldTwitter)
+        ] $ customFloating $ W.RationalRect 0.05 0.05 0.90 0.90
+  where tldGmail = "mail.google.com"
+        tldSlack = "bugfactoryio.slack.com"
+        tldTrello = "trello.com"
+        tldTwitter = "twitter.com"
+        makeQuery tld = appName =? tld
+        makeCommand tld = "google-chrome-stable --app=https://" ++ tld
