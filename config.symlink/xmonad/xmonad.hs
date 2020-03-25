@@ -60,7 +60,7 @@ main = do
     , XMonad.normalBorderColor = normalColor decoTheme
     , XMonad.rootMask = rootMask
     , XMonad.startupHook = docksStartupHook <+> setWMName "LG3D"
-    , XMonad.terminal = "urxvtc"
+    , XMonad.terminal = "alacritty"
     , XMonad.workspaces = fmap show [1..9] }
 
 clientMask :: EventMask
