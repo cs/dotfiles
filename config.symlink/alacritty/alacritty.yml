@@ -79,11 +79,6 @@ colors: # Tomorrow Night Bright
     white:   '0x9a9a9a'
   indexed_colors: []
 
-visual_bell:
-  animation: EaseOutExpo
-  duration: 100
-  color: '0xffffff'
-
 background_opacity: 1.0
 
 selection:
