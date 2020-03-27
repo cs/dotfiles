@@ -1,4 +1,5 @@
 window:
+  title: '~'
   dimensions:
     columns: 0
     lines: 0
@@ -28,13 +29,7 @@ font:
   bold_italic:
     family: Roboto Mono
     style: Bold Italic
-  size: 12.0
-  offset:
-    x: 0
-    y: 0
-  glyph_offset:
-    x: 0
-    y: 0
+  size: 11.0
 
 draw_bold_text_with_bright_colors: true
 
