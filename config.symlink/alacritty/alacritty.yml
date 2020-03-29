@@ -1,5 +1,4 @@
 window:
-  title: '~'
   dimensions:
     columns: 0
     lines: 0
@@ -8,13 +7,13 @@ window:
     y: 1
   dynamic_padding: true
   decorations: none
+  title: '~'
   class:
     general: Alacritty
 
 scrolling:
   history: 10000
   multiplier: 3
-  auto_scroll: false
 
 font:
   normal:
@@ -29,7 +28,7 @@ font:
   bold_italic:
     family: Roboto Mono
     style: Bold Italic
-  size: 11.0
+  size: 12.0
 
 draw_bold_text_with_bright_colors: true
 
@@ -87,6 +86,9 @@ cursor:
   unfocused_hollow: true
 
 live_config_reload: true
+
+shell:
+  program: /bin/bash
 
 working_directory: None
 
