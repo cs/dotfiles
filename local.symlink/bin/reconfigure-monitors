@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+killall --quiet polybar
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+
+disconnectedOutputs=($(xrandr --query | grep " disconnected" | cut -d " " -f1 | sort))
+connectedOutputs=($(xrandr --query | grep " connected" | cut -d " " -f1 | sort))
+internalOutput="eDP1"
+
+for output in "${disconnectedOutputs[@]}"; do
+  eval "xrandr --output $output --off"
+done
+
+if [[ ${#connectedOutputs[@]} == 3 ]]; then
+  # 3 outputs connected:
+  #   * Deactivate internal output.
+  #   * Activate both external outputs.
+  #   * Start polybar on both external outputs.
+
+  eval "xrandr --output $internalOutput --off"
+
+  for output in "${connectedOutputs[@]}"; do
+    case "$output" in
+      HDMI1 )
+        eval "xrandr --output HDMI1 --auto --primary --right-of DP2"
+        MONITOR=HDMI1 polybar default &
+        ;;
+      DP2 )
+        eval "xrandr --output DP2 --auto --left-of HDMI1"
+        MONITOR=DP2 polybar default &
+        ;;
+    esac
+  done
+elif [[ ${#connectedOutputs[@]} == 2 ]]; then
+  # 2 outputs connected:
+  #   * Deactivate internal output.
+  #   * Activate external output.
+  #   * Start polybar on external output.
+
+  eval "xrandr --output $internalOutput --off"
+  # MONITOR=$internalOutput polybar default &
+  # eval "xrandr --output $internalOutput --auto"
+
+  for output in "${connectedOutputs[@]}"; do
+    if [[ $output != $internalOutput ]]; then # Is it an external output?
+      # Calculate scale and panning for outputs with low resolution ...
+      preferred=$(xrandr --query | grep -A1000 "^$output" | head --lines=2 | tail --lines=1 | cut -d" " -f4)
+      preferredX=$(echo $preferred | cut -d"x" -f1)
+      preferredY=$(echo $preferred | cut -d"x" -f2)
+      if [[ ! $preferredX > 2560 ]]; then
+        scale="--scale 1.5x1.5"
+        panning="--panning $((preferredX*15/10))x$((preferredY*15/10))"
+      fi
+      eval "xrandr --output $output --auto $scale $panning --primary --right-of $internalOutput"
+      MONITOR=$output polybar default &
+    fi
+  done
+else
+  # 1 output connected:
+  #   * Activate internal output.
+  #   * Start polybar on internal output.
+
+  eval "xrandr --output $internalOutput --auto --primary"
+  #   * Reset size of the framebuffer.
+  # eval "xrandr --fb 3840x2160"
+  MONITOR=$internalOutput polybar default &
+fi

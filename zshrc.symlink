@@ -26,9 +26,9 @@ export FZF_DEFAULT_COMMAND="fd --type f --hidden"
 export FZF_DEFAULT_OPTS="--bind 'ctrl-a:select-all,ctrl-d:deselect-all'"
 
 #-------------------------------------------------------------------------------
-# Private ~/.bin
+# Private ~/.local/bin and ~/.config/yarn/global
 #-------------------------------------------------------------------------------
-export PATH="$HOME/.bin:$PATH"
+export PATH="$HOME/.local/bin:$(yarn global bin):$PATH"
 
 #-------------------------------------------------------------------------------
 # Haskell
