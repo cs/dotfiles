@@ -12,5 +12,4 @@ fonts.symlink/Font Awesome 5 Pro*
 histories.symlink/*
 task.symlink/*
 !task.symlink/.keep
-vim.symlink/*
 wallpapers.symlink/*
