@@ -3,8 +3,8 @@ window:
     columns: 0
     lines: 0
   padding:
-    x: 1
-    y: 1
+    x: 5
+    y: 5
   dynamic_padding: true
   decorations: none
   title: '~'
@@ -17,17 +17,17 @@ scrolling:
 
 font:
   normal:
-    family: Roboto Mono
-    style: Regular
+    family: Fira Code
+    style: Retina
   bold:
-    family: Roboto Mono
+    family: Fira Code
     style: Bold
   italic:
-    family: Roboto Mono
-    style: Bold Italic
+    family: Fira Code
+    style: Retina # Font doesn't support Italic.
   bold_italic:
-    family: Roboto Mono
-    style: Bold Italic
+    family: Fira Code
+    style: Bold # Font doesn't support Italic.
   size: 12.0
 
 draw_bold_text_with_bright_colors: true
