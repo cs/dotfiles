@@ -50,7 +50,7 @@ scratchpads = [ Scratchpad "gmail" (makeCommand tldGmail) (makeQuery tldGmail)
         tldTrello = "trello.com"
         tldTwitter = "twitter.com"
         makeQuery tld = appName =? tld
-        makeCommand tld = "google-chrome-stable --app=https://" ++ tld
+        makeCommand tld = "chromium --app=https://" ++ tld
 
 scratchpadAction :: [Scratchpad] -> String -> X ()
 scratchpadAction scratchpads n =
