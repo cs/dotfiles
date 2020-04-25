@@ -168,20 +168,7 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
       | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ] ++
   -- Move window to workspace N:
   [ ((modMask .|. shiftMask, k), windows $ W.shift i)
-      | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ] ++
-  [ ((modMask, xK_a),               fakeKeySym "adiaeresis" ),
-    ((modMask .|. shiftMask, xK_a), fakeKeySym "Adiaeresis" ),
-    ((modMask, xK_o),               fakeKeySym "odiaeresis" ),
-    ((modMask .|. shiftMask, xK_o), fakeKeySym "Odiaeresis" ),
-    ((modMask, xK_u),               fakeKeySym "udiaeresis" ),
-    ((modMask .|. shiftMask, xK_u), fakeKeySym "Udiaeresis" ),
-    ((modMask, xK_s),               fakeKeySym "ssharp" ),
-    ((modMask .|. shiftMask, xK_s), fakeKeySym "ssharp" ),
-    ((modMask, xK_e),               fakeKeySym "EuroSign" ),
-    ((modMask .|. shiftMask, xK_e), fakeKeySym "EuroSign" ) ]
-  where fakeKeySym :: String -> X ()
-        fakeKeySym keySym = withFocused $ \window ->
-          spawn $ "xfakekeysym " ++ show window ++ " " ++ keySym
+      | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] ]
 
 layout = tiled ||| Mirror tiled ||| Full
   where
