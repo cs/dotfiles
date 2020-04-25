@@ -1,10 +1,17 @@
-[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME .Xresources
-
-reconfigure-monitors
+if [[ -f ~/.Xresources ]]; then
+  xrdb -merge -I$HOME .Xresources
+fi
 
 if [[ -f ~/.wallpapers/current ]]; then
   feh --no-fehbg --bg-fill .wallpapers/current &
 fi
+
+if [[ -f ~/.xkb/symbols/german-special-chars ]]; then
+  SYMBOLS="pc+us+inet(evdev)+ctrl(nocaps)+german-special-chars"
+  setxkbmap -print -symbols "$SYMBOLS" | xkbcomp -I$HOME/.xkb - $DISPLAY
+fi
+
+reconfigure-monitors
 
 xsetroot -cursor_name left_ptr &
 unclutter -noevents -root -jitter 10 &

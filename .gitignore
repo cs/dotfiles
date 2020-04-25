@@ -1,15 +1,16 @@
 config.symlink/*
+config.symlink/xmonad/**/*.hi
+config.symlink/xmonad/**/*.o
 !config.symlink/chrome-flags.conf
 !config.symlink/git
 !config.symlink/mpd
 !config.symlink/nvim
 !config.symlink/polybar
 !config.symlink/xmonad
-config.symlink/xmonad/**/*.hi
-config.symlink/xmonad/**/*.o
 fonts.symlink/.uuid
 fonts.symlink/Font Awesome 5 Pro*
 histories.symlink/*
+local.symlink/*
 task.symlink/*
 !task.symlink/.keep
 wallpapers.symlink/*
