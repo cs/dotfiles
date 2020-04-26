@@ -76,7 +76,7 @@ handleExtraArgs = \xs theConf -> case xs of
 keys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Launch a new terminal:
-  [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+  [ ((modMask, xK_Return), spawn $ XMonad.terminal conf)
   -- Start program launcher:
   , ((modMask .|. shiftMask, xK_p), spawn "gmrun")
   -- Close the focused window:
