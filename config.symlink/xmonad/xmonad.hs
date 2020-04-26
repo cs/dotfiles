@@ -77,6 +77,8 @@ keys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Launch a new terminal:
   [ ((modMask, xK_Return), spawn $ XMonad.terminal conf)
+  -- Launch a new web browser:
+  , ((modMask .|. shiftMask, xK_Return), spawn "chromium")
   -- Start program launcher:
   , ((modMask .|. shiftMask, xK_p), spawn "gmrun")
   -- Close the focused window:
