@@ -87,8 +87,6 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
   -- Resize viewed windows to the correct size:
   , ((modMask, xK_n), refresh)
-  -- Swap the focused window and the master window:
-  , ((modMask, xK_Return), windows W.swapMaster)
   -- Swap the focused window with the next window:
   , ((modMask .|. shiftMask, xK_j), windows W.swapDown)
   -- Swap the focused window with the previous window:
@@ -111,6 +109,8 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_k), windows W.focusUp)
   -- Move focus to the master window:
   , ((modMask, xK_m), windows W.focusMaster)
+  -- Swap the focused window and the master window:
+  , ((modMask .|. shiftMask, xK_m), windows W.swapMaster)
   -- GMail Scratchpad:
   , ((modMask, xK_F1), Scratchpads.gmailAction)
   -- Twitter Scratchpad:
