@@ -27,5 +27,5 @@ if command -v fzf > /dev/null
 end
 
 if command -v hledger > /dev/null
-  set --export LEDGER_FILE "$HOME/schiessl-it-consulting/ACCOUNTING.journal"
+  set --export LEDGER_FILE "$HOME/Accounting/schiessl-it-consulting/ACCOUNTING.journal"
 end
