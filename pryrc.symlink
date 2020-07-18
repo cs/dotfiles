@@ -1,4 +1,4 @@
-Pry.config.history.file = '~/.histories/pry'
+Pry.config.history_file = '~/.histories/irb'
 
 begin
   require 'awesome_print'
