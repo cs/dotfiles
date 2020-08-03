@@ -1,5 +1,12 @@
 set fish_greeting # Disable greeting when launching a new terminal
 
+function fish_user_key_bindings
+  for mode in default insert visual
+    bind --mode $mode --erase --preset \cd
+    bind --mode $mode \cd delete-char
+  end
+end
+
 fish_vi_key_bindings
 
 command -v git > /dev/null && abbr --add --global g git
