@@ -6,6 +6,7 @@ window:
     x: 5
     y: 5
   dynamic_padding: true
+  dynamic_title: true
   decorations: none
   title: '~'
   class:
@@ -78,8 +79,6 @@ background_opacity: 1.0
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
   save_to_clipboard: false
-
-dynamic_title: true
 
 cursor:
   style: Block
