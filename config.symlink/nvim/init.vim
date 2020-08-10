@@ -174,8 +174,8 @@ map <leader>f :Files<CR>
 map <leader>F :Files %%<CR>
 map <leader>b :Buffers<CR>
 
-" Override the built-in Ag command to include hidden files:
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--hidden', <bang>0)
+" Override built-in Ag to include hidden files and disable matching over multiple lines:
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--hidden --nomultiline', <bang>0)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for thoughtbot/vim-rspec
