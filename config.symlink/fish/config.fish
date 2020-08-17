@@ -13,6 +13,10 @@ command -v git > /dev/null && abbr --add --global g git
 command -v moment > /dev/null && abbr --add --global m moment
 command -v pass > /dev/null && abbr --add --global p pass
 
+if command -v bundle > /dev/null
+  abbr --add --global bx bundle exec
+end
+
 if command -v nvim > /dev/null
   abbr --add --global vi nvim
   abbr --add --global vim nvim
