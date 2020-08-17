@@ -15,6 +15,7 @@ reconfigure-monitors
 
 xsetroot -cursor_name left_ptr &
 unclutter -noevents -root -jitter 10 &
+nm-applet &
 
 export GDK_SCALE=2
 export GDK_DPI_SCALE=0.75
