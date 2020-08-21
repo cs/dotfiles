@@ -1,1 +1,11 @@
 .git
+
+node_modules/*
+tmp/*
+
+# TODO: log/*.log doesn't work with the latest version of AG.
+log/*
+# TODO: public/packs-test/* doesn't work with the latest version of AG.
+packs-test/*
+# TODO: public/packs/* doesn't work with the latest version of AG.
+packs/*
