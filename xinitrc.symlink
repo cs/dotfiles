@@ -13,12 +13,12 @@ fi
 
 reconfigure-monitors
 
+export GDK_SCALE=2
+export GDK_DPI_SCALE=0.75
+
 xsetroot -cursor_name left_ptr &
 unclutter -noevents -root -jitter 10 &
 nm-applet &
-
-export GDK_SCALE=2
-export GDK_DPI_SCALE=0.75
 
 export XMONAD_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/xmonad"
 export XMONAD_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/xmonad"
