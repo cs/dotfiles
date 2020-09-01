@@ -12,19 +12,21 @@
   aa = add --all
   amend = commit --amend
   co = checkout
-  di = diff
-  ds = diff --stat
-  wdi = diff --word-diff
-  dc = diff --cached
-  dsc = diff --cached --stat
-  dcs = diff --cached --stat # For some reason I keep mis-typing it like this ;)
-  wdc = diff --cached --word-diff
+
   f = fetch
   fa = fetch --all
   b = branch
   ba = branch --all
 
-  # Fancy logging.
+  # Diffing
+  d = diff
+  ds = diff --stat
+  dc = diff --cached
+  dcs = diff --stat --cached
+  dw = diff --word-diff
+  dwc = diff --word-diff --cached
+
+  # Logging
   #   r = recent commits, only current branch
   #   ra = recent commits, all reachable refs
   #   l = all commits, only current branch
@@ -34,7 +36,7 @@
   l = "!. ${XDG_CONFIG_HOME:-$HOME/.config}/git/helpers && pretty_git_log"
   la = !git l --all
 
-  # Fancy stashing.
+  # Stashing
   sl = stash list
   sp = stash pop
   sa = stash apply
