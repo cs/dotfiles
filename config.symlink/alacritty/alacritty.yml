@@ -100,7 +100,7 @@ mouse:
   hide_when_typing: false
   url:
     launcher:
-      program: chromium
+      program: xdg-open
       args: []
     modifiers: None
 
