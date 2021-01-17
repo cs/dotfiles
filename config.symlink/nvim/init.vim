@@ -15,7 +15,7 @@ let mapleader = "\<Space>"
 let maplocalleader = ","
 cnoremap %% <C-R>=expand('%:h').'/'<CR>
 
-set number relativenumber
+set number numberwidth=5
 set colorcolumn=80
 set hidden
 set cursorline cursorcolumn
