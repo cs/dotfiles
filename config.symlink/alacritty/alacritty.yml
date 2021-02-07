@@ -122,8 +122,12 @@ mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
 
 key_bindings:
-  - { key: V,        mods: Control|Shift, action: Paste            }
-  - { key: C,        mods: Control|Shift, action: Copy             }
-  - { key: Key0,     mods: Control,       action: ResetFontSize    }
-  - { key: Minus,    mods: Control,       action: DecreaseFontSize }
-  - { key: Equals,   mods: Control,       action: IncreaseFontSize }
+  - { key: V,        mods: Control|Shift,             action: Paste            }
+  - { key: C,        mods: Control|Shift,             action: Copy             }
+  - { key: Key0,     mods: Control,                   action: ResetFontSize    }
+  - { key: Minus,    mods: Control,                   action: DecreaseFontSize }
+  - { key: Equals,   mods: Control,                   action: IncreaseFontSize }
+  - { key: PageUp,   mods: Shift,         mode: ~Alt, action: ScrollPageUp     }
+  - { key: PageDown, mods: Shift,         mode: ~Alt, action: ScrollPageDown   }
+  - { key: Home,     mods: Shift,         mode: ~Alt, action: ScrollToTop      }
+  - { key: End,      mods: Shift,         mode: ~Alt, action: ScrollToBottom   }
