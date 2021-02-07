@@ -9,8 +9,8 @@ function usage() {
 }
 
 
-export BORG_REPO=/run/media/cs/8e1bfaaa-278a-418e-8802-94710bf58624/backup
 archive_prefix="xps-"
+export BORG_REPO=/run/media/cs/5face6fe-eac7-4bfe-a923-149e5427813a/backup
 
 
 subcommand="$1"
