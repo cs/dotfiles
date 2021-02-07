@@ -6,11 +6,12 @@ window:
     x: 5
     y: 5
   dynamic_padding: true
-  dynamic_title: true
   decorations: none
   title: '~'
+  dynamic_title: true
   class:
     general: Alacritty
+  gtk_theme_variant: None
 
 scrolling:
   history: 10000
@@ -30,6 +31,12 @@ font:
     family: Fira Code
     style: Bold # Font doesn't support Italic.
   size: 14.0
+  offset:
+    x: 0
+    y: 0
+  glyph_offset:
+    x: 0
+    y: 0
 
 draw_bold_text_with_bright_colors: true
 
@@ -74,6 +81,12 @@ colors: # Tomorrow Night Bright
     white:   '0x9a9a9a'
   indexed_colors: []
 
+bell:
+  animation: EaseOutExpo
+  duration: 0
+  color: '#ffffff'
+  command: None
+
 background_opacity: 1.0
 
 selection:
@@ -81,14 +94,15 @@ selection:
   save_to_clipboard: false
 
 cursor:
-  style: Block
+  style:
+    shape: Block
   unfocused_hollow: true
+
+live_config_reload: true
 
 shell:
   program: /usr/bin/fish
   args: [--login]
-
-live_config_reload: true
 
 working_directory: None
 
