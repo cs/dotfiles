@@ -158,6 +158,7 @@ augroup END
 " Config for junegunn/fzf.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:fzf_layout = { 'down': '20' }
+let g:fzf_preview_window = []
 
 augroup fzfSettings
   autocmd!
@@ -174,7 +175,7 @@ map <leader>f :Files<CR>
 map <leader>F :Files %%<CR>
 map <leader>b :Buffers<CR>
 
-" Override built-in Ag to include hidden files and disable matching over multiple lines:
+" Override built-in Ag to include hidden files and disable regex matching over multiple lines:
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--hidden --nomultiline', <bang>0)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
