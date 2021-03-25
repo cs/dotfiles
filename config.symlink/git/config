@@ -19,12 +19,12 @@
   ba = branch --all
 
   # Diffing
-  d = diff
-  ds = diff --stat
-  dc = diff --cached
-  dcs = diff --stat --cached
-  dw = diff --word-diff
-  dwc = diff --word-diff --cached
+  d = diff --ignore-space-change
+  ds = diff --ignore-space-change --stat
+  dc = diff --ignore-space-change --cached
+  dcs = diff --ignore-space-change --stat --cached
+  dw = diff --ignore-space-change --word-diff
+  dwc = diff --ignore-space-change --word-diff --cached
 
   # Logging
   #   r = recent commits, only current branch
