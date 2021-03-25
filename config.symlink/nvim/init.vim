@@ -1,6 +1,4 @@
 call plug#begin()
-
-Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
@@ -8,7 +6,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
-
 call plug#end()
 
 let mapleader = "\<Space>"
