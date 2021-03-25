@@ -8,18 +8,14 @@ function usage() {
   echo "  where <command> is one of: create, check, info, list, prune"
 }
 
-
-archive_prefix="xps-"
 export BORG_REPO=/run/media/cs/5face6fe-eac7-4bfe-a923-149e5427813a/backup
-
 
 subcommand="$1"
 shift # Discard first argument (i.e. the subcommand)
 
-
 case "$subcommand" in
   create )
-    borg create --stats --progress --compression lz4 "::${archive_prefix}{now}" $HOME
+    borg create --stats --progress --compression lz4 "::{now}" $HOME
     ;;
   check )
     borg check --verify-data -v
@@ -36,8 +32,7 @@ case "$subcommand" in
     # and monthly backups for the last 10 years.
     borg prune --keep-daily 30 \
                --keep-weekly 52 \
-               --keep-monthly 120 \
-               --prefix "${archive_prefix}"
+               --keep-monthly 120
     ;;
   * )
     usage
