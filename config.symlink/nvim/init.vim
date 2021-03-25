@@ -43,6 +43,9 @@ set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor20
 set mouse=a " X Integration
 set clipboard+=unnamedplus
 
+set noswapfile
+set nobackup
+
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_altv = 1
