@@ -17,6 +17,13 @@ else
 fi
 
 #------------------------------------------------------------------------------
+# Prompt
+#------------------------------------------------------------------------------
+if command -v starship > /dev/null; then
+  source <(starship init bash --print-full-init)
+fi
+
+#------------------------------------------------------------------------------
 # History
 #------------------------------------------------------------------------------
 export HISTFILE="$HOME/.histories/bash"   # set custom file location
@@ -31,4 +38,4 @@ shopt -s histappend                       # on exit, append to the history file
 # => history -w -- write out the history list to the history file
 # => history -c -- clear the history list
 # => history -r -- read the history file and append its contents to the history list
-PROMPT_COMMAND="history -n; history -w; history -c; history -r"
+PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
