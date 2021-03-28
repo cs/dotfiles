@@ -30,7 +30,7 @@ font:
   bold_italic:
     family: Fira Code
     style: Bold # Font doesn't support Italic.
-  size: 14.0
+  size: 12.0
   offset:
     x: 0
     y: 0
