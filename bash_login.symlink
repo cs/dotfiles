@@ -8,22 +8,33 @@
 unset HISTFILE
 
 #------------------------------------------------------------------------------
-# YARN
+# Private Executables
 #------------------------------------------------------------------------------
-command -v yarn > /dev/null && export PATH="$(yarn global bin):$PATH"
+if [ -d "$HOME/.local/bin" ]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
 
 #------------------------------------------------------------------------------
 # Ruby
 #------------------------------------------------------------------------------
-[ -d "$HOME/.rbenv" ] && export PATH="$HOME/.rbenv/bin:$PATH"
-command -v rbenv > /dev/null && eval "$(rbenv init -)"
+if [ -d "$HOME/.rbenv" ]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  command -v rbenv > /dev/null && eval "$(rbenv init -)"
+fi
 
 #------------------------------------------------------------------------------
-# Per-user Binaries
+# JavaScript
 #------------------------------------------------------------------------------
-export PATH="$HOME/.local/bin:$PATH" # private ~/.local/bin
+if [ -d "$HOME/.nvm" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -f "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+  [ -f "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
+  command -v yarn > /dev/null && export PATH="$(yarn global bin):$PATH"
+fi
 
 #------------------------------------------------------------------------------
 # Start Window Manager on tty1
 #------------------------------------------------------------------------------
-[ "$(tty)" = "/dev/tty1" ] && GDK_BACKEND=wayland exec sway
+if [ "$(tty)" = "/dev/tty1" ]; then
+  GDK_BACKEND=wayland exec sway
+fi
