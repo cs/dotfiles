@@ -5,16 +5,18 @@
 #------------------------------------------------------------------------------
 # Alias
 #------------------------------------------------------------------------------
-if command -v nvim > /dev/null; then
-  alias vi=nvim
-  alias vim=nvim
-elif command -v vim > /dev/null; then
-  alias vi=vim
-  alias nvim=vim
-else
-  alias vim=vi
-  alias nvim=vi
-fi
+alias ls="ls --color"
+alias ll="ls --color -l"
+alias la="ls --color -l --all"
+
+command -v git > /dev/null && alias g="git"
+command -v moment > /dev/null && alias m="moment"
+command -v pass > /dev/null && alias p="pass"
+command -v bundle > /dev/null && alias bx="bundle exec"
+
+alias vim="vi" nvim="vi"
+command -v vim > /dev/null && alias vi="vim" nvim="vim"
+command -v nvim > /dev/null && alias vi="nvim" vim="nvim"
 
 #------------------------------------------------------------------------------
 # Prompt
