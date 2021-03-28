@@ -101,8 +101,8 @@ cursor:
 live_config_reload: true
 
 shell:
-  program: /usr/bin/fish
-  args: [--login]
+  program: /usr/bin/bash
+  args: []
 
 working_directory: None
 
