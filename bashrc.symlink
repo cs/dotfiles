@@ -21,17 +21,33 @@ if [ -d "$HOME/.nvm" ]; then
 fi
 
 #------------------------------------------------------------------------------
-# Alias
+# Alias & Completions
 #------------------------------------------------------------------------------
 alias ls="ls --no-group --color"
 alias ll="ls --no-group --color -l"
 alias la="ls --no-group --color -l --all"
 alias vi="$EDITOR" vim="$EDITOR" nvim="$EDITOR"
 
-command -v git > /dev/null && alias g="git"
-command -v moment > /dev/null && alias m="moment"
-command -v pass > /dev/null && alias p="pass"
-command -v bundle > /dev/null && alias bx="bundle exec"
+if command -v bundle > /dev/null; then
+  alias bx="bundle exec"
+fi
+if command -v git > /dev/null; then
+  alias g="git"
+  if [ -f /usr/share/bash-completion/completions/git ]; then
+    source /usr/share/bash-completion/completions/git
+    __git_complete g git # enable completions for the alias
+  fi
+fi
+if command -v moment > /dev/null; then
+  alias m="moment"
+fi
+if command -v pass > /dev/null; then
+  alias p="pass"
+  if [ -f /usr/share/bash-completion/completions/pass ]; then
+    source /usr/share/bash-completion/completions/pass
+    complete -o filenames -F _pass p # enable completions for the alias
+  fi
+fi
 
 #------------------------------------------------------------------------------
 # FZF
