@@ -15,24 +15,6 @@ if [ -d "$HOME/.local/bin" ]; then
 fi
 
 #------------------------------------------------------------------------------
-# Ruby
-#------------------------------------------------------------------------------
-if [ -d "$HOME/.rbenv" ]; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  command -v rbenv > /dev/null && eval "$(rbenv init -)"
-fi
-
-#------------------------------------------------------------------------------
-# JavaScript
-#------------------------------------------------------------------------------
-if [ -d "$HOME/.nvm" ]; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -f "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-  [ -f "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
-  command -v yarn > /dev/null && export PATH="$(yarn global bin):$PATH"
-fi
-
-#------------------------------------------------------------------------------
 # Editor
 #------------------------------------------------------------------------------
 if command -v nvim > /dev/null; then
