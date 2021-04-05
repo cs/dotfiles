@@ -59,7 +59,7 @@ if command -v fzf > /dev/null; then
 fi
 
 #------------------------------------------------------------------------------
-# Prompt with Git Support
+# Prompt with Git Support (if available)
 #------------------------------------------------------------------------------
 if [ -f /usr/share/git/completion/git-prompt.sh ]; then
   source /usr/share/git/completion/git-prompt.sh
@@ -67,8 +67,11 @@ if [ -f /usr/share/git/completion/git-prompt.sh ]; then
   GIT_PS1_SHOWUNTRACKEDFILES=true
   GIT_PS1_SHOWUPSTREAM=auto
   GIT_PS1_SHOWCOLORHINTS=true
-  PROMPT=`printf "\x1b[38;2;243;107;0m❱❱❱\x1b[0m\n"` # Color f36b15
-  PROMPT_COMMAND="__git_ps1 \"\w\" \" $PROMPT \"; $PROMPT_COMMAND"
+  # \[\e[38;2;243;107;0m\] = Color f36b15, \[\e[0m\] = Color Reset
+  PROMPT_COMMAND='__git_ps1 "\w" " \[\e[38;2;243;107;0m\]❱❱❱\[\e[0m\] "'
+else
+  # \[\e[38;2;243;107;0m\] = Color f36b15, \[\e[0m\] = Color Reset
+  PS1='\w \[\e[38;2;243;107;0m\]❱❱❱\[\e[0m\] '
 fi
 
 #------------------------------------------------------------------------------
