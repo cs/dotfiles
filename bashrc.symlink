@@ -59,10 +59,16 @@ if command -v fzf > /dev/null; then
 fi
 
 #------------------------------------------------------------------------------
-# Prompt
+# Prompt with Git Support
 #------------------------------------------------------------------------------
-if command -v starship > /dev/null; then
-  source <(starship init bash --print-full-init)
+if [ -f /usr/share/git/completion/git-prompt.sh ]; then
+  source /usr/share/git/completion/git-prompt.sh
+  GIT_PS1_SHOWDIRTYSTATE=true
+  GIT_PS1_SHOWUNTRACKEDFILES=true
+  GIT_PS1_SHOWUPSTREAM=auto
+  GIT_PS1_SHOWCOLORHINTS=true
+  PROMPT=`printf "\x1b[38;2;243;107;0m❱❱❱\x1b[0m\n"` # Color f36b15
+  PROMPT_COMMAND="__git_ps1 \"\w\" \" $PROMPT \"; $PROMPT_COMMAND"
 fi
 
 #------------------------------------------------------------------------------
