@@ -94,10 +94,3 @@ export HISTSIZE="infinity"                # infinite number of commands
 export HISTFILESIZE="infinity"            # infinite number of lines
 export HISTIGNORE="history*:clear:exit"   # ignore boring commands
 shopt -s histappend                       # on exit, append to the history file
-
-# after each command ...
-# => history -n -- append lines not already read to the history list
-# => history -w -- write out the history list to the history file
-# => history -c -- clear the history list
-# => history -r -- read the history file and append its contents to the history list
-PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
