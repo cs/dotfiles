@@ -43,6 +43,9 @@
 [push]
   default = simple
 
+[checkout]
+  defaultRemote = origin
+
 [diff "pdf"]
   binary = true
 
