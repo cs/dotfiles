@@ -28,13 +28,9 @@
 
   # Logging
   #   r = recent commits, only current branch
-  #   ra = recent commits, all reachable refs
   #   l = all commits, only current branch
-  #   la = all commits, all reachable refs
   r = !git l -30
-  ra = !git r --all
   l = "!. ${XDG_CONFIG_HOME:-$HOME/.config}/git/helpers && pretty_git_log"
-  la = !git l --all
 
   # Stashing
   sl = stash list
