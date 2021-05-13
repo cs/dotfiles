@@ -25,10 +25,8 @@ border-color = #00000000
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = mono:pixelsize=20;2
-font-1 = "Font Awesome 5 Pro Light:size=23;3"
-font-2 = "Font Awesome 5 Pro Regular:size=23;3"
-font-3 = "Font Awesome 5 Pro Solid:size=23;3"
+font-0 = "Fira Code:pixelsize=20;weight=semibold"
+font-1 = "Font Awesome 5 Free Solid:size=20;3"
 
 modules-left = xmonad-workspaces xmonad-title
 modules-right = wlan pulseaudio battery date time
