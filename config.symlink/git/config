@@ -10,7 +10,7 @@
   st = status --short
   c = commit --verbose
   aa = add --all
-  amend = commit --amend
+  amend = commit --verbose --amend
   co = checkout
 
   f = fetch
