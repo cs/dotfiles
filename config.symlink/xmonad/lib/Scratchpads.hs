@@ -2,7 +2,7 @@ module Scratchpads
   ( manageHook
   , gmailAction
   , slackAction
-  , trelloAction
+  , telegramAction
   , twitterAction
   ) where
 
@@ -27,8 +27,8 @@ gmailAction = scratchpadAction scratchpads "gmail"
 slackAction :: X ()
 slackAction = scratchpadAction scratchpads "slack"
 
-trelloAction :: X ()
-trelloAction = scratchpadAction scratchpads "trello"
+telegramAction :: X ()
+telegramAction = scratchpadAction scratchpads "telegram"
 
 twitterAction :: X ()
 twitterAction = scratchpadAction scratchpads "twitter"
@@ -42,12 +42,12 @@ data Scratchpad = Scratchpad { name :: String, cmd :: String, query  :: Query Bo
 scratchpads :: [Scratchpad]
 scratchpads = [ Scratchpad "gmail" (makeCommand tldGmail) (makeQuery tldGmail)
               , Scratchpad "slack" (makeCommand tldSlack) (makeQuery tldSlack)
-              , Scratchpad "trello" (makeCommand tldTrello) (makeQuery tldTrello)
+              , Scratchpad "telegram" (makeCommand tldTelegram) (makeQuery tldTelegram)
               , Scratchpad "twitter" (makeCommand tldTwitter) (makeQuery tldTwitter)
               ]
   where tldGmail = "mail.google.com"
         tldSlack = "bugfactoryio.slack.com"
-        tldTrello = "trello.com"
+        tldTelegram = "web.telegram.org"
         tldTwitter = "twitter.com"
         makeQuery tld = appName =? tld
         makeCommand tld = "chromium --app=https://" ++ tld

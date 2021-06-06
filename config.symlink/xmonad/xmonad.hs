@@ -119,8 +119,8 @@ keys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_F2), Scratchpads.twitterAction)
   -- Slack Scratchpad:
   , ((modMask, xK_F3), Scratchpads.slackAction)
-  -- Trello Scratchpad:
-  , ((modMask, xK_F4), Scratchpads.trelloAction)
+  -- Telegram Scratchpad:
+  , ((modMask, xK_F4), Scratchpads.telegramAction)
   -- Mute/Unmute audio output (Fn + F1):
   , ((noModMask, xF86XK_AudioMute),
      spawn "pamixer --toggle-mute")
