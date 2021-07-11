@@ -6,6 +6,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
+Plug 'kyazdani42/nvim-tree.lua'
 call plug#end()
 
 let mapleader = "\<Space>"
@@ -43,10 +44,6 @@ set clipboard+=unnamedplus
 
 set noswapfile
 set nobackup
-
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_altv = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Color Schemes
@@ -112,18 +109,6 @@ augroup vimSettings
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Move current file
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! MoveFile()
-  let old_name = expand('%')
-  let new_name = input('New file name: ', old_name, 'file')
-  if new_name != ''
-    exec ':Move! ' . new_name
-  endif
-endfunction
-map <leader>n :call MoveFile()<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Multi-purpose tab key
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! InsertTabWrapper()
@@ -154,6 +139,21 @@ augroup elmSettings
                     \|   let b:undo_ftplugin = "set tabstop<"
                     \| endif
 augroup END
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Config for kyazdani42/nvim-tree.lua
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:nvim_tree_highlight_opened_files = 1
+let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache' ]
+let g:nvim_tree_show_icons = { 'git': 0, 'folders': 1, 'files': 0, 'folder_arrows': 1 }
+let g:nvim_tree_special_files = { 'README.md': 1 }
+let g:nvim_tree_update_cwd = 1
+let g:nvim_tree_width = 40
+
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config for junegunn/fzf.vim
