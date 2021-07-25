@@ -28,9 +28,9 @@ fi
 #------------------------------------------------------------------------------
 # Alias & Completions
 #------------------------------------------------------------------------------
-alias ls="ls --no-group --color"
-alias ll="ls --no-group --color -l"
-alias la="ls --no-group --color -l --all"
+alias ls="ls --no-group --color --human-readable"
+alias ll="ls --no-group --color --human-readable -l"
+alias la="ls --no-group --color --human-readable -l --all"
 alias vi="$EDITOR" vim="$EDITOR" nvim="$EDITOR"
 
 if command -v bundle > /dev/null; then
