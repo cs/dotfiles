@@ -2,6 +2,9 @@
   name = Christoph Schiessl
   email = cs@bugfactory.io
 
+[core]
+	excludesFile = ~/.gitignore
+
 [diff]
 [color]
   ui = auto
