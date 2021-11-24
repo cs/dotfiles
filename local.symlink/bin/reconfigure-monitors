@@ -45,13 +45,14 @@ elif [[ ${#connectedOutputs[@]} == 2 ]]; then
     if [[ $output != $internalOutput ]]; then # Is it an external output?
       # Calculate scale and panning for outputs with low resolution ...
       preferred=$(xrandr --query | grep -A1000 "^$output" | head --lines=2 | tail --lines=1 | cut -d" " -f4)
+      mode="--mode $preferred"
       preferredX=$(echo $preferred | cut -d"x" -f1)
       preferredY=$(echo $preferred | cut -d"x" -f2)
       if [[ ! $preferredX > 2560 ]]; then
         scale="--scale 1.5x1.5"
         panning="--panning $((preferredX*15/10))x$((preferredY*15/10))"
       fi
-      eval "xrandr --output $output --auto $scale $panning --primary --right-of $internalOutput"
+      eval "xrandr --output $output --auto $mode $scale $panning --primary --right-of $internalOutput"
       MONITOR=$output polybar default &
     fi
   done
