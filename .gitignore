@@ -2,7 +2,7 @@ config.symlink/*
 config.symlink/xmonad/**/*.hi
 config.symlink/xmonad/**/*.o
 config.symlink/nvim/plugged
-!config.symlink/chrome-flags.conf
+!config.symlink/chromium-flags.conf
 !config.symlink/git
 !config.symlink/nvim
 !config.symlink/polybar
