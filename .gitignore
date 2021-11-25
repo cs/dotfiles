@@ -11,6 +11,7 @@ fonts.symlink/.uuid
 fonts.symlink/Font Awesome 5 Pro*
 histories.symlink/*
 local.symlink/*
+!local.symlink/bin
 task.symlink/*
 !task.symlink/.keep
 wallpapers.symlink/*

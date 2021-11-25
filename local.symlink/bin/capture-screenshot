@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+jq_filter='.. | (.nodes? // empty)[] | select(.visible and .pid) | "\([.rect.x,.window_rect.x] | add),\([.rect.y,.window_rect.y] | add) \(.window_rect.width)x\(.window_rect.height)"'
+geometry=$(swaymsg -t get_tree | jq --raw-output "$jq_filter" | slurp -b 282828 -B d65d0e66 -c d65d0e -s 00000000 -w 4)
+
+number=0
+today=$(date --iso-8601)
+filename="$HOME/Media/screenshot_${today}_000.png"
+while [ -e "$filename" ]; do
+  printf -v filename "$HOME/Media/screenshot_%s_%03d.png" "$today" "$((++number))"
+done
+
+grim -g "$geometry" "$filename"
