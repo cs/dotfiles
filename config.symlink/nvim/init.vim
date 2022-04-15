@@ -7,6 +7,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'morhetz/gruvbox'
 call plug#end()
 
 let mapleader = "\<Space>"
@@ -48,14 +49,13 @@ set nobackup
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Color Schemes
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set background=dark
-
-" colorscheme solarized
-" colorscheme Tomorrow-Night-Blue
-colorscheme Tomorrow-Night-Bright
-" colorscheme Tomorrow-Night-Eighties
-" colorscheme Tomorrow-Night
-" colorscheme Tomorrow
+set termguicolors
+runtime background.vim
+let g:gruvbox_termcolors=256
+let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_contrast_light='hard'
+autocmd vimenter * ++nested colorscheme gruvbox
+autocmd Signal SIGUSR1 runtime background.vim | redraw!
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key Mappings
