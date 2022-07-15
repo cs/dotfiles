@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+ALACRITTY_CONFIG=~/.config/alacritty/alacritty.yml
+NVIM_CONFIG=~/.config/nvim/background.vim
+
+if grep -q 'colors: \*dark' $ALACRITTY_CONFIG; then
+  sed -i 's/colors: \*dark/colors: \*light/g' $ALACRITTY_CONFIG
+  sed -i 's/background=dark/background=light/g' $NVIM_CONFIG
+else
+  sed -i 's/colors: \*light/colors: \*dark/g' $ALACRITTY_CONFIG
+  sed -i 's/background=light/background=dark/g' $NVIM_CONFIG
+fi
+
+killall --quiet --signal SIGUSR1 nvim
