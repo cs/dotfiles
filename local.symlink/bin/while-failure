@@ -11,7 +11,7 @@
 # exits with status code `!= 0`).
 # ------------------------------------------------------------------------------
 
-$* # 1st run
+command "$@" # 1st run
 while [[ ! "$?" -eq "0" ]]; do
-  $* # Nth run
+  command "$@" # Nth run
 done
