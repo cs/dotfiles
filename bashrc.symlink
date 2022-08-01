@@ -36,6 +36,7 @@ alias vi="$EDITOR" vim="$EDITOR" nvim="$EDITOR"
 if command -v bundle > /dev/null; then
   alias bx="bundle exec"
 fi
+
 if command -v git > /dev/null; then
   alias g="git"
   if [ -f /usr/share/bash-completion/completions/git ]; then
@@ -43,15 +44,21 @@ if command -v git > /dev/null; then
     __git_complete g git # enable completions for the alias
   fi
 fi
+
 if command -v moment > /dev/null; then
   alias m="moment"
 fi
+
 if command -v pass > /dev/null; then
   alias p="pass"
   if [ -f /usr/share/bash-completion/completions/pass ]; then
     source /usr/share/bash-completion/completions/pass
     complete -o filenames -F _pass p # enable completions for the alias
   fi
+fi
+
+if command -v chromium > /dev/null; then
+  alias c="chromium --new-window"
 fi
 
 #------------------------------------------------------------------------------
