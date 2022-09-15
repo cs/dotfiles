@@ -2,13 +2,6 @@
   name = Christoph Schiessl
   email = cs@bugfactory.io
 
-[core]
-	excludesFile = ~/.gitignore
-
-[diff]
-[color]
-  ui = auto
-
 [alias]
   st = status --short
   c = commit --verbose
@@ -22,12 +15,12 @@
   ba = branch --all
 
   # Diffing
-  d = diff --ignore-space-change
-  ds = diff --ignore-space-change --stat
-  dc = diff --ignore-space-change --cached
-  dcs = diff --ignore-space-change --stat --cached
-  dw = diff --ignore-space-change --word-diff
-  dwc = diff --ignore-space-change --word-diff --cached
+  d = diff --ignore-space-change --find-copies-harder
+  dc = diff --ignore-space-change --find-copies-harder --cached
+  dw = diff --ignore-space-change --find-copies-harder --word-diff
+  dwc = diff --ignore-space-change --find-copies-harder --word-diff --cached
+  ds = diff --ignore-space-change --find-copies-harder --stat
+  dsc = diff --ignore-space-change --find-copies-harder --stat --cached
 
   # Logging
   #   r = recent commits, only current branch
@@ -43,14 +36,15 @@
   sd = stash drop
   ssh = stash show -p
 
-[push]
-  default = simple
-
 [checkout]
   defaultRemote = origin
 
+[branch]
+  autoSetupMerge = true
+  autoSetupRebase = remote
+
+[push]
+  autoSetupRemote = true
+
 [diff "pdf"]
   binary = true
-
-[difftool]
-  prompt = false
