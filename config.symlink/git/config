@@ -15,12 +15,12 @@
   ba = branch --all
 
   # Diffing
-  d = diff --ignore-space-change --find-copies-harder
-  dc = diff --ignore-space-change --find-copies-harder --cached
-  dw = diff --ignore-space-change --find-copies-harder --word-diff
-  dwc = diff --ignore-space-change --find-copies-harder --word-diff --cached
-  ds = diff --ignore-space-change --find-copies-harder --stat
-  dsc = diff --ignore-space-change --find-copies-harder --stat --cached
+  d = diff --ignore-space-change
+  dc = diff --ignore-space-change --cached
+  dw = diff --ignore-space-change --word-diff
+  dwc = diff --ignore-space-change --word-diff --cached
+  ds = diff --ignore-space-change --stat
+  dsc = diff --ignore-space-change --stat --cached
 
   # Logging
   #   r = recent commits, only current branch
