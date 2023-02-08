@@ -64,9 +64,14 @@ fi
 # Prompt and Window Title (with Git Support if available)
 #------------------------------------------------------------------------------
 function __prompt_and_window_title {
-  local color_bold="\[\e[1m\]"                # Bold Text
-  local color_orange="\[\e[38;2;243;107;0m\]" # Color f36b15
+  local exit_code="$?"
+
   local color_reset="\[\e[0m\]"               # Normal Text
+  local color_bold="\[\e[1m\]"                # Bold Text
+
+  local color_blue="\[\e[34m\]"               # Color blue
+  local color_red="\[\e[31m\]"                # Color red
+  local color_light_red="\[\e[91m\]"          # Color light red
 
   if [ -f /usr/share/git/completion/git-prompt.sh ]; then
     source /usr/share/git/completion/git-prompt.sh
@@ -76,12 +81,18 @@ function __prompt_and_window_title {
     local git_status='`__git_ps1`'
   fi
 
-  local window_title="\[\e]2;\w$git_status\a\]"
-  local prompt="\w$color_bold$git_status$color_reset $color_orange❱❱❱$color_reset "
+  local window_title="\[\e]2;\w\a\]"
+  local prompt="\w$color_bold$git_status$color_reset "
 
-  export PS1="$prompt$window_title"
+  if [ $exit_code != 0 ]; then
+    prompt+="$color_light_red[$exit_code]$color_reset $color_red❱❱❱$color_reset "
+  else
+    prompt+="$color_blue❱❱❱$color_reset "
+  fi
+
+  PS1="$prompt$window_title"
 }
-__prompt_and_window_title
+PROMPT_COMMAND=__prompt_and_window_title
 
 #------------------------------------------------------------------------------
 # History
@@ -90,5 +101,5 @@ export HISTFILE="$HOME/.histories/bash"   # set custom file location
 export HISTCONTROL="ignoreboth:erasedups" # ignore entries starting with space + duplicates
 export HISTSIZE="infinity"                # infinite number of commands
 export HISTFILESIZE="infinity"            # infinite number of lines
-export HISTIGNORE="history*:clear:exit"   # ignore boring commands
+export HISTIGNORE="clear:exit"            # ignore boring commands
 shopt -s histappend                       # on exit, append to the history file
