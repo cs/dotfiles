@@ -1,0 +1,31 @@
+#==============================================================================
+# Bar
+#==============================================================================
+
+bar {
+  position top
+  height 24
+
+  font Ubuntu Mono, Font Awesome 6 Free Bold Regular 16px
+
+  status_command i3status-rs
+  workspace_min_width 32
+  separator_symbol " \\\\ "
+  status_padding 0
+  status_edge_padding 8
+  tray_padding 3
+  tray_output *
+
+  colors {
+    background         #1d2021
+    statusline         #ebdbb2
+    separator          #928374
+    focused_workspace  #d79921 #fabd2f #1d2021
+    active_workspace   #458588 #83a598 #1d2021
+    inactive_workspace #3c3836 #282828 #ebdbb2
+    urgent_workspace   #cc241d #fb4934 #1d2021
+    binding_mode       #689d6a #8ec07c #1d2021
+  }
+}
+
+include /etc/sway/config.d/*

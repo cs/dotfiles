@@ -4,8 +4,10 @@ config.symlink/xmonad/**/*.o
 config.symlink/nvim/plugged
 !config.symlink/chromium-flags.conf
 !config.symlink/git
+!config.symlink/i3status-rust
 !config.symlink/nvim
 !config.symlink/polybar
+!config.symlink/sway
 !config.symlink/xmonad
 fonts.symlink/.uuid
 fonts.symlink/Font Awesome 5 Pro*
