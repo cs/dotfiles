@@ -70,12 +70,13 @@ fi
 function __prompt_and_window_title {
   local exit_code="$?"
 
-  local color_reset="\[\e[0m\]"               # Normal Text
-  local color_bold="\[\e[1m\]"                # Bold Text
+  local color_reset="\[\e[0m\]"
+  local color_bold="\[\e[1m\]"
 
-  local color_blue="\[\e[34m\]"               # Color blue
-  local color_red="\[\e[31m\]"                # Color red
-  local color_light_red="\[\e[91m\]"          # Color light red
+  local color_yellow="\[\e[33m\]"
+  local color_blue="\[\e[34m\]"
+  local color_red="\[\e[31m\]"
+  local color_light_red="\[\e[91m\]"
 
   if [ -f /usr/share/git/completion/git-prompt.sh ]; then
     source /usr/share/git/completion/git-prompt.sh
@@ -85,13 +86,17 @@ function __prompt_and_window_title {
     local git_status='`__git_ps1`'
   fi
 
+  if [ ! -z ${VIRTUAL_ENV_PROMPT+x} ]; then
+    local python_venv=" ${color_yellow}$(echo $VIRTUAL_ENV_PROMPT | xargs)${color_reset}"
+  fi
+
   local window_title="\[\e]2;\w\a\]"
-  local prompt="\w$color_bold$git_status$color_reset "
+  local prompt="\w$python_venv$color_bold$git_status$color_reset "
 
   if [ $exit_code != 0 ]; then
-    prompt+="$color_light_red[$exit_code]$color_reset $color_red❱❱❱$color_reset "
+    prompt+="$color_light_red[$exit_code]$color_reset $color_red$color_reset "
   else
-    prompt+="$color_blue❱❱❱$color_reset "
+    prompt+="$color_blue$color_reset "
   fi
 
   PS1="$prompt$window_title"
