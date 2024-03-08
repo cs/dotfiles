@@ -2,6 +2,9 @@ config.symlink/*
 config.symlink/xmonad/**/*.hi
 config.symlink/xmonad/**/*.o
 config.symlink/nvim/plugged
+!config.symlink/alacritty
+config.symlink/alacritty/alacritty.toml
+config.symlink/alacritty/video.toml
 !config.symlink/chromium-flags.conf
 !config.symlink/git
 !config.symlink/i3status-rust

@@ -2,15 +2,24 @@
 
 set -e
 
-ALACRITTY_CONFIG=~/.config/alacritty/alacritty.yml
-NVIM_CONFIG=~/.config/nvim/background.vim
+ALACRITTY_CONFIG_PATH=~/.config/alacritty
+NVIM_CONFIG=~/.config/nvim/lua/background.lua
 
-if grep -q 'colors: \*dark' $ALACRITTY_CONFIG; then
-  sed -i 's/colors: \*dark/colors: \*light/g' $ALACRITTY_CONFIG
-  sed -i 's/background=dark/background=light/g' $NVIM_CONFIG
+  # gsettings get org.gnome.desktop.interface color-scheme prefer-dark
+if [ "$(gsettings get org.gnome.desktop.interface color-scheme)" = "'prefer-dark'" ]; then
+  # Switch from dark to light ...
+  gsettings set org.gnome.desktop.interface color-scheme prefer-light
+  touch $ALACRITTY_CONFIG_PATH/alacritty.toml $ALACRITTY_CONFIG_PATH/video.toml
+  cat $ALACRITTY_CONFIG_PATH/alacritty-light.toml > $ALACRITTY_CONFIG_PATH/alacritty.toml
+  cat $ALACRITTY_CONFIG_PATH/video-light.toml > $ALACRITTY_CONFIG_PATH/video.toml
+  sed -i 's/vim.o.background = "dark"/vim.o.background = "light"/g' $NVIM_CONFIG
 else
-  sed -i 's/colors: \*light/colors: \*dark/g' $ALACRITTY_CONFIG
-  sed -i 's/background=light/background=dark/g' $NVIM_CONFIG
+  # Switch from light to dark ...
+  gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+  touch $ALACRITTY_CONFIG_PATH/alacritty.toml $ALACRITTY_CONFIG_PATH/video.toml
+  cat $ALACRITTY_CONFIG_PATH/alacritty-dark.toml > $ALACRITTY_CONFIG_PATH/alacritty.toml
+  cat $ALACRITTY_CONFIG_PATH/video-dark.toml > $ALACRITTY_CONFIG_PATH/video.toml
+  sed -i 's/vim.o.background = "light"/vim.o.background = "dark"/g' $NVIM_CONFIG
 fi
 
 killall --quiet --signal SIGUSR1 nvim
