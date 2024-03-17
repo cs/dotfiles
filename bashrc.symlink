@@ -55,6 +55,10 @@ if command -v task > /dev/null; then
   alias t="task"
 fi
 
+if command -v taskwarrior-tui > /dev/null; then
+  alias tt="taskwarrior-tui"
+fi
+
 #------------------------------------------------------------------------------
 # FZF
 #------------------------------------------------------------------------------
