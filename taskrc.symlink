@@ -2,3 +2,5 @@ data.location=~/.task
 curses=on          # Use ncurses library to determine terminal width
 weekstart=Monday   # Sunday or Monday only
 news.version=2.6.0 # don't show hint about news again
+
+uda.taskwarrior-tui.task-report.next.filter=status:pending
