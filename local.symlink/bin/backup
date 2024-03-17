@@ -15,7 +15,7 @@ shift # Discard first argument (i.e. the subcommand)
 
 case "$subcommand" in
   create )
-    borg create --stats --progress --compression lz4 "::{now}" $HOME
+    borg create --stats --progress --compression lz4 "::$(hostname)-{now}" $HOME
     ;;
   check )
     borg check --verify-data -v
