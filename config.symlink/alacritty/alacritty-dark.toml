@@ -1,6 +1,8 @@
+working_directory = "None"
+
+[general]
 ipc_socket = true
 live_config_reload = true
-working_directory = "None"
 
 [bell]
 animation = "EaseOutExpo"
@@ -280,7 +282,7 @@ multiplier = 3
 save_to_clipboard = false
 semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 
-[shell]
+[terminal.shell]
 program = "/usr/bin/bash"
 
 [window]
