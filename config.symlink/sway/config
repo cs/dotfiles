@@ -1,4 +1,115 @@
+set $mod Mod4
 set $font "Ubuntu Mono, Font Awesome 6 Free Bold"
+
+#==============================================================================
+# Outputs
+#==============================================================================
+
+set $outputLaptop "eDP-1"
+set $outputLeft "Dell Inc. DELL U2722DE BLFX7H3"
+set $outputRight "Dell Inc. DELL U2722DE G7M59H3"
+
+output $outputLaptop enable
+output $outputLaptop scale 1.00
+output $outputLaptop transform 0
+output $outputLaptop mode 1920x1200
+output $outputLaptop position 480 2560
+output $outputLaptop background #1d2021 solid_color
+exec ( cat /proc/acpi/button/lid/LID/state | grep closed ) && swaymsg "output $outputLaptop disable"
+bindswitch --locked lid:on output $outputLaptop disable
+bindswitch --locked lid:off output $outputLaptop enable
+bindsym XF86MonBrightnessUp   exec brightnessctl --class=backlight set 10%+
+bindsym XF86MonBrightnessDown exec brightnessctl --class=backlight set 10%-
+
+output $outputLeft enable
+output $outputLeft scale 1.00
+output $outputLeft transform 0
+output $outputLeft mode 2560x1440
+output $outputLeft position 0 0
+# output $outputLeft mode 1920x1200
+# output $outputLeft transform 0
+# output $outputLeft position 0 0
+output $outputLeft background #1d2021 solid_color
+
+output $outputRight enable
+output $outputRight scale 1.00
+output $outputRight transform 0
+output $outputRight mode 2560x1440
+output $outputRight position 2560 0
+# output $outputRight mode 1920x1200
+# output $outputRight transform 0
+# output $outputRight position 1920 0
+output $outputRight background #1d2021 solid_color
+
+exec_always "(killall nm-applet || true) && nm-applet --indicator
+
+workspace 1 output $outputLeft $outputRight $outputLaptop
+workspace 2 output $outputRight $outputLeft $outputLaptop
+workspace 3 output $outputRight $outputLeft $outputLaptop
+workspace 4 output $outputRight $outputLeft $outputLaptop
+workspace 5 output $outputRight $outputLeft $outputLaptop
+workspace 6 output $outputRight $outputLeft $outputLaptop
+workspace 7 output $outputRight $outputLeft $outputLaptop
+workspace 8 output $outputRight $outputLeft $outputLaptop
+workspace 9 output $outputRight $outputLeft $outputLaptop
+
+#==============================================================================
+# Security
+#==============================================================================
+
+set $swaylock "swaylock --daemonize --ignore-empty-password --color f36b15ff --indicator-radius=150 --indicator-thickness=10"
+exec swayidle -w \
+     timeout 600 $swaylock \
+     timeout 1800 "swaymsg 'output * power off'" resume "swaymsg 'output * power on'" \
+     lock $swaylock \
+     before-sleep $swaylock
+# exec swayidle -w \
+#      timeout 600 $swaylock \
+#      lock $swaylock \
+#      before-sleep $swaylock
+bindsym $mod+q exec loginctl lock-session
+
+#==============================================================================
+# Audio
+#==============================================================================
+
+bindsym XF86AudioMute        exec pamixer --toggle-mute
+bindsym XF86AudioLowerVolume exec pamixer --decrease 5
+bindsym XF86AudioRaiseVolume exec pamixer --increase 5
+bindsym XF86AudioMicMute     exec pamixer --default-source --toggle-mute
+# bindsym XF86AudioMute        exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+# bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ "-5%"
+# bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ "+5%"
+# bindsym XF86AudioMicMute     exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+#==============================================================================
+# Screenshots
+#==============================================================================
+
+bindsym $mod+Print           exec ~/.local/bin/capture-screenshot
+
+#==============================================================================
+# Inputs
+#==============================================================================
+
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+
+input type:touchpad {
+  tap enabled
+  tap_button_map lrm
+  dwt enabled
+  natural_scroll enabled
+  #middle_emulation enabled
+}
+
+input type:pointer {
+  natural_scroll enabled
+}
+
+input type:keyboard {
+  xkb_layout pc+us+inet(evdev)+ctrl(nocaps)+german-special-chars
+}
 
 #==============================================================================
 # Appearance
