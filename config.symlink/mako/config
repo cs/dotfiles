@@ -1,0 +1,28 @@
+outer-margin=0
+margin=15
+border-size=5
+padding=20
+layer=overlay
+border-radius=15
+
+# white
+text-color=#ffffffff
+width=400
+height=150
+
+# blue-900, blue-800, blue-700
+background-color=#1e3a8a
+progress-color=#1e40af
+border-color=#1d4ed8
+
+[urgency=low]
+# green-900, green-800, green-700
+background-color=#14532d
+progress-color=#166534
+border-color=#15803d
+
+[urgency=critical]
+# red-900, red-800, red-700
+background-color=#7f1d1d
+progress-color=over #991b1b
+border-color=#b91c1c

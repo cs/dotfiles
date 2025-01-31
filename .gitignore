@@ -9,6 +9,7 @@ config.symlink/alacritty/video.toml
 !config.symlink/chromium-flags.conf
 !config.symlink/git
 !config.symlink/i3status-rust
+!config.symlink/mako
 !config.symlink/sway
 !config.symlink/xmonad
 fonts.symlink/*
