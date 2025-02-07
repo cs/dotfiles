@@ -1,4 +1,5 @@
 config.symlink/*
+!config.symlink/xmonad
 config.symlink/xmonad/**/*.hi
 config.symlink/xmonad/**/*.o
 !config.symlink/nvim
@@ -7,11 +8,11 @@ config.symlink/nvim/plugged
 config.symlink/alacritty/alacritty.toml
 config.symlink/alacritty/video.toml
 !config.symlink/chromium-flags.conf
+!config.symlink/fontconfig
 !config.symlink/git
 !config.symlink/i3status-rust
 !config.symlink/mako
 !config.symlink/sway
-!config.symlink/xmonad
 fonts.symlink/*
 histories.symlink/*
 local.symlink/*
