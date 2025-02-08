@@ -13,154 +13,81 @@ duration = 0
 [colors]
 draw_bold_text_with_bright_colors = true
 
-[[colors.indexed_colors]]
-color = "#282828"
-index = 235
+[colors.primary]
+background = "#161616"
+foreground = "#f2f4f8"
+dim_foreground = "#b6b8bb"
+bright_foreground = "#f9fbff"
 
-[[colors.indexed_colors]]
-color = "#cc241d"
-index = 124
+[colors.cursor]
+text = "#f2f4f8"
+cursor = "#b6b8bb"
 
-[[colors.indexed_colors]]
-color = "#98971a"
-index = 106
+[colors.vi_mode_cursor]
+text = "#f2f4f8"
+cursor = "#33b1ff"
 
-[[colors.indexed_colors]]
-color = "#d79921"
-index = 172
+[colors.search.matches]
+foreground = "#f2f4f8"
+background = "#525253"
 
-[[colors.indexed_colors]]
-color = "#458588"
-index = 66
+[colors.search.focused_match]
+foreground = "#f2f4f8"
+background = "#3ddbd9"
 
-[[colors.indexed_colors]]
-color = "#b16286"
-index = 132
+[colors.footer_bar]
+foreground = "#f2f4f8"
+background = "#353535"
 
-[[colors.indexed_colors]]
-color = "#689d6a"
-index = 72
+[colors.hints.start]
+foreground = "#f2f4f8"
+background = "#3ddbd9"
 
-[[colors.indexed_colors]]
-color = "#a89984"
-index = 246
+[colors.hints.end]
+foreground = "#f2f4f8"
+background = "#353535"
 
-[[colors.indexed_colors]]
-color = "#928374"
-index = 245
-
-[[colors.indexed_colors]]
-color = "#fb4934"
-index = 167
-
-[[colors.indexed_colors]]
-color = "#b8bb26"
-index = 142
-
-[[colors.indexed_colors]]
-color = "#fabd2f"
-index = 214
-
-[[colors.indexed_colors]]
-color = "#83a598"
-index = 109
-
-[[colors.indexed_colors]]
-color = "#d3869b"
-index = 175
-
-[[colors.indexed_colors]]
-color = "#8ec07c"
-index = 108
-
-[[colors.indexed_colors]]
-color = "#ebdbb2"
-index = 223
-
-[[colors.indexed_colors]]
-color = "#1d2021"
-index = 234
-
-[[colors.indexed_colors]]
-color = "#282828"
-index = 235
-
-[[colors.indexed_colors]]
-color = "#3c3836"
-index = 237
-
-[[colors.indexed_colors]]
-color = "#504945"
-index = 239
-
-[[colors.indexed_colors]]
-color = "#665c54"
-index = 241
-
-[[colors.indexed_colors]]
-color = "#7c6f64"
-index = 243
-
-[[colors.indexed_colors]]
-color = "#928374"
-index = 245
-
-[[colors.indexed_colors]]
-color = "#d65d0e"
-index = 166
-
-[[colors.indexed_colors]]
-color = "#32302f"
-index = 236
-
-[[colors.indexed_colors]]
-color = "#a89984"
-index = 246
-
-[[colors.indexed_colors]]
-color = "#bdae93"
-index = 248
-
-[[colors.indexed_colors]]
-color = "#d5c4a1"
-index = 250
-
-[[colors.indexed_colors]]
-color = "#ebdbb2"
-index = 223
-
-[[colors.indexed_colors]]
-color = "#fbf1c7"
-index = 229
-
-[[colors.indexed_colors]]
-color = "#fe8019"
-index = 208
-
-[colors.bright]
-black = "#928374"
-blue = "#83a598"
-cyan = "#8ec07c"
-green = "#b8bb26"
-magenta = "#d3869b"
-red = "#fb4934"
-white = "#ebdbb2"
-yellow = "#fabd2f"
+[colors.selection]
+text = "#f2f4f8"
+background = "#2a2a2a"
 
 [colors.normal]
-black = "#1d2021"
-blue = "#458588"
-cyan = "#689d6a"
-green = "#98971a"
-magenta = "#b16286"
-red = "#cc241d"
-white = "#a89984"
-yellow = "#d79921"
+black = "#282828"
+red = "#ee5396"
+green = "#25be6a"
+yellow = "#08bdba"
+blue = "#78a9ff"
+magenta = "#be95ff"
+cyan = "#33b1ff"
+white = "#dfdfe0"
 
-[colors.primary]
-background = "#1d2021"
-bright_foreground = "#fbf1c7"
-foreground = "#ebdbb2"
+[colors.bright]
+black = "#484848"
+red = "#f16da6"
+green = "#46c880"
+yellow = "#2dc7c4"
+blue = "#8cb6ff"
+magenta = "#c8a5ff"
+cyan = "#52bdff"
+white = "#e4e4e5"
+
+[colors.dim]
+black = "#222222"
+red = "#ca4780"
+green = "#1fa25a"
+yellow = "#07a19e"
+blue = "#6690d9"
+magenta = "#a27fd9"
+cyan = "#2b96d9"
+white = "#bebebe"
+
+[[colors.indexed_colors]]
+index = 16
+color = "#3ddbd9"
+
+[[colors.indexed_colors]]
+index = 17
+color = "#ff7eb6"
 
 [cursor]
 unfocused_hollow = true
@@ -172,25 +99,25 @@ shape = "Block"
 builtin_box_drawing = true
 size = 12.0
 
+[font.normal]
+family = "NotoSansM Nerd Font Mono"
+style = "Medium"
+
 [font.bold]
-family = "Fira Code"
-style = "Semibold"
+family = "NotoSansM Nerd Font Mono"
+style = "Bold"
+
+[font.italic]
+family = "NotoSansM Nerd Font Mono"
+style = "Medium"
 
 [font.bold_italic]
-family = "Fira Code"
+family = "NotoSansM Nerd Font Mono"
 style = "Bold"
 
 [font.glyph_offset]
 x = 0
 y = 0
-
-[font.italic]
-family = "Fira Code"
-style = "Medium"
-
-[font.normal]
-family = "Fira Code"
-style = "Regular"
 
 [font.offset]
 x = 0

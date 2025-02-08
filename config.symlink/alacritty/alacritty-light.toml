@@ -13,154 +13,81 @@ duration = 0
 [colors]
 draw_bold_text_with_bright_colors = true
 
-[[colors.indexed_colors]]
-color = "#fbf1c7"
-index = 229
+[colors.primary]
+background = "#f6f2ee"
+foreground = "#3d2b5a"
+dim_foreground = "#302b5d"
+bright_foreground = "#643f61"
 
-[[colors.indexed_colors]]
-color = "#cc241d"
-index = 124
+[colors.cursor]
+text = "#3d2b5a"
+cursor = "#643f61"
 
-[[colors.indexed_colors]]
-color = "#98971a"
-index = 106
+[colors.vi_mode_cursor]
+text = "#3d2b5a"
+cursor = "#287980"
 
-[[colors.indexed_colors]]
-color = "#d79921"
-index = 172
+[colors.search.matches]
+foreground = "#3d2b5a"
+background = "#a4c1c2"
 
-[[colors.indexed_colors]]
-color = "#458588"
-index = 66
+[colors.search.focused_match]
+foreground = "#3d2b5a"
+background = "#396847"
 
-[[colors.indexed_colors]]
-color = "#b16286"
-index = 132
+[colors.footer_bar]
+foreground = "#3d2b5a"
+background = "#d3c7bb"
 
-[[colors.indexed_colors]]
-color = "#689d6a"
-index = 72
+[colors.hints.start]
+foreground = "#3d2b5a"
+background = "#955f61"
 
-[[colors.indexed_colors]]
-color = "#7c6f64"
-index = 243
+[colors.hints.end]
+foreground = "#3d2b5a"
+background = "#d3c7bb"
 
-[[colors.indexed_colors]]
-color = "#928374"
-index = 244
-
-[[colors.indexed_colors]]
-color = "#9d0006"
-index = 88
-
-[[colors.indexed_colors]]
-color = "#79740e"
-index = 100
-
-[[colors.indexed_colors]]
-color = "#b57614"
-index = 136
-
-[[colors.indexed_colors]]
-color = "#076678"
-index = 24
-
-[[colors.indexed_colors]]
-color = "#8f3f71"
-index = 96
-
-[[colors.indexed_colors]]
-color = "#427b58"
-index = 66
-
-[[colors.indexed_colors]]
-color = "#3c3836"
-index = 237
-
-[[colors.indexed_colors]]
-color = "#f9f5d7"
-index = 230
-
-[[colors.indexed_colors]]
-color = "#fbf1c7"
-index = 229
-
-[[colors.indexed_colors]]
-color = "#ebdbb2"
-index = 223
-
-[[colors.indexed_colors]]
-color = "#d5c4a1"
-index = 250
-
-[[colors.indexed_colors]]
-color = "#bdae93"
-index = 248
-
-[[colors.indexed_colors]]
-color = "#a89984"
-index = 246
-
-[[colors.indexed_colors]]
-color = "#928374"
-index = 244
-
-[[colors.indexed_colors]]
-color = "#d65d0e"
-index = 166
-
-[[colors.indexed_colors]]
-color = "#f2e5bc"
-index = 228
-
-[[colors.indexed_colors]]
-color = "#7c6f64"
-index = 243
-
-[[colors.indexed_colors]]
-color = "#665c54"
-index = 241
-
-[[colors.indexed_colors]]
-color = "#504945"
-index = 239
-
-[[colors.indexed_colors]]
-color = "#3c3836"
-index = 237
-
-[[colors.indexed_colors]]
-color = "#282828"
-index = 235
-
-[[colors.indexed_colors]]
-color = "#af3a03"
-index = 130
-
-[colors.bright]
-black = "#928374"
-blue = "#076678"
-cyan = "#427b58"
-green = "#79740e"
-magenta = "#8f3f71"
-red = "#9d0006"
-white = "#3c3836"
-yellow = "#b57614"
+[colors.selection]
+text = "#3d2b5a"
+background = "#e7d2be"
 
 [colors.normal]
-black = "#f9f5d7"
-blue = "#458588"
-cyan = "#689d6a"
-green = "#98971a"
-magenta = "#b16286"
-red = "#cc241d"
-white = "#7c6f64"
-yellow = "#d79921"
+black = "#352c24"
+red = "#a5222f"
+green = "#396847"
+yellow = "#ac5402"
+blue = "#2848a9"
+magenta = "#6e33ce"
+cyan = "#287980"
+white = "#f2e9e1"
 
-[colors.primary]
-background = "#f9f5d7"
-bright_foreground = "#282828"
-foreground = "#3c3836"
+[colors.bright]
+black = "#534c45"
+red = "#b3434e"
+green = "#577f63"
+yellow = "#b86e28"
+blue = "#4863b6"
+magenta = "#8452d5"
+cyan = "#488d93"
+white = "#f4ece6"
+
+[colors.dim]
+black = "#2d251f"
+red = "#8c1d28"
+green = "#30583c"
+yellow = "#924702"
+blue = "#223d90"
+magenta = "#5e2baf"
+cyan = "#22676d"
+white = "#cec6bf"
+
+[[colors.indexed_colors]]
+index = 16
+color = "#955f61"
+
+[[colors.indexed_colors]]
+index = 17
+color = "#a440b5"
 
 [cursor]
 unfocused_hollow = true
@@ -172,25 +99,25 @@ shape = "Block"
 builtin_box_drawing = true
 size = 12.0
 
+[font.normal]
+family = "NotoSansM Nerd Font Mono"
+style = "Medium"
+
 [font.bold]
-family = "Fira Code"
-style = "Semibold"
+family = "NotoSansM Nerd Font Mono"
+style = "Bold"
+
+[font.italic]
+family = "NotoSansM Nerd Font Mono"
+style = "Medium"
 
 [font.bold_italic]
-family = "Fira Code"
+family = "NotoSansM Nerd Font Mono"
 style = "Bold"
 
 [font.glyph_offset]
 x = 0
 y = 0
-
-[font.italic]
-family = "Fira Code"
-style = "Medium"
-
-[font.normal]
-family = "Fira Code"
-style = "Regular"
 
 [font.offset]
 x = 0
@@ -304,3 +231,4 @@ lines = 0
 [window.padding]
 x = 10
 y = 10
+

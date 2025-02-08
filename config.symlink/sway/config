@@ -122,7 +122,7 @@ for_window [app_id="firefox"] border pixel 3
 for_window [app_id="org.gnome.Nautilus"] border pixel 3
 for_window [app_id="rhythmbox"] border pixel 3
 for_window [app_id="evince"] border pixel 3
-bindsym F5 exec toggle-dark-and-light-background
+bindsym F11 exec toggle-dark-and-light-background
 
 client.focused #d65d0e #fe8019 #1d2021 #fe8019 #fe8019
 client.focused_inactive #458588 #83a598 #1d2021 #83a598 #83a598

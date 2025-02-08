@@ -6,7 +6,6 @@ config.symlink/xmonad/**/*.o
 config.symlink/nvim/plugged
 !config.symlink/alacritty
 config.symlink/alacritty/alacritty.toml
-config.symlink/alacritty/video.toml
 !config.symlink/chromium-flags.conf
 !config.symlink/fontconfig
 !config.symlink/git
@@ -15,6 +14,7 @@ config.symlink/alacritty/video.toml
 !config.symlink/sway
 fonts.symlink/*
 histories.symlink/*
+!histories.symlink/.keep
 local.symlink/*
 !local.symlink/bin
 task.symlink/*
