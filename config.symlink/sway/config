@@ -118,7 +118,7 @@ for_window [app_id="firefox"] border pixel 3
 for_window [app_id="org.gnome.Nautilus"] border pixel 3
 for_window [app_id="rhythmbox"] border pixel 3
 for_window [app_id="evince"] border pixel 3
-bindsym F11 exec toggle-dark-and-light-background
+bindsym F11 exec rotate-colorscheme
 bindsym F12 exec "makoctl dismiss --all"
 
 client.focused #d65d0e #fe8019 #1d2021 #fe8019 #fe8019

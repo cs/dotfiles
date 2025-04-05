@@ -5,7 +5,6 @@ config.symlink/xmonad/**/*.o
 !config.symlink/nvim
 config.symlink/nvim/plugged
 !config.symlink/alacritty
-config.symlink/alacritty/alacritty.toml
 !config.symlink/chromium-flags.conf
 !config.symlink/fontconfig
 !config.symlink/git

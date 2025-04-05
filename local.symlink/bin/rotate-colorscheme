@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+
+import os
+import os.path
+import re
+from itertools import pairwise
+
+colorschemes: list[tuple[bool, str]] = [
+    (True, "carbonfox"),
+    (True, "duskfox"),
+    (True, "nightfox"),
+    (True, "nordfox"),
+    (True, "terafox"),
+    (False, "dawnfox"),
+    (False, "dayfox"),
+]
+
+colorscheme_mappings: dict[str, tuple[bool, str]] = {current: next for (_, current), next in pairwise(colorschemes)}
+colorscheme_mappings[colorschemes[-1][1]] = colorschemes[0]
+
+
+ALACRITTY_CONFIG_PATH = os.path.expanduser("~/.config/alacritty/alacritty.toml")
+NVIM_CONFIG_PATH = os.path.expanduser("~/.config/nvim/lua/config/colorscheme.lua")
+
+match = re.search(r"colorscheme\-(\w+).toml", open(ALACRITTY_CONFIG_PATH).read())
+if match is not None:
+    current = match.group(1)
+    if current in colorscheme_mappings:
+        (is_dark, next) = colorscheme_mappings[current]
+
+        os.system(
+            "gsettings set org.gnome.desktop.interface color-scheme " + ("prefer-dark" if is_dark else "prefer-light")
+        )
+
+        os.system(f"sed -i 's/colorscheme-{current}.toml/colorscheme-{next}.toml/g' {ALACRITTY_CONFIG_PATH}")
+        os.system(f"sed -i 's/colorscheme {current}/colorscheme {next}/g' {NVIM_CONFIG_PATH}")
+
+        os.system("killall --quiet --signal SIGUSR1 nvim")
