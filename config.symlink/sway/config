@@ -1,19 +1,25 @@
 set $mod Mod4
-set $font "Ubuntu Mono, Font Awesome 6 Free Bold"
+set $font "JetBrainsMono Nerd Font Mono, Font Awesome 6 Free Bold"
 
-#==============================================================================
+#======================================================================================================================
 # Outputs
-#==============================================================================
+#======================================================================================================================
 
+set $outputMain "Dell Inc. DELL U4025QW HXHLB34"
 set $outputLaptop "eDP-1"
-set $outputLeft "Dell Inc. DELL U2722DE BLFX7H3"
-set $outputRight "Dell Inc. DELL U2722DE G7M59H3"
+
+output $outputMain enable
+output $outputMain scale 1.00
+output $outputMain transform 0
+output $outputMain mode 5120x2160@120Hz
+output $outputMain position 0 0
+output $outputMain background #1d2021 solid_color
 
 output $outputLaptop enable
 output $outputLaptop scale 1.00
 output $outputLaptop transform 0
 output $outputLaptop mode 1920x1200
-output $outputLaptop position 480 2560
+output $outputLaptop position 0 0
 output $outputLaptop background #1d2021 solid_color
 exec ( cat /proc/acpi/button/lid/LID/state | grep closed ) && swaymsg "output $outputLaptop disable"
 bindswitch --locked lid:on output $outputLaptop disable
@@ -21,41 +27,21 @@ bindswitch --locked lid:off output $outputLaptop enable
 bindsym XF86MonBrightnessUp   exec brightnessctl --class=backlight set 10%+
 bindsym XF86MonBrightnessDown exec brightnessctl --class=backlight set 10%-
 
-output $outputLeft enable
-output $outputLeft scale 1.00
-output $outputLeft transform 0
-output $outputLeft mode 2560x1440
-output $outputLeft position 0 0
-# output $outputLeft mode 1920x1200
-# output $outputLeft transform 0
-# output $outputLeft position 0 0
-output $outputLeft background #1d2021 solid_color
-
-output $outputRight enable
-output $outputRight scale 1.00
-output $outputRight transform 0
-output $outputRight mode 2560x1440
-output $outputRight position 2560 0
-# output $outputRight mode 1920x1200
-# output $outputRight transform 0
-# output $outputRight position 1920 0
-output $outputRight background #1d2021 solid_color
-
 exec_always "(killall nm-applet || true) && nm-applet --indicator
 
-workspace 1 output $outputLeft $outputRight $outputLaptop
-workspace 2 output $outputRight $outputLeft $outputLaptop
-workspace 3 output $outputRight $outputLeft $outputLaptop
-workspace 4 output $outputRight $outputLeft $outputLaptop
-workspace 5 output $outputRight $outputLeft $outputLaptop
-workspace 6 output $outputRight $outputLeft $outputLaptop
-workspace 7 output $outputRight $outputLeft $outputLaptop
-workspace 8 output $outputRight $outputLeft $outputLaptop
-workspace 9 output $outputRight $outputLeft $outputLaptop
+workspace 1 output $outputMain $outputLaptop
+workspace 2 output $outputMain $outputLaptop
+workspace 3 output $outputMain $outputLaptop
+workspace 4 output $outputMain $outputLaptop
+workspace 5 output $outputMain $outputLaptop
+workspace 6 output $outputMain $outputLaptop
+workspace 7 output $outputMain $outputLaptop
+workspace 8 output $outputMain $outputLaptop
+workspace 9 output $outputMain $outputLaptop
 
-#==============================================================================
+#======================================================================================================================
 # Security
-#==============================================================================
+#======================================================================================================================
 
 set $swaylock "swaylock --daemonize --ignore-empty-password --color f36b15ff --indicator-radius=150 --indicator-thickness=10"
 exec swayidle -w \
@@ -65,28 +51,24 @@ exec swayidle -w \
      before-sleep $swaylock
 bindsym $mod+q exec loginctl lock-session
 
-#==============================================================================
+#======================================================================================================================
 # Audio
-#==============================================================================
+#======================================================================================================================
 
 bindsym XF86AudioMute        exec pamixer --toggle-mute
 bindsym XF86AudioLowerVolume exec pamixer --decrease 5
 bindsym XF86AudioRaiseVolume exec pamixer --increase 5
 bindsym XF86AudioMicMute     exec pamixer --default-source --toggle-mute
-# bindsym XF86AudioMute        exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-# bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ "-5%"
-# bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ "+5%"
-# bindsym XF86AudioMicMute     exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
-#==============================================================================
+#======================================================================================================================
 # Screenshots
-#==============================================================================
+#======================================================================================================================
 
 bindsym $mod+Print           exec ~/.local/bin/capture-screenshot
 
-#==============================================================================
+#======================================================================================================================
 # Inputs
-#==============================================================================
+#======================================================================================================================
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
@@ -107,9 +89,9 @@ input type:keyboard {
   xkb_layout pc+us+inet(evdev)+ctrl(nocaps)+german-special-chars
 }
 
-#==============================================================================
+#======================================================================================================================
 # Appearance
-#==============================================================================
+#======================================================================================================================
 
 font $font 14px
 default_border normal 3
@@ -127,9 +109,55 @@ client.focused_tab_title #3c3836 #282828 #ebdbb2
 client.unfocused #3c3836 #282828 #ebdbb2 #282828 #282828
 client.urgent #cc241d #fb4934 #1d2021 #fb4934 #fb4934
 
-#==============================================================================
+#======================================================================================================================
+# Applications
+#======================================================================================================================
+
+bindsym $mod+Return exec alacritty
+bindsym $mod+Shift+Return exec chromium
+bindsym $mod+Shift+c kill
+
+#======================================================================================================================
+# Focus
+#======================================================================================================================
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+tab workspace back_and_forth
+bindsym $mod+Shift+tab workspace back_and_forth
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+
+#======================================================================================================================
+# Movement
+#======================================================================================================================
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+
+#======================================================================================================================
 # Resizing
-#==============================================================================
+#======================================================================================================================
 
 mode "resize" {
   # 256px / 2560px = 10.0%, 256px / 5120px = 5.0%
@@ -144,9 +172,9 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-#==============================================================================
+#======================================================================================================================
 # Bar
-#==============================================================================
+#======================================================================================================================
 
 bar {
   position top
