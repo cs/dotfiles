@@ -49,7 +49,9 @@ exec swayidle -w \
      timeout 1800 "swaymsg 'output * power off'" resume "swaymsg 'output * power on'" \
      lock $swaylock \
      before-sleep $swaylock
+
 bindsym $mod+q exec loginctl lock-session
+bindsym $mod+Shift+e exec swaynag -t warning -m "Do you really want to exit sway?" -b "Yes, exit sway" "swaymsg exit"
 
 #======================================================================================================================
 # Audio
@@ -115,6 +117,7 @@ client.urgent #cc241d #fb4934 #1d2021 #fb4934 #fb4934
 
 bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+Return exec chromium
+bindsym $mod+Shift+p exec tofi-run | xargs swaymsg exec --
 bindsym $mod+Shift+c kill
 
 #======================================================================================================================
@@ -169,6 +172,7 @@ mode "resize" {
   bindsym k resize shrink height 108px
 
   bindsym Escape mode "default"
+  bindsym Return mode "default"
 }
 bindsym $mod+r mode "resize"
 
@@ -178,12 +182,12 @@ bindsym $mod+r mode "resize"
 
 bar {
   position top
-  height 24
+  height 28
 
-  font $font 16px
+  font $font 20px
 
   status_command i3status-rs
-  workspace_min_width 32
+  workspace_min_width 56
   separator_symbol " \\\\ "
   status_padding 0
   status_edge_padding 8

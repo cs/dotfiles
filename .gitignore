@@ -2,7 +2,6 @@ config.symlink/*
 !config.symlink/xmonad
 config.symlink/xmonad/**/*.hi
 config.symlink/xmonad/**/*.o
-!config.symlink/nvim
 config.symlink/nvim/plugged
 !config.symlink/alacritty
 !config.symlink/chromium-flags.conf
@@ -10,7 +9,9 @@ config.symlink/nvim/plugged
 !config.symlink/git
 !config.symlink/i3status-rust
 !config.symlink/mako
+!config.symlink/nvim
 !config.symlink/sway
+!config.symlink/tofi
 fonts.symlink/*
 histories.symlink/*
 !histories.symlink/.keep
