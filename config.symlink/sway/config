@@ -72,24 +72,17 @@ bindsym $mod+Print           exec ~/.local/bin/capture-screenshot
 # Inputs
 #======================================================================================================================
 
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
+input type:keyboard xkb_layout pc+us+inet(evdev)+ctrl(nocaps)+german-special-chars
 
-input type:touchpad {
-  tap enabled
-  tap_button_map lrm
-  dwt enabled
-  natural_scroll enabled
-  #middle_emulation enabled
-}
-
-input type:pointer {
-  natural_scroll enabled
-}
-
-input type:keyboard {
-  xkb_layout pc+us+inet(evdev)+ctrl(nocaps)+german-special-chars
-}
+input type:pointer natural_scroll enabled
+input type:pointer accel_profile flat
+input type:pointer pointer_accel 1
+input type:touchpad natural_scroll enabled
+input type:touchpad accel_profile flat
+input type:touchpad pointer_accel 1
+input type:touchpad tap enabled
+input type:touchpad tap_button_map lrm
+input type:touchpad dwt enabled
 
 #======================================================================================================================
 # Appearance
@@ -121,6 +114,26 @@ bindsym $mod+Shift+p exec tofi-run | xargs swaymsg exec --
 bindsym $mod+Shift+c kill
 
 #======================================================================================================================
+# Layout
+#======================================================================================================================
+
+workspace_layout default
+default_orientation horizontal
+
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+b split horizontal
+bindsym $mod+v split vertical
+
+bindsym $mod+f fullscreen toggle
+for_window [app_id="chromium"] inhibit_fullscreen enable
+
+bindsym $mod+Shift+space floating toggle
+floating_modifier $mod normal
+
+#======================================================================================================================
 # Focus
 #======================================================================================================================
 
@@ -139,6 +152,8 @@ bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
+bindsym $mod+a focus parent
+bindsym $mod+d focus child
 
 #======================================================================================================================
 # Movement
