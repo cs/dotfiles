@@ -10,9 +10,9 @@ set -o ignoreeof
 #------------------------------------------------------------------------------
 # asdf
 #------------------------------------------------------------------------------
-if [ -d "$HOME/.asdf" ]; then
-  source "$HOME/.asdf/asdf.sh"
-  source "$HOME/.asdf/completions/asdf.bash"
+if command -v asdf > /dev/null; then
+  export PATH="${HOME}/.asdf/shims:${PATH}"
+  source <(asdf completion bash)
 fi
 
 #------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ function __prompt_and_window_title {
   fi
 
   local python_venv=" ${color_bold}${color_bright_green}<"
-  python_venv+="${color_bright_green}$(python -V 2>&1 | awk '{print $2}')"
+  python_venv+="${color_bright_green}$(python --version 2>&1 | awk '{print $2}')"
   if [ ! -z ${VIRTUAL_ENV+x} ]; then
     python_venv+=":$(basename $VIRTUAL_ENV)"
   fi
